@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Technik Net GmbH — Brand Identity, Rev 4</title>
+<meta name="description" content="Brand identity system for Technik Net GmbH, Essen — fibre installation contractor, NE3 to NE5.">
+<link rel="icon" href="assets/icon-blue-on-white.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icon-white-on-blue.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400..800&family=SUSE:wght@100..900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TECHNIK NET — BRAND IDENTITY SYSTEM PAGE · REV 4
+   ------------------------------------------------------------
+   BRAND VALUES (client-locked — do not change without approval)
+     --blue   #0099CC
+     --grey   #CCCCCC
+     --white  #FFFFFF
+
+   DERIVED VALUES (not brand colours — text/UI only, same hue
+   family as --blue). Swap any of these on one line.
+     --ink, --ink-soft, --hairline, --tint, --night, --blue-press
+   ============================================================ */
+:root{
+  /* --- brand --- */
+  --blue:#0099cc;
+  --grey:#cccccc;
+  --white:#ffffff;
+
+  /* --- derived --- */
+  --ink:#0a2733;          /* body copy, deep shade of --blue      */
+  --ink-soft:#5b6f78;     /* secondary copy                        */
+  --hairline:#e3e8ea;     /* 1 px rules — tint of --grey on white  */
+  --tint:#f5f8f9;         /* faint card ground                     */
+  --night:#06171f;        /* hero / dark surfaces                  */
+  --blue-press:#0086b5;   /* hover + pressed state of --blue       */
+
+  --shell:1180px;
+  --u:15.386;             /* logo construction module, in viewBox units */
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--white);color:var(--ink);
+  font-family:'SUSE',system-ui,-apple-system,'Segoe UI',sans-serif;
+  font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+/* ambient tone-on-tone ground — must stay near-invisible */
+body::before{
+  content:'';position:fixed;inset:0;z-index:-2;pointer-events:none;
+  background:url('assets/pattern-light.webp') repeat;
+  background-size:440px 440px;opacity:.85;
+}
+h1,h2,h3,.node-index,.sample-sora{
+  font-family:'Sora',system-ui,sans-serif;font-weight:800;
+  letter-spacing:-.02em;line-height:1.08;margin:0
+}
+.mono,.node-eyebrow,.scroll-text,.swatch-hex,.tag,.caption,.plate-label,
+.type-label,.type-meta,figcaption,.band-meta,.rank-n{
+  font-family:'JetBrains Mono',ui-monospace,monospace;font-weight:400
+}
+p{margin:0}
+img,svg{display:block;max-width:100%}
+::selection{background:var(--blue);color:var(--white)}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:2px}
+
+.shell{max-width:var(--shell);margin:0 auto;padding:0 32px;width:100%}
+
+/* ============ HERO ============ */
+.hero{position:relative;background:var(--night)}
+.hero-video-wrap{
+  position:relative;width:100%;isolation:isolate;
+  background:var(--night) url('assets/pattern-night.webp') repeat;
+  background-size:440px 440px;
+}
+.hero-video-wrap video{width:100%;height:auto;display:block}
+/* Unifies the existing footage into the new palette: hue + saturation
+   come from --blue, luminosity stays from the video. Kills the orange. */
+.video-tint{position:absolute;inset:0;background:var(--blue);mix-blend-mode:color;pointer-events:none}
+.video-shade{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 62%,rgba(6,23,31,.72));pointer-events:none}
+@supports not (mix-blend-mode:color){.video-tint{display:none}}
+
+.scroll-cue{
+  position:absolute;left:50%;bottom:26px;transform:translateX(-50%);z-index:2;
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+  opacity:0;pointer-events:none;transition:opacity .8s ease;
+}
+.scroll-cue.show{opacity:1}
+.mouse{
+  width:26px;height:42px;border:2px solid var(--white);border-radius:14px;
+  position:relative;animation:cueNudge 2.6s ease-in-out infinite
+}
+.mouse::after{
+  content:'';position:absolute;left:50%;top:8px;width:4px;height:8px;margin-left:-2px;
+  border-radius:2px;background:var(--white);
+  animation:cueBall 2.6s cubic-bezier(.65,-.55,.25,1.5) infinite
+}
+.scroll-text{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.66)}
+@keyframes cueBall{0%,20%{transform:translateY(0);opacity:1}
+  60%{transform:translateY(16px);opacity:0}61%,100%{transform:translateY(0);opacity:0}
+  85%,100%{opacity:1}}
+@keyframes cueNudge{0%,70%,100%{transform:translateY(0)}80%{transform:translateY(5px)}}
+
+/* ============ BLUE STATEMENT BAND ============ */
+.band{background:var(--blue);color:var(--ink);padding:96px 0 100px}
+.band-eyebrow{
+  font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.28em;
+  text-transform:uppercase;color:var(--ink);display:block;margin-bottom:22px
+}
+.band h1{
+  color:var(--white);font-size:clamp(31px,4.6vw,56px);max-width:15ch;
+  text-wrap:balance
+}
+.band p{max-width:60ch;margin-top:26px;font-size:17px;color:var(--ink)}
+.band p code{
+  font-family:'JetBrains Mono',monospace;font-size:.92em;
+  background:rgba(255,255,255,.5);padding:1px 6px;border-radius:3px
+}
+.band-meta{
+  margin-top:40px;padding-top:22px;border-top:1px solid rgba(255,255,255,.42);
+  font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink)
+}
+.band-lockup{width:min(300px,52%);margin-bottom:40px}
+
+/* ============ SECTIONS ============ */
+#timeline-container{position:relative;z-index:0}
+.node-section{padding:112px 32px 24px}
+.node-eyebrow{
+  font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink-soft);
+  display:block;margin-bottom:6px
+}
+.node-index{
+  font-size:clamp(52px,7vw,86px);line-height:1;
+  color:transparent;-webkit-text-stroke:1px var(--grey);
+  margin-bottom:-4px;display:block;user-select:none
+}
+.node-section h2{font-size:clamp(27px,3.5vw,42px);margin-top:12px}
+.node-section h2 em{font-style:normal;color:var(--blue)}
+.section-lede{max-width:64ch;color:var(--ink-soft);margin-top:18px;font-size:17px}
+.divider{height:1px;background:var(--hairline);margin:40px 0 0}
+
+/* ---- 01 concepts ---- */
+.concept-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:46px}
+.concept-grid>*{min-width:0}
+.concept{
+  background:var(--white);border:1px solid var(--hairline);border-radius:6px;
+  padding:26px 24px 28px;display:flex;flex-direction:column;
+  transition:border-color .25s ease,transform .25s ease,box-shadow .25s ease
+}
+.concept:hover{border-color:var(--blue);transform:translateY(-3px);box-shadow:0 10px 28px -18px rgba(10,39,51,.5)}
+.concept-icon{height:48px;margin-bottom:22px}
+.concept-icon img{height:48px;width:48px}
+.concept h3{font-size:16px;color:var(--ink);margin-bottom:9px;letter-spacing:0}
+.concept p{font-size:14.5px;color:var(--ink-soft);line-height:1.6}
+.concept .tag{
+  margin-top:auto;padding-top:20px;font-size:10.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--blue)
+}
+
+/* ---- 02 colour ---- */
+.swatch-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:46px}
+.swatch-grid>*{min-width:0}
+.swatch{border:1px solid var(--hairline);border-radius:6px;overflow:hidden;background:var(--white)}
+.swatch-chip{height:128px;border-bottom:1px solid var(--hairline)}
+.swatch-body{padding:16px 18px 20px}
+.swatch-name{font-size:14px;font-weight:600;margin-bottom:4px}
+.swatch-hex{font-size:12px;color:var(--blue);letter-spacing:.06em}
+.swatch-role{font-size:13.5px;color:var(--ink-soft);margin-top:9px;line-height:1.55}
+.swatch.is-derived .swatch-hex{color:var(--ink-soft)}
+
+.rank{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
+.rank-item{display:flex;gap:14px;align-items:flex-start;padding:18px 20px;border:1px solid var(--hairline);border-radius:6px}
+.rank-n{font-size:12px;color:var(--blue);padding-top:2px}
+.rank-item h3{font-size:14.5px;margin-bottom:5px}
+.rank-item p{font-size:13.5px;color:var(--ink-soft);line-height:1.55}
+
+.hierarchy{margin-top:34px}
+.hierarchy-bar{display:flex;height:56px;border-radius:4px;overflow:hidden;border:1px solid var(--hairline)}
+.hierarchy-bar span{
+  display:flex;align-items:center;justify-content:center;
+  font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em
+}
+.note{
+  margin-top:24px;padding:20px 24px;border-left:3px solid var(--blue);
+  background:var(--tint);color:var(--ink-soft);font-size:14.5px;max-width:78ch
+}
+.note strong{color:var(--ink);font-weight:600}
+.note + .note{margin-top:12px;border-left-color:var(--grey)}
+
+/* ---- 03 type ---- */
+.type-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:46px}
+.type-grid>*{min-width:0}
+.type-card{background:var(--white);border:1px solid var(--hairline);border-radius:6px;padding:30px}
+.type-label{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--blue);margin-bottom:20px}
+.sample-sora{font-size:clamp(32px,4.4vw,46px);line-height:1.14;margin-bottom:6px;color:var(--ink)}
+.sample-sora.w400{font-weight:400}.sample-sora.w600{font-weight:600}.sample-sora.w800{font-weight:800}
+.sample-suse{font-size:19px;line-height:1.6;margin-bottom:6px}
+.sample-suse.w300{font-weight:300}.sample-suse.w400{font-weight:400}.sample-suse.w600{font-weight:600}
+.type-meta{margin-top:20px;padding-top:18px;border-top:1px solid var(--hairline);
+  font-size:11.5px;color:var(--ink-soft);letter-spacing:.05em}
+.type-wordmark{
+  grid-column:1 / -1;background:var(--tint);border:1px solid var(--hairline);border-radius:6px;
+  padding:46px 40px;display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap
+}
+.type-wordmark img{width:min(420px,54%)}
+.type-wordmark .tw-note{max-width:38ch;color:var(--ink-soft);font-size:14.5px;line-height:1.6}
+.type-wordmark .tw-note strong{color:var(--ink)}
+
+/* ---- 04 construction plate ---- */
+.plate{margin:46px 0 0;border:1px solid var(--hairline);border-radius:6px;background:var(--white);padding:26px}
+.plate-stage{
+  position:relative;width:100%;aspect-ratio:58.6 / 15.06;
+  background-color:var(--white);
+  background-image:
+    linear-gradient(to right,var(--hairline) 1px,transparent 1px),
+    linear-gradient(to bottom,var(--hairline) 1px,transparent 1px);
+  background-size:calc(100% / 58.6) calc(100% / 15.06);
+}
+.plate-clear{
+  position:absolute;left:0;top:0;right:0;bottom:0;
+  border:1px dashed var(--blue);opacity:.45
+}
+.plate-mark{position:absolute;left:6.826%;top:26.56%;width:86.35%;height:46.88%}
+.plate-mark img{width:100%;height:100%}
+.plate-mark .g{position:absolute;pointer-events:none}
+.plate-mark .g-h{left:-6.8%;right:-6.8%;height:1px;background:var(--blue)}
+.plate-mark .g-v{top:-56%;bottom:-56%;width:1px;background:var(--blue);opacity:.55}
+.g-cap{top:2%}.g-x{top:29.6%}.g-base{top:99.4%}
+.g-split-a{left:64.5%}.g-split-b{left:66.3%}
+.plate-label{
+  position:absolute;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--blue);background:var(--white);padding:0 5px;white-space:nowrap
+}
+.plate-facts{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:34px}
+.plate-facts>*{min-width:0}
+.fact{border-top:2px solid var(--blue);padding-top:14px}
+.fact dt{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px}
+.fact dd{margin:0;font-family:'Sora',sans-serif;font-weight:800;font-size:22px;color:var(--ink)}
+.fact dd small{font-family:'SUSE',sans-serif;font-weight:400;font-size:13px;color:var(--ink-soft);display:block;margin-top:4px}
+figcaption{margin-top:16px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+
+/* ---- 05 applications ---- */
+.app-grid{display:flex;gap:18px;margin-top:46px;align-items:stretch}
+.app-main{
+  width:calc((100% - 18px) * 1.3 / 2.3);height:520px;border-radius:6px;overflow:hidden;
+  position:relative;display:flex;align-items:center;justify-content:center;padding:48px;
+  background:var(--white);border:1px solid var(--hairline)
+}
+.app-side{flex:1;display:flex;flex-direction:column;gap:18px}
+.app-card{
+  flex:1;border-radius:6px;overflow:hidden;position:relative;
+  display:flex;align-items:center;justify-content:center;padding:24px;
+  border:1px solid var(--hairline)
+}
+.app-card.is-night,.app-main.is-night{background:var(--night) url('assets/pattern-night.webp') repeat;background-size:300px 300px;border-color:var(--night)}
+.app-card.is-blue{background:var(--blue);border-color:var(--blue)}
+.app-card.is-grey{background:var(--grey);border-color:var(--grey)}
+.app-card.is-pattern{background:var(--white) url('assets/pattern-display.webp') repeat;background-size:300px 300px}
+.app-card img{max-width:76%;height:auto}
+.app-card.is-signet img{max-width:none;width:auto;height:62%}
+.app-main img{max-width:84%}
+.caption{
+  position:absolute;left:16px;bottom:12px;font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-soft)
+}
+.app-card.is-night .caption,.app-main.is-night .caption,.app-card.is-blue .caption{color:rgba(255,255,255,.72)}
+.app-card.is-grey .caption,.app-card.is-pattern .caption,.pattern-wrap .caption{color:var(--ink)}
+
+.icon-row{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:18px}
+.icon-row>*{min-width:0}
+.icon-cell{
+  border:1px solid var(--hairline);border-radius:6px;padding:26px;
+  display:flex;flex-direction:column;align-items:center;gap:16px;background:var(--tint)
+}
+.icon-cell img{width:72px;height:auto;border-radius:10px}
+.icon-cell span{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-soft);text-align:center}
+
+/* ---- 06 pattern ---- */
+.pattern-row{display:flex;gap:18px;align-items:stretch;margin-top:46px}
+.pattern-wrap{
+  width:calc((100% - 18px) * 1.3 / 2.3);height:520px;
+  border:1px solid var(--hairline);border-radius:6px;overflow:hidden;position:relative
+}
+.pattern-fill{width:100%;height:100%;background:url('assets/pattern-display.webp') repeat;background-size:420px 420px}
+.pattern-side{flex:1;display:flex;flex-direction:column;justify-content:center;gap:22px}
+.pattern-fact{border-left:3px solid var(--blue);padding:4px 0 4px 20px}
+.pattern-fact h3{font-size:15px;margin-bottom:6px}
+.pattern-fact p{font-size:14.5px;color:var(--ink-soft)}
+
+/* ============ FIBRE TRACK (signature) ============
+   Grey = dark fibre. Blue = lit. The run fills as you scroll. */
+.fiber-track{position:absolute;top:0;width:3px;z-index:-1}
+.fiber-bg-line{position:absolute;top:0;left:0;width:3px;height:100%;background:var(--hairline)}
+#verticalLine{
+  position:absolute;top:0;left:0;width:3px;height:0;
+  background-image:linear-gradient(to bottom,var(--grey),var(--blue));
+  background-repeat:no-repeat;background-position:top left;
+  box-shadow:0 0 14px 1px rgba(0,153,204,.32);
+}
+.fiber-node{
+  position:absolute;left:-11.5px;width:26px;height:26px;border-radius:50%;
+  border:5px solid var(--white);background:var(--hairline);
+  transform:scale(.6);opacity:.4;
+  transition:transform .45s cubic-bezier(.2,.9,.3,1.4),opacity .45s ease,background .45s ease,box-shadow .45s ease
+}
+.fiber-node.is-on{transform:scale(1);opacity:1}
+.fiber-final-node{
+  position:absolute;left:-13.5px;width:30px;height:30px;border-radius:50%;
+  border:5px solid var(--white);background:var(--blue);
+  transform:scale(0);opacity:0;transition:transform .5s cubic-bezier(.2,.9,.3,1.4),opacity .4s ease
+}
+.fiber-final-node.is-on{transform:scale(1);opacity:1;box-shadow:0 0 18px 3px rgba(0,153,204,.5)}
+.fiber-final-bar{
+  position:absolute;right:0;height:5px;width:0;
+  background-image:linear-gradient(to left,var(--blue),rgba(0,153,204,.15));
+  transition:width .8s cubic-bezier(.4,0,.2,1);transition-delay:.4s
+}
+.timeline-end{height:1px}
+@media (max-width:1320px){.fiber-track{display:none}}
+
+/* ============ FOOTER ============ */
+footer{background:var(--blue);color:var(--ink);padding:88px 0 72px;text-align:center;margin-top:80px}
+footer .f-signet{width:56px;margin:0 auto 26px}
+footer .f-lockup{width:min(300px,72%);margin:0 auto 20px}
+footer .f-tag{
+  font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink);margin-bottom:26px
+}
+footer p{color:var(--ink);font-size:14.5px;max-width:56ch;margin:0 auto}
+footer .f-meta{
+  margin-top:36px;font-family:'JetBrains Mono',monospace;font-size:11px;
+  letter-spacing:.14em;color:rgba(10,39,51,.72)
+}
+
+/* ============ SCROLL TO TOP ============ */
+#scrollTop{
+  position:fixed;right:28px;bottom:28px;z-index:60;width:46px;height:46px;border-radius:50%;
+  border:1px solid var(--blue);background:rgba(255,255,255,.9);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  color:var(--blue);cursor:pointer;display:flex;align-items:center;justify-content:center;
+  opacity:0;visibility:hidden;transform:translateY(10px);padding:0;
+  transition:opacity .3s ease,transform .3s ease,visibility .3s ease,background .25s ease,color .25s ease;
+}
+#scrollTop.show{opacity:1;visibility:visible;transform:translateY(0)}
+#scrollTop:hover{background:var(--blue);color:var(--white)}
+#scrollTop svg{width:18px;height:18px;display:block;max-width:none}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:1000px){
+  .concept-grid,.swatch-grid,.plate-facts,.icon-row{grid-template-columns:repeat(2,1fr)}
+  .rank{grid-template-columns:1fr}
+  .app-grid,.pattern-row{flex-direction:column}
+  .app-main{width:100%;height:auto;aspect-ratio:686/460;padding:32px}
+  .app-side{flex-direction:row}
+  .app-card{min-height:190px}
+  .pattern-wrap{width:100%;height:auto;aspect-ratio:1/1}
+}
+@media (max-width:720px){
+  body{font-size:16px}
+  .band{padding:64px 0 68px}
+  .node-section{padding:76px 24px 14px}
+  .concept-grid,.swatch-grid,.type-grid,.plate-facts,.icon-row{grid-template-columns:1fr}
+  .app-side{flex-direction:column}
+  .type-wordmark{padding:30px 24px;flex-direction:column;align-items:flex-start}
+  .type-wordmark img{width:88%}
+  .plate{padding:16px}
+  .plate-label{display:none}
+  .scroll-cue{display:none}
+  footer{padding:64px 0 56px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important}
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== HERO ===================== -->
+<header class="hero">
+  <div class="hero-video-wrap">
+    <!-- Current hero film, kept as delivered.
+         To switch to the wordmark-free ambient loop instead,
+         change the src below to: assets/hero-loop.mp4 -->
+    <video autoplay muted loop playsinline preload="auto" poster="assets/hero-poster.webp"
+           aria-label="Technik Net brand film">
+      <source src="assets/hero-reveal.mp4" type="video/mp4">
+    </video>
+    <div class="video-tint"></div>
+    <div class="video-shade"></div>
+    <div class="scroll-cue">
+      <div class="mouse"></div>
+      <p class="scroll-text">Scroll</p>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== STATEMENT BAND ===================== -->
+<section class="band">
+  <div class="shell">
+    <img class="band-lockup" src="assets/logo-mono-white.svg" alt="Technik Net GmbH">
+    <span class="band-eyebrow">Brand identity system · Revision 4</span>
+    <h1>Three values. Only one of them carries meaning.</h1>
+    <p>
+      Revision 4 fixes the palette at <code>#0099CC</code>, <code>#CCCCCC</code> and
+      <code>#FFFFFF</code>. Everything below shows how the mark, the type and the
+      surfaces behave once those three values are locked — and where the system
+      needs a rule rather than a preference.
+    </p>
+    <p class="band-meta">Technik Net GmbH · Essen · Fibre installation, NE3 – NE5</p>
+  </div>
+</section>
+
+<div id="timeline-container">
+  <div class="fiber-track" aria-hidden="true">
+    <div class="fiber-bg-line"></div>
+    <div id="verticalLine"></div>
+    <div class="fiber-node"></div>
+    <div class="fiber-node"></div>
+    <div class="fiber-node"></div>
+    <div class="fiber-node"></div>
+    <div class="fiber-node"></div>
+    <div class="fiber-node"></div>
+    <div class="fiber-final-bar"></div>
+    <div class="fiber-final-node"></div>
+  </div>
+
+  <!-- ============ 01 FOUNDATION ============ -->
+  <section class="node-section shell" id="sec-1">
+    <span class="node-index">01</span>
+    <h2>Where the mark <em>comes from</em>.</h2>
+    <p class="section-lede">
+      The signet reads as a node field on purpose. A fibre network behaves the same way —
+      one source, a splitter, and a run that keeps branching until it reaches a socket.
+      Six ideas sit underneath the shape:
+    </p>
+
+    <div class="concept-grid">
+      <article class="concept">
+        <div class="concept-icon"><img src="assets/icon-field.svg" alt="" width="48" height="48"></div>
+        <h3>Node field</h3>
+        <p>Distributed connection, not a single line. One feed, many terminations —
+           the geometry the signet is built from.</p>
+        <p class="tag">Signet</p>
+      </article>
+
+      <article class="concept">
+        <div class="concept-icon"><img src="assets/icon-fibre.svg" alt="" width="48" height="48"></div>
+        <h3>Fibre</h3>
+        <p>The literal strand — the medium Technik Net pulls, splices and terminates
+           on every job, NE3 through NE5.</p>
+        <p class="tag">NE3 → NE5</p>
+      </article>
+
+      <article class="concept">
+        <div class="concept-icon"><img src="assets/icon-node.svg" alt="" width="48" height="48"></div>
+        <h3>Splice point</h3>
+        <p>Junctions, splice trays, TA sockets. The rounded terminals in the wordmark
+           are drawn from the same vocabulary.</p>
+        <p class="tag">Splice · TA · Switch</p>
+      </article>
+
+      <article class="concept">
+        <div class="concept-icon"><img src="assets/icon-infra.svg" alt="" width="48" height="48"></div>
+        <h3>Infrastructure</h3>
+        <p>Distribution cabinet to Gf-AP OneBox — the layer a network physically
+           rides on, all the way to the end user.</p>
+        <p class="tag">NE4 · ZTV60</p>
+      </article>
+
+      <article class="concept">
+        <div class="concept-icon"><img src="assets/icon-lit.svg" alt="" width="48" height="48"></div>
+        <h3>Dark and lit</h3>
+        <p>Blue is not decoration. It marks the segment that carries light.
+           Grey is the same run before handover — dark fibre.</p>
+        <p class="tag">Dark → lit</p>
+      </article>
+
+      <article class="concept">
+        <div class="concept-icon"><img src="assets/icon-applied.svg" alt="" width="48" height="48"></div>
+        <h3>Applied</h3>
+        <p>How the mark travels off-screen: vehicle livery, hi-vis workwear, site
+           signage. Placeholder framing until real photography exists.</p>
+        <p class="tag">Pending · photography</p>
+      </article>
+    </div>
+    <div class="divider"></div>
+  </section>
+
+  <!-- ============ 02 COLOUR ============ -->
+  <section class="node-section shell" id="sec-2">
+    <span class="node-index">02</span>
+    <h2>Colour system</h2>
+    <p class="section-lede">
+      Three values, fixed. They are not interchangeable, and they never appear at
+      equal weight in the same frame.
+    </p>
+
+    <div class="swatch-grid">
+      <div class="swatch">
+        <div class="swatch-chip" style="background:#0099cc"></div>
+        <div class="swatch-body">
+          <p class="swatch-name">Live Blue</p>
+          <p class="swatch-hex">#0099CC</p>
+          <p class="swatch-role">The only colour that carries meaning: lit fibre, live
+             links, the “Net”. Full strength or absent — never tinted.</p>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background:#cccccc"></div>
+        <div class="swatch-body">
+          <p class="swatch-name">Duct Grey</p>
+          <p class="swatch-hex">#CCCCCC</p>
+          <p class="swatch-role">Structure, not decoration: rules, dividers, dark fibre,
+             and the “Technik” half of the wordmark.</p>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background:#ffffff;border-bottom:1px solid var(--hairline)"></div>
+        <div class="swatch-body">
+          <p class="swatch-name">Paper White</p>
+          <p class="swatch-hex">#FFFFFF</p>
+          <p class="swatch-role">The ground. Holds the largest area on every surface so
+             the blue stays an event rather than a wash.</p>
+        </div>
+      </div>
+      <div class="swatch is-derived">
+        <div class="swatch-chip" style="background:#0a2733"></div>
+        <div class="swatch-body">
+          <p class="swatch-name">Deep Ink <em style="font-style:normal;color:var(--ink-soft);font-weight:400">· derived</em></p>
+          <p class="swatch-hex">#0A2733</p>
+          <p class="swatch-role">Not a brand colour. A dark shade of Live Blue, used only
+             for body copy where the three brand values cannot be read.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="rank">
+      <div class="rank-item">
+        <span class="rank-n">01</span>
+        <div><h3>Blue leads</h3><p>First in the palette and first in the eye. It picks the
+          one thing on a surface that matters.</p></div>
+      </div>
+      <div class="rank-item">
+        <span class="rank-n">02</span>
+        <div><h3>Grey separates</h3><p>It divides and supports. It is never asked to be
+          the subject of a frame.</p></div>
+      </div>
+      <div class="rank-item">
+        <span class="rank-n">03</span>
+        <div><h3>White carries</h3><p>Whatever the blue is not doing. The largest area,
+          the quietest role.</p></div>
+      </div>
+    </div>
+
+    <div class="hierarchy">
+      <div class="hierarchy-bar" role="img" aria-label="Area split: white 46 percent, blue 34 percent, grey 14 percent, ink 6 percent">
+        <span style="background:#ffffff;flex:46;color:#5b6f78">46 % white</span>
+        <span style="background:#0099cc;flex:34;color:#0a2733">34 % blue</span>
+        <span style="background:#cccccc;flex:14;color:#0a2733">14 %</span>
+        <span style="background:#0a2733;flex:6;color:#ffffff">6 %</span>
+      </div>
+      <div class="note">
+        <strong>Rank is not area.</strong> Blue ranks first, but white holds the most
+        surface — that is what keeps blue readable as a signal. If blue is given more than
+        roughly a third of a layout it stops marking anything and becomes a background.
+      </div>
+      <div class="note">
+        <strong>One legibility rule.</strong> White on Live Blue measures 3.3&nbsp;:&nbsp;1 —
+        enough for display type at 24&nbsp;px bold and above, not enough for body copy.
+        On blue surfaces, headlines are white and running text is set in Deep Ink.
+      </div>
+    </div>
+    <div class="divider"></div>
+  </section>
+
+  <!-- ============ 03 TYPOGRAPHY ============ -->
+  <section class="node-section shell" id="sec-3">
+    <span class="node-index">03</span>
+    <h2>Typography</h2>
+    <p class="section-lede">
+      The wordmark is drawn, not typeset. Everything around it is carried by two
+      families: a geometric sans for headings and a neutral one for reading.
+    </p>
+
+    <div class="type-grid">
+      <div class="type-card">
+        <p class="type-label">Headings — Sora</p>
+        <p class="sample-sora w400">Glasfaser</p>
+        <p class="sample-sora w600">Glasfaser</p>
+        <p class="sample-sora w800">Glasfaser</p>
+        <p class="type-meta">Sora · 400 / 600 / 800 · tracking −2 %</p>
+      </div>
+      <div class="type-card">
+        <p class="type-label">Body — SUSE</p>
+        <p class="sample-suse w300">NE3, NE4 und NE5 aus einer Hand.</p>
+        <p class="sample-suse w400">NE3, NE4 und NE5 aus einer Hand.</p>
+        <p class="sample-suse w600">NE3, NE4 und NE5 aus einer Hand.</p>
+        <p class="type-meta">SUSE · 300 / 400 / 600 · 1.65 line height</p>
+      </div>
+      <div class="type-wordmark">
+        <img src="assets/logo-primary.svg" alt="Technik Net primary lockup">
+        <div class="tw-note">
+          <p><strong>“Technik” recedes on purpose.</strong> Set in Duct Grey, it names the
+          trade; the blue “Net” names the service. Read together they are one word, read
+          quickly they say <em>Net</em>. Sora and SUSE never imitate the drawn terminals.</p>
+        </div>
+      </div>
+    </div>
+    <div class="divider"></div>
+  </section>
+
+  <!-- ============ 04 CONSTRUCTION ============ -->
+  <section class="node-section shell" id="sec-4">
+    <span class="node-index">04</span>
+    <h2>Built on a module, <em>not eyeballed</em>.</h2>
+    <p class="section-lede">
+      One unit governs the whole lockup: <strong>u</strong>, the stroke weight. Every
+      height, gap and terminal in the artwork resolves to a whole or half multiple of it —
+      the same discipline the crews apply on site at ZTV60 tolerance.
+    </p>
+
+    <figure class="plate">
+      <div class="plate-stage">
+        <div class="plate-clear"></div>
+        <div class="plate-mark">
+          <img src="assets/logo-mono-ink.svg" alt="Technik Net wordmark on its construction grid">
+          <span class="g g-h g-cap"></span>
+          <span class="g g-h g-x"></span>
+          <span class="g g-h g-base"></span>
+          <span class="g g-v g-split-a"></span>
+          <span class="g g-v g-split-b"></span>
+          <span class="plate-label" style="left:-6.5%;top:-16%">Cap 7u</span>
+          <span class="plate-label" style="left:-6.5%;top:23%">x‑height 5u</span>
+          <span class="plate-label" style="left:-6.5%;top:104%">Baseline</span>
+          <span class="plate-label" style="left:64.8%;top:-40%">1u</span>
+        </div>
+      </div>
+      <figcaption>Construction plate — measured from the release artwork, not redrawn</figcaption>
+    </figure>
+
+    <dl class="plate-facts">
+      <div class="fact"><dt>Module</dt><dd>1 u<small>Stroke weight. Constant across both words.</small></dd></div>
+      <div class="fact"><dt>Cap height</dt><dd>7 u<small>x‑height 5 u · 0.71 of cap</small></dd></div>
+      <div class="fact"><dt>Word gap</dt><dd>1 u<small>Technik 32.7 u · Net 17 u</small></dd></div>
+      <div class="fact"><dt>Clear space</dt><dd>4 u<small>Min. width 120 px screen / 25 mm print</small></dd></div>
+    </dl>
+    <div class="divider"></div>
+  </section>
+
+  <!-- ============ 05 APPLICATIONS ============ -->
+  <section class="node-section shell" id="sec-5">
+    <span class="node-index">05</span>
+    <h2>Four states of the <em>same mark</em>.</h2>
+    <p class="section-lede">
+      One primary lockup and three reductions. Which one appears depends on the surface
+      underneath it — never on preference.
+    </p>
+
+    <div class="app-grid">
+      <div class="app-main">
+        <img src="assets/logo-primary.svg" alt="Primary lockup on white">
+        <span class="caption">01 · Primary — white surfaces</span>
+      </div>
+      <div class="app-side">
+        <div class="app-card is-night">
+          <img src="assets/logo-inverse.svg" alt="Inverse lockup on a dark surface">
+          <span class="caption">02 · Inverse — dark surfaces</span>
+        </div>
+        <div class="app-card is-blue">
+          <img src="assets/logo-mono-white.svg" alt="Monochrome white lockup on blue">
+          <span class="caption">03 · Mono white — on blue &amp; photography</span>
+        </div>
+        <div class="app-card is-grey">
+          <img src="assets/logo-mono-blue.svg" alt="Monochrome blue lockup on grey">
+          <span class="caption">04 · Mono blue — on grey &amp; tinted stock</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="app-grid" style="margin-top:18px">
+      <div class="app-main is-night" style="height:340px">
+        <img src="assets/signet-inverse.svg" alt="Signet on a dark surface" style="max-width:none;height:80%;width:auto">
+        <span class="caption">Signet — avatar, stamp, vehicle door</span>
+      </div>
+      <div class="app-side">
+        <div class="app-card is-pattern is-signet">
+          <img src="assets/signet-primary.svg" alt="Signet on the brand pattern">
+          <span class="caption">Signet on pattern</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="icon-row">
+      <div class="icon-cell"><img src="assets/icon-blue-on-white.svg" alt="App icon, blue on white"><span>Blue / white</span></div>
+      <div class="icon-cell"><img src="assets/icon-white-on-blue.svg" alt="App icon, white on blue"><span>White / blue</span></div>
+      <div class="icon-cell"><img src="assets/icon-blue-on-grey.svg" alt="App icon, blue on grey"><span>Blue / grey</span></div>
+      <div class="icon-cell"><img src="assets/icon-white-on-grey.svg" alt="App icon, white on grey"><span>White / grey</span></div>
+    </div>
+    <p class="note" style="margin-top:22px"><strong>Favicon and app icon.</strong> The
+      lowercase <em>t</em> is the smallest readable reduction of the mark. Blue on white is
+      the default; white on blue is used where the platform draws its own light background.</p>
+    <div class="divider"></div>
+  </section>
+
+  <!-- ============ 06 PATTERN ============ -->
+  <section class="node-section shell" id="sec-6">
+    <span class="node-index">06</span>
+    <h2>The surface it all <em>sits on</em>.</h2>
+    <p class="section-lede">
+      A single tile, derived from the node joints in the wordmark, repeating without a
+      visible seam. It gives a surface a quiet technical texture without adding a colour.
+    </p>
+
+    <div class="pattern-row">
+      <div class="pattern-wrap">
+        <div class="pattern-fill" role="img" aria-label="Seamless network pattern tile"></div>
+        <span class="caption">Seamless tile · 420 px repeat</span>
+      </div>
+      <div class="pattern-side">
+        <div class="pattern-fact">
+          <h3>Tone on tone only</h3>
+          <p>The tile lives inside one colour family, roughly 4–8 % apart from its ground.
+             It should never be readable from across a room.</p>
+        </div>
+        <div class="pattern-fact">
+          <h3>Behind, never beside</h3>
+          <p>It sits under content as a ground. It is not a graphic element and does not
+             share a frame with the mark at equal contrast.</p>
+        </div>
+        <div class="pattern-fact">
+          <h3>Scales with the surface</h3>
+          <p>Large on vehicle and wall applications; small and near-invisible on screen —
+             440 px at 85 % opacity on this page.</p>
+        </div>
+      </div>
+    </div>
+    <div class="divider"></div>
+  </section>
+
+  <div class="timeline-end"></div>
+</div>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="shell">
+    <img class="f-signet" src="assets/signet-mono-white.svg" alt="">
+    <img class="f-lockup" src="assets/logo-mono-white.svg" alt="Technik Net GmbH">
+    <p class="f-tag">NE3 · NE4 · NE5 — aus einer Hand</p>
+    <p>
+      This page documents one direction, not a finished brand book. Proportions, final
+      artwork and any change to the three fixed values remain the designer’s decision —
+      the system here only shows how the pieces behave once they are set.
+    </p>
+    <p class="f-meta">Brand identity study · Revision 4 · Essen</p>
+  </div>
+</footer>
+
+<button id="scrollTop" type="button" aria-label="Scroll to top" title="Scroll to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+       stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M12 19V5"></path><path d="M5 12l7-7 7 7"></path>
+  </svg>
+</button>
+
+<script>
+/* ---------- fibre track: dark fibre fills with light on scroll ---------- */
+(function(){
+  var track     = document.querySelector('.fiber-track');
+  var vLine     = document.getElementById('verticalLine');
+  var container = document.getElementById('timeline-container');
+  var shell     = document.querySelector('.node-section.shell');
+  var nodes     = Array.prototype.slice.call(document.querySelectorAll('.fiber-node'));
+  var indices   = Array.prototype.slice.call(document.querySelectorAll('.node-index'));
+  var finalNode = document.querySelector('.fiber-final-node');
+  var finalBar  = document.querySelector('.fiber-final-bar');
+  var endMarker = document.querySelector('.timeline-end');
+  var finalEndpoint = 0;
+
+  function hex2rgb(h){h=h.replace('#','');return [parseInt(h.substr(0,2),16),parseInt(h.substr(2,2),16),parseInt(h.substr(4,2),16)];}
+  function lerpColor(a,b,t){
+    var A=hex2rgb(a),B=hex2rgb(b);
+    return 'rgb('+Math.round(A[0]+(B[0]-A[0])*t)+','+Math.round(A[1]+(B[1]-A[1])*t)+','+Math.round(A[2]+(B[2]-A[2])*t)+')';
+  }
+  var C_TOP='#cccccc', C_BOT='#0099cc';   /* dark fibre -> lit */
+  var nodeColors = nodes.map(function(_,i){
+    return lerpColor(C_TOP,C_BOT, nodes.length>1 ? i/(nodes.length-1) : 0);
+  });
+
+  function layout(){
+    if(!track || !container || !shell) return;
+    var cRect = container.getBoundingClientRect();
+    var sRect = shell.getBoundingClientRect();
+    var vw = document.documentElement.clientWidth;
+    var gap = 64, nodeBleed = 16, minGapNeeded = 96;
+    if (vw - sRect.right < minGapNeeded){
+      track.style.display = 'none';
+    } else {
+      track.style.display = '';
+      track.style.left = Math.min(sRect.right - cRect.left + gap, (vw - nodeBleed) - cRect.left) + 'px';
+    }
+    track.style.height = cRect.height + 'px';
+
+    var tRect = track.getBoundingClientRect();
+    indices.forEach(function(idx,i){
+      if(!nodes[i]) return;
+      var r = idx.getBoundingClientRect();
+      nodes[i].style.top = (r.top + r.height/2 - tRect.top - 13) + 'px';
+    });
+
+    if(endMarker && finalNode && finalBar){
+      var top = endMarker.getBoundingClientRect().top - tRect.top;
+      finalEndpoint = top;
+      finalNode.style.top = (top - 15) + 'px';
+      finalBar.style.top  = (top - 2.5) + 'px';
+      finalBar.dataset.fullWidth = 200;
+    }
+    update();
+  }
+
+  var bendPlayed = false;
+  function playFinalBend(){
+    if(bendPlayed) return;
+    bendPlayed = true;
+    finalNode.classList.add('is-on');
+    finalBar.style.width = (finalBar.dataset.fullWidth || 200) + 'px';
+  }
+  function resetFinalBend(){
+    if(!bendPlayed) return;
+    bendPlayed = false;
+    finalNode.classList.remove('is-on');
+    finalBar.style.width = '0px';
+  }
+
+  function update(){
+    if(!track || !finalEndpoint) return;
+    var scrollable = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    var frac = Math.min(1, Math.max(0, window.scrollY / scrollable));
+    vLine.style.height = (frac * finalEndpoint) + 'px';
+
+    indices.forEach(function(idx,i){
+      if(!nodes[i]) return;
+      var r = idx.getBoundingClientRect();
+      if(r.top < window.innerHeight * 0.85 && r.bottom > 0){
+        nodes[i].classList.add('is-on');
+        nodes[i].style.background = nodeColors[i];
+        nodes[i].style.boxShadow = '0 0 16px 2px ' + nodeColors[i];
+      }else{
+        nodes[i].classList.remove('is-on');
+        nodes[i].style.background = '';
+        nodes[i].style.boxShadow = 'none';
+      }
+    });
+
+    if(frac >= 0.999) playFinalBend(); else resetFinalBend();
+  }
+
+  var ticking = false;
+  window.addEventListener('scroll', function(){
+    if(ticking) return;
+    ticking = true;
+    requestAnimationFrame(function(){ update(); ticking = false; });
+  }, {passive:true});
+  window.addEventListener('resize', layout);
+  window.addEventListener('load', layout);
+  document.addEventListener('DOMContentLoaded', layout);
+  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(layout); }
+  if(window.ResizeObserver){ new ResizeObserver(layout).observe(document.body); }
+  layout();
+})();
+
+/* ---------- scroll to top ---------- */
+(function(){
+  var btn = document.getElementById('scrollTop');
+  if(!btn) return;
+  function onScroll(){
+    btn.classList.toggle('show', window.scrollY > window.innerHeight * 0.6);
+  }
+  btn.addEventListener('click', function(){ window.scrollTo({top:0, behavior:'smooth'}); });
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+})();
+
+/* ---------- hero: reveal the scroll cue after the first pass;
+              honour reduced-motion by holding the poster frame ---------- */
+(function(){
+  var video = document.querySelector('.hero-video-wrap video');
+  var cue   = document.querySelector('.scroll-cue');
+  if(!video) return;
+
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    video.removeAttribute('autoplay');
+    video.pause();
+    if(cue) cue.classList.add('show');
+    return;
+  }
+  if(!cue) return;
+  var lastTime = 0, looped = false;
+  video.addEventListener('timeupdate', function(){
+    if(!looped && video.currentTime < lastTime - 0.5){ looped = true; cue.classList.add('show'); }
+    lastTime = video.currentTime;
+  });
+  video.addEventListener('ended', function(){ cue.classList.add('show'); });
+})();
+</script>
+
+</body>
+</html>
