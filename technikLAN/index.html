@@ -1,1 +1,1338 @@
+<!DOCTYPE html>
+<html lang="de" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TechnikNet GmbH - Ihr Partner für Glasfaserausbau</title>
+  
+  <!-- Google Fonts: Sora (Headings), SUSE (Body/UI), JetBrains Mono (Eyebrows/Badges) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Sora:wght@400;600;700;800&family=SUSE:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS & GSAP for high-performance scroll animations -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  
+  <style>
+    :root {
+      /* Strictly Limited Brand Color System (0099cc, cccccc, ffffff, 333333) */
+      --c-primary: #0099CC;       /* Corporate Blue */
+      --c-primary-rgb: 0, 153, 204;
+      --c-light: #38BDF8;         /* Light Blue */
+      --c-glow: rgba(0, 153, 204, 0.45);
+      --c-bg: #F8FAFC;            /* Bright Slate 50 */
+      --c-surface: #FFFFFF;       /* Pure White */
+      --c-gray-light: #E2E8F0;    /* Light Gray Border */
+      --c-gray-accent: #CCCCCC;   /* Brand Light Gray */
+      --c-text-main: #333333;     /* Dark Gray Text */
+      --c-text-muted: #666666;    /* Secondary Muted Text */
 
+      /* Typography Tokens */
+      --font-heading: 'Sora', sans-serif;
+      --font-body: 'SUSE', sans-serif;
+      --font-eyebrow: 'JetBrains Mono', monospace;
+    }
+
+    body { 
+      font-family: var(--font-body); 
+      background-color: var(--c-bg); 
+      color: var(--c-text-main); 
+      overflow-x: hidden; 
+      transition: background-color 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    h1, h2, h3, h4, h5, h6, .font-heading {
+      font-family: var(--font-heading);
+      color: var(--c-text-main);
+    }
+
+    .font-eyebrow {
+      font-family: var(--font-eyebrow);
+      letter-spacing: 0.05em;
+    }
+
+    .var-text-light { color: var(--c-light); }
+    .var-text-primary { color: var(--c-primary); }
+    .var-bg-primary { background-color: var(--c-primary); }
+    .var-bg-light { background-color: var(--c-light); }
+    .var-glow { box-shadow: 0 0 25px 4px var(--c-glow); }
+    .var-pattern { background-image: radial-gradient(var(--c-primary) 1.2px, transparent 1.2px); }
+    
+    .var-gradient-text {
+        background-image: linear-gradient(to right, var(--c-primary), var(--c-light));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .var-gradient-bg {
+        background: linear-gradient(135deg, var(--c-primary), #0284C7);
+    }
+
+    /* Laser Pulse Keyframe Animations for SVGs */
+    @keyframes laser-pulse {
+      0% { stroke-dashoffset: 100; }
+      100% { stroke-dashoffset: 0; }
+    }
+    .laser-line {
+      stroke-dasharray: 12, 12;
+      animation: laser-pulse 4s linear infinite;
+    }
+    .laser-line-fast {
+      stroke-dasharray: 8, 8;
+      animation: laser-pulse 2s linear infinite;
+    }
+    .wave-pulse {
+      animation: wifi-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+    @keyframes wifi-ping {
+      75%, 100% {
+        transform: scale(2);
+        opacity: 0;
+      }
+    }
+
+    /* Smooth Floating Idle Animations */
+    @keyframes hero-logo-float-idle {
+      0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-11px) rotate(0.35deg);
+      }
+    }
+
+    @keyframes hero-sub-float-idle {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-7px);
+      }
+    }
+
+    .hero-logo-idle {
+      animation: hero-logo-float-idle 6s ease-in-out infinite;
+      will-change: transform;
+    }
+
+    .hero-sub-idle {
+      animation: hero-sub-float-idle 6s ease-in-out infinite 0.5s;
+      will-change: transform;
+    }
+
+    /* Restored High-Contrast Drop Shadow for Typography Logo */
+    .tng-logo-shadow {
+      filter: 
+        drop-shadow(0 4px 8px rgba(0, 0, 0, 0.35)) 
+        drop-shadow(0 10px 20px rgba(0, 153, 204, 0.3));
+    }
+
+    .hero-logo-clean {
+      filter: none;
+    }
+
+    /* Crisp text shadow for white text over light textures */
+    .hero-sub-shadow {
+      text-shadow: 
+        0 2px 8px rgba(0, 0, 0, 0.45),
+        0 1px 3px rgba(0, 0, 0, 0.6);
+    }
+
+    /* Scroll Mouse Shadow */
+    .scroll-mouse-shadow {
+      box-shadow: 
+        0 8px 20px rgba(0, 0, 0, 0.1),
+        0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .scroll-text-shadow {
+      text-shadow: 0 1px 3px rgba(255, 255, 255, 0.8);
+    }
+
+    /* Prevent dangling bracket artifacts */
+    .no-wrap-phrase {
+      white-space: nowrap;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body class="relative selection:bg-[var(--c-primary)] selection:text-white">
+
+  <!-- Subtle Light Dot Pattern -->
+  <div class="fixed inset-0 z-0 opacity-15 pointer-events-none var-pattern" style="background-size: 40px 40px;"></div>
+
+  <div class="relative z-10">
+    
+    <!-- Navigation Bar -->
+    <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 border-b border-transparent">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div id="nav-container" class="flex items-center justify-between h-20 transition-all duration-500">
+          
+          <!-- Compact Brand Logo (TNg.png with Shadow <-> Tsign.png with NO SHADOW) -->
+          <div class="relative flex items-center cursor-pointer select-none py-1" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+            <img src="TNg.png" alt="TechnikNet Logo" class="h-5 sm:h-6 w-auto object-contain tng-logo-shadow transition-all duration-300" id="nav-logo" />
+          </div>
+          
+          <!-- Desktop Menu Links with dynamic active state switching -->
+          <div class="hidden md:block">
+            <div id="nav-links" class="ml-10 flex items-baseline space-x-8 text-[16px] font-medium tracking-wide">
+              
+              <a href="#home" data-i18n="home" onclick="setActiveNav(this)" class="nav-item text-[#0099CC] px-3 py-2 rounded-md font-bold transition-colors relative group">
+                <span>Home</span>
+                <span class="nav-indicator absolute -bottom-1 left-0 w-full h-0.5 bg-[#0099CC] rounded-full var-glow transition-all duration-300"></span>
+              </a>
+
+              <a href="#services" data-i18n="services" onclick="setActiveNav(this)" class="nav-item text-slate-700 hover:text-[#0099CC] px-3 py-2 rounded-md transition-colors relative group">
+                <span>Leistungen</span>
+                <span class="nav-indicator absolute -bottom-1 left-0 w-0 h-0.5 bg-[#0099CC] rounded-full transition-all duration-300 group-hover:w-full var-glow"></span>
+              </a>
+
+              <a href="#stats" data-i18n="stats" onclick="setActiveNav(this)" class="nav-item text-slate-700 hover:text-[#0099CC] px-3 py-2 rounded-md transition-colors relative group">
+                <span>Zahlen & Fakten</span>
+                <span class="nav-indicator absolute -bottom-1 left-0 w-0 h-0.5 bg-[#0099CC] rounded-full transition-all duration-300 group-hover:w-full var-glow"></span>
+              </a>
+
+              <a href="#career" data-i18n="career" onclick="setActiveNav(this)" class="nav-item text-slate-700 hover:text-[#0099CC] px-3 py-2 rounded-md transition-colors relative group">
+                <span>Karriere</span>
+                <span class="nav-indicator absolute -bottom-1 left-0 w-0 h-0.5 bg-[#0099CC] rounded-full transition-all duration-300 group-hover:w-full var-glow"></span>
+              </a>
+
+              <a href="#estimator" data-i18n="estimator" onclick="setActiveNav(this)" class="nav-item text-slate-700 hover:text-[#0099CC] px-3 py-2 rounded-md transition-colors relative group">
+                <span>Projektanfrage</span>
+                <span class="nav-indicator absolute -bottom-1 left-0 w-0 h-0.5 bg-[#0099CC] rounded-full transition-all duration-300 group-hover:w-full var-glow"></span>
+              </a>
+
+            </div>
+          </div>
+
+          <!-- Language Selector & Mobile Toggle -->
+          <div class="flex items-center gap-4">
+            <div class="flex items-center bg-white/80 border border-slate-200 rounded-full p-1 font-eyebrow text-xs backdrop-blur-sm cursor-pointer shadow-sm">
+              <button id="btn-de" onclick="setLanguage('de')" class="px-4 py-1.5 rounded-full var-bg-primary text-white font-bold transition-all var-glow">DE</button>
+              <button id="btn-en" onclick="setLanguage('en')" class="px-4 py-1.5 rounded-full text-slate-600 hover:text-slate-900 transition-all">EN</button>
+            </div>
+            
+            <div class="md:hidden flex items-center">
+              <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="text-slate-700 hover:text-[#0099CC] focus:outline-none p-2 bg-white/80 rounded-lg border border-slate-200 transition-colors shadow-sm">
+                <svg id="menu-icon-hamburger" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+                <svg id="menu-icon-close" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Menu Panel -->
+      <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-lg border-b border-slate-200 px-4 pt-2 pb-6 space-y-2 transition-all duration-300 shadow-xl">
+        <a href="#home" onclick="toggleMobileMenu(); setActiveNavMobile(this)" data-i18n="home" class="mobile-nav-item block text-[#0099CC] font-bold px-3 py-2 rounded-md text-base">Home</a>
+        <a href="#services" onclick="toggleMobileMenu(); setActiveNavMobile(this)" data-i18n="services" class="mobile-nav-item block text-slate-700 hover:text-[#0099CC] px-3 py-2 rounded-md text-base font-semibold">Leistungen</a>
+        <a href="#stats" onclick="toggleMobileMenu(); setActiveNavMobile(this)" data-i18n="stats" class="mobile-nav-item block text-slate-700 hover:text-[#0099CC] px-3 py-2 rounded-md text-base font-semibold">Zahlen & Fakten</a>
+        <a href="#career" onclick="toggleMobileMenu(); setActiveNavMobile(this)" data-i18n="career" class="mobile-nav-item block text-slate-700 hover:text-[#0099CC] px-3 py-2 rounded-md text-base font-semibold">Karriere</a>
+        <a href="#estimator" onclick="toggleMobileMenu(); setActiveNavMobile(this)" data-i18n="estimator" class="mobile-nav-item block text-slate-700 hover:text-[#0099CC] px-3 py-2 rounded-md text-base font-semibold">Projektanfrage</a>
+      </div>
+    </nav>
+
+    <!-- Hero Section with Top White Gradient Overlay for Header Clarity -->
+    <section id="home" class="h-screen flex flex-col items-center justify-center text-center px-4 relative pt-20 z-10 overflow-hidden bg-cover bg-center bg-no-repeat" style="background-image: url('hero1.jpg');">
+      
+      <!-- Video Element with hero1.jpg Poster -->
+      <video 
+        autoplay 
+        loop 
+        muted 
+        playsinline 
+        poster="hero1.jpg"
+        preload="auto"
+        class="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none">
+        <source src="hero-video.webm" type="video/webm">
+      </video>
+
+      <!-- Soft Top White Gradient Overlay -->
+      <div class="absolute top-0 inset-x-0 h-44 sm:h-52 bg-gradient-to-b from-white via-white/75 to-transparent pointer-events-none z-1"></div>
+
+      <!-- Soft Edge Transition at the very bottom into the next section -->
+      <div class="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-[#F8FAFC] to-transparent pointer-events-none z-1"></div>
+
+      <!-- Hero Content Wrapper -->
+      <div id="hero-scroll-group" class="relative z-10 flex flex-col items-center gap-5 will-change-transform">
+        
+        <!-- Logo (Hero) -->
+        <div id="hero-logo-wrapper" class="hero-logo-idle will-change-transform">
+          <img src="TNg.png" alt="TechnikNet Logo" id="hero-logo-img" class="h-16 sm:h-24 md:h-28 w-auto object-contain tng-logo-shadow cursor-default select-none will-change-transform" />
+        </div>
+        
+        <!-- Hero Subtitle in White & Blue -->
+        <div id="hero-sub-wrapper" class="hero-sub-idle will-change-transform">
+          <p id="hero-sub" data-i18n="heroSubtitle" class="text-[19px] sm:text-[22px] text-white font-semibold leading-relaxed hero-sub-shadow will-change-transform">
+            Deutschlands Zukunft verbinden mit <span class="text-[#38BDF8] font-bold transition-colors duration-500">Lichtgeschwindigkeit</span> und <span class="text-white font-bold">Präzision</span>.
+          </p>
+        </div>
+
+      </div>
+      
+      <!-- Scroll Indicator Button -->
+      <div id="hero-scroll-indicator" class="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 opacity-90 flex flex-col items-center cursor-pointer z-30 will-change-transform hover:opacity-100 transition-opacity" onclick="document.getElementById('services').scrollIntoView({behavior: 'smooth'})">
+        <span data-i18n="scroll" class="font-eyebrow text-xs tracking-widest uppercase mb-2 block text-slate-700 transition-colors duration-500 scroll-text-shadow font-semibold">Scroll</span>
+        <div class="w-6 h-10 border-2 rounded-full flex justify-center pt-1.5 transition-colors duration-500 border-[#0099CC] backdrop-blur-md scroll-mouse-shadow bg-white/80">
+          <div class="w-1 h-2 rounded-full animate-bounce transition-colors duration-500 bg-[#0099CC]" style="box-shadow: 0 0 8px #0099CC;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="relative overflow-hidden z-10 pb-16 md:pb-24 pt-6">
+      
+      <!-- Timeline Content Container -->
+      <div class="relative w-full max-w-6xl mx-auto px-4" id="timeline-container">
+        
+        <!-- vertical fiber optic line -->
+        <div class="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[2px] md:w-[3px] z-0 pointer-events-none bg-slate-200">
+          <div id="verticalLine" class="absolute top-0 left-0 w-full bg-[#0099CC] rounded-full transition-colors duration-500" style="height: 0%; box-shadow: 0 0 15px 3px rgba(0, 153, 204, 0.6);"></div>
+        </div>
+
+        <div class="flex flex-col relative z-10 w-full space-y-16 md:space-y-24 pb-12">
+          
+          <!-- Node 1 (NE3) -->
+          <div id="service-block-ne3" class="service-block w-full py-12 relative flex flex-col md:flex-row items-center justify-between gap-10 md:gap-20">
+            <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5 md:w-6 md:h-6 bg-[#0099CC] rounded-full node border-4 border-white z-20 transition-all duration-500" style="box-shadow: 0 0 15px 3px rgba(0, 153, 204, 0.6);"></div>
+            
+            <!-- Info Box Left -->
+            <div class="w-full md:w-5/12 text-left content-block bg-white/90 p-8 rounded-2xl border border-slate-200 backdrop-blur-md relative shadow-xl transition-all hover:border-[#0099CC]">
+              <div style="background-color: rgba(0, 153, 204, 0.1);" class="font-eyebrow inline-block px-3.5 py-1 text-[#0099CC] border border-slate-200 rounded-full text-xs font-semibold mb-5 transition-colors duration-500">NETZEBENE 3</div>
+              <h2 data-i18n="ne3Title" class="text-2xl md:text-3xl font-bold text-[#333333] mb-4 tracking-wide leading-snug">NE3 - City Networks & Trassenbau</h2>
+              <p data-i18n="ne3Desc" class="text-[#666666] leading-relaxed text-base md:text-lg">
+                Professioneller Tiefbau, Trassenbau und Verlegung von Hauptverteilerkabeln im öffentlichen Raum nach modernsten deutschen Standards.
+              </p>
+            </div>
+
+            <!-- Graphic Right -->
+            <div class="w-full md:w-5/12 relative content-block">
+              <div class="w-full h-64 md:h-80 rounded-2xl flex items-center justify-center bg-white/80 border border-slate-200 backdrop-blur-md p-4 shadow-xl overflow-hidden group">
+                <svg class="w-full h-full max-h-72" viewBox="0 0 400 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M20 120 h40 v-30 h30 v20 h40 v-50 h50 v60 h20 v-40 h50 v40 h40 v-60 h30 v70 h40" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-70" />
+                  <rect x="10" y="140" width="380" height="15" rx="4" fill="#F1F5F9" />
+                  <line x1="10" y1="147" x2="390" y2="147" stroke="#0099CC" stroke-width="2" stroke-dasharray="8, 6" />
+                  <path d="M10 190 h380" stroke="#E2E8F0" stroke-width="12" stroke-linecap="round" />
+                  <path d="M10 190 h380" stroke="#0099CC" stroke-width="4" stroke-linecap="round" class="laser-line" />
+                  <rect x="70" y="105" width="22" height="35" rx="3" fill="#E2E8F0" stroke="#0099CC" stroke-width="2" />
+                  <circle cx="81" cy="122" r="3" fill="#0099CC" class="animate-ping" />
+                  <rect x="290" y="105" width="22" height="35" rx="3" fill="#E2E8F0" stroke="#0099CC" stroke-width="2" />
+                  <circle cx="301" cy="122" r="3" fill="#0099CC" class="animate-ping" />
+                  <path d="M81 140 v50 M301 140 v50" stroke="#0099CC" stroke-width="3" stroke-dasharray="4, 4" />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Node 2 (NE4) -->
+          <div class="service-block w-full py-12 relative flex flex-col md:flex-row-reverse items-center justify-between gap-10 md:gap-20">
+            <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5 md:w-6 md:h-6 bg-[#0099CC] rounded-full node border-4 border-white z-20 transition-all duration-500" style="box-shadow: 0 0 15px 3px rgba(0, 153, 204, 0.6);"></div>
+            
+            <!-- Info Box Right -->
+            <div class="w-full md:w-5/12 text-left content-block bg-white/90 p-8 rounded-2xl border border-slate-200 backdrop-blur-md relative shadow-xl transition-all hover:border-[#0099CC]">
+               <div style="background-color: rgba(0, 153, 204, 0.1);" class="font-eyebrow inline-block px-3.5 py-1 text-[#0099CC] border border-slate-200 rounded-full text-xs font-semibold mb-5 transition-colors duration-500">NETZEBENE 4</div>
+              <h2 data-i18n="ne4Title" class="text-2xl md:text-3xl font-bold text-[#333333] mb-4 tracking-wide leading-snug">NE4 - Hauszuführung & Steigleitung</h2>
+              <p data-i18n="ne4Desc" class="text-[#666666] leading-relaxed text-base md:text-lg">
+                Gebäudeanbindung vom Übergabepunkt <span class="no-wrap-phrase">(HÜP)</span> bis in die Wohneinheiten <span class="no-wrap-phrase">(FTTH)</span>. Präzise Mikrorohr- und Glasfaserverlegung.
+              </p>
+            </div>
+
+            <!-- Graphic Left -->
+            <div class="w-full md:w-5/12 relative content-block">
+               <div class="w-full h-64 md:h-80 rounded-2xl flex items-center justify-center bg-white/80 border border-slate-200 backdrop-blur-md p-4 shadow-xl overflow-hidden group">
+                <svg class="w-full h-full max-h-72" viewBox="0 0 400 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="120" y="30" width="160" height="180" rx="8" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="2" />
+                  <line x1="120" y1="90" x2="280" y2="90" stroke="#CBD5E1" stroke-width="2" />
+                  <line x1="120" y1="150" x2="280" y2="150" stroke="#CBD5E1" stroke-width="2" />
+                  <rect x="140" y="45" width="25" height="25" rx="3" fill="#FFFFFF" stroke="#CBD5E1" />
+                  <rect x="235" y="45" width="25" height="25" rx="3" fill="#FFFFFF" stroke="#CBD5E1" />
+                  <rect x="140" y="105" width="25" height="25" rx="3" fill="#FFFFFF" stroke="#CBD5E1" />
+                  <rect x="235" y="105" width="25" height="25" rx="3" fill="#FFFFFF" stroke="#CBD5E1" />
+                  <rect x="140" y="175" width="18" height="25" rx="2" fill="#0099CC" class="shadow-sm" />
+                  <circle cx="149" cy="187" r="2.5" fill="white" class="animate-pulse" />
+                  <path d="M20 200 h120" stroke="#0099CC" stroke-width="3" stroke-linecap="round" class="laser-line" />
+                  <path d="M149 175 v-118 h86" stroke="#0099CC" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="laser-line-fast" />
+                  <path d="M149 118 h86" stroke="#0099CC" stroke-width="2.5" stroke-linecap="round" />
+                  <circle cx="235" cy="57" r="4" fill="#0099CC" />
+                  <circle cx="235" cy="118" r="4" fill="#0099CC" />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Node 3 (NE5) -->
+          <div class="service-block w-full py-12 relative flex flex-col md:flex-row items-center justify-between gap-10 md:gap-20">
+            <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5 md:w-6 md:h-6 bg-[#0099CC] rounded-full node border-4 border-white z-20 transition-all duration-500" style="box-shadow: 0 0 15px 3px rgba(0, 153, 204, 0.6);"></div>
+            
+            <!-- Info Box Left -->
+            <div class="w-full md:w-5/12 text-left content-block bg-white/90 p-8 rounded-2xl border border-slate-200 backdrop-blur-md relative shadow-xl transition-all hover:border-[#0099CC]">
+               <div style="background-color: rgba(0, 153, 204, 0.1);" class="font-eyebrow inline-block px-3.5 py-1 text-[#0099CC] border border-slate-200 rounded-full text-xs font-semibold mb-5 transition-colors duration-500">NETZEBENE 5</div>
+              <h2 data-i18n="ne5Title" class="text-2xl md:text-3xl font-bold text-[#333333] mb-4 tracking-wide leading-snug">NE5 - Endgeräte & Inhouse-Netzwerk</h2>
+              <p data-i18n="ne5Desc" class="text-[#666666] leading-relaxed text-base md:text-lg">
+                Montage der Teilnehmeranschlussdose <span class="no-wrap-phrase">(TA)</span>, Spleißarbeiten, Einpegeln, OTDR-Messung und betriebsbereite Inbetriebnahme von Routern und ONTs.
+              </p>
+            </div>
+
+            <!-- Graphic Right -->
+            <div class="w-full md:w-5/12 relative content-block">
+               <div class="w-full h-64 md:h-80 rounded-2xl flex items-center justify-center bg-white/80 border border-slate-200 backdrop-blur-md p-4 shadow-xl overflow-hidden group">
+                <svg class="w-full h-full max-h-72" viewBox="0 0 400 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="40" y="150" width="12" height="18" rx="2" fill="#E2E8F0" stroke="#0099CC" />
+                  <path d="M10 160 h30" stroke="#0099CC" stroke-width="2.5" class="laser-line" />
+                  <path d="M52 160 h100 v-40" stroke="#0099CC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="laser-line-fast" />
+                  <rect x="132" y="95" width="40" height="25" rx="4" fill="#F8FAFC" stroke="#0099CC" stroke-width="2" />
+                  <line x1="142" y1="95" x2="135" y2="75" stroke="#0099CC" stroke-width="2" />
+                  <line x1="162" y1="95" x2="169" y2="75" stroke="#0099CC" stroke-width="2" />
+                  <circle cx="152" cy="112" r="2.5" fill="#0099CC" class="animate-pulse" />
+                  <rect x="260" y="75" width="45" height="30" rx="3" fill="#E2E8F0" stroke="#0099CC" />
+                  <rect x="250" y="105" width="65" height="5" rx="1" fill="#CBD5E1" />
+                  <rect x="230" y="145" width="85" height="50" rx="4" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="2" />
+                  <rect x="260" y="195" width="25" height="15" fill="#CBD5E1" />
+                  <circle cx="152" cy="95" r="30" stroke="#0099CC" stroke-width="1.5" class="wave-pulse origin-center opacity-40" style="transform-origin: 152px 95px;" />
+                  <circle cx="152" cy="95" r="50" stroke="#0099CC" stroke-width="1.5" class="wave-pulse origin-center opacity-25" style="transform-origin: 152px 95px; animation-delay: 0.6s;" />
+                  <line x1="172" y1="95" x2="250" y2="90" stroke="#0099CC" stroke-dasharray="3, 5" stroke-width="1.5" class="opacity-70" />
+                  <line x1="172" y1="107" x2="230" y2="155" stroke="#0099CC" stroke-dasharray="3, 5" stroke-width="1.5" class="opacity-60" />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Perfect T-Junction -->
+      <div class="relative w-screen left-1/2 -translate-x-1/2 h-[3px] z-20 pointer-events-none overflow-visible">
+        <div id="bottomHorizontalLeft" class="absolute right-1/2 top-0 h-full bg-[#0099CC] transition-all duration-500" style="width: 0%; box-shadow: 0 0 18px 3px rgba(0, 153, 204, 0.6);"></div>
+        <div id="bottomHorizontalRight" class="absolute left-1/2 top-0 h-full bg-[#0099CC] transition-all duration-500" style="width: 0%; box-shadow: 0 0 18px 3px rgba(0, 153, 204, 0.6);"></div>
+        <div id="finalNode" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5 md:w-6 md:h-6 bg-[#0099CC] rounded-full border-4 border-white z-30 transition-colors duration-500" style="box-shadow: 0 0 15px 3px rgba(0, 153, 204, 0.6);"></div>
+      </div>
+    </section>
+    
+    <!-- Stats Section -->
+    <section id="stats" class="py-24 relative z-30 bg-white/70 border-y border-slate-200 backdrop-blur-md">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+          <div class="text-left">
+            <h2 data-i18n="statsTitle" class="text-3xl md:text-5xl font-bold tracking-wide mb-4 text-[#333333]">Zahlen & Fakten</h2>
+            <p data-i18n="statsSubtitle" class="text-[#666666] max-w-xl">Echtzeit-Einblicke in den regionalen und bundesweiten Glasfaserausbau der Technik Net GmbH.</p>
+          </div>
+          
+          <!-- Filter Selector -->
+          <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+            <label data-i18n="regionFilterLabel" class="font-eyebrow text-xs uppercase tracking-wider font-semibold text-[#666666]">REGION FILTERN:</label>
+            <div class="relative min-w-[200px] w-full sm:w-auto">
+              <select id="region-selector" onchange="changeRegion(this.value)" class="w-full appearance-none bg-white border border-slate-200 hover:border-[#0099CC] text-[#333333] text-sm font-semibold rounded-full px-5 py-2.5 pr-10 focus:outline-none focus:ring-2 focus:ring-[#0099CC]/20 cursor-pointer shadow-sm transition-all">
+                <option value="de" data-i18n="optDE">Deutschland (Gesamt)</option>
+                <option value="he" data-i18n="optHE">Hessen</option>
+                <option value="nrw" data-i18n="optNRW">Nordrhein-Westfalen</option>
+                <option value="by" data-i18n="optBY">Bayern</option>
+                <option value="be" data-i18n="optBE">Berlin & Brandenburg</option>
+              </select>
+              <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none text-slate-400">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" /></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <!-- Card 1 -->
+          <div class="relative bg-white border border-slate-200 p-8 rounded-2xl text-center backdrop-blur-md hover:border-[#0099CC] transition-all group overflow-hidden shadow-lg hover:shadow-xl">
+            <div class="absolute -top-10 -right-10 w-24 h-24 rounded-full bg-[#0099CC] opacity-10 group-hover:scale-150 transition-all duration-500"></div>
+            <div class="mx-auto w-12 h-12 mb-4 flex items-center justify-center rounded-xl bg-sky-50 border border-slate-200 text-[#0099CC]">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <span class="block text-4xl md:text-5xl font-bold font-heading text-[#0099CC] mb-2 transition-transform duration-300 group-hover:scale-105" id="stat-fiber-km">1,450+</span>
+            <span data-i18n="statFiberLabel" class="text-[#666666] font-medium text-sm md:text-base">KM verlegte Glasfaser</span>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="relative bg-white border border-slate-200 p-8 rounded-2xl text-center backdrop-blur-md hover:border-[#0099CC] transition-all group overflow-hidden shadow-lg hover:shadow-xl">
+            <div class="absolute -top-10 -right-10 w-24 h-24 rounded-full bg-[#0099CC] opacity-10 group-hover:scale-150 transition-all duration-500"></div>
+            <div class="mx-auto w-12 h-12 mb-4 flex items-center justify-center rounded-xl bg-sky-50 border border-slate-200 text-[#0099CC]">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+              </svg>
+            </div>
+            <span class="block text-4xl md:text-5xl font-bold font-heading text-[#0099CC] mb-2 transition-transform duration-300 group-hover:scale-105" id="stat-homes">48,200</span>
+            <span data-i18n="statHomesLabel" class="text-[#666666] font-medium text-sm md:text-base">Angeschlossene Haushalte</span>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="relative bg-white border border-slate-200 p-8 rounded-2xl text-center backdrop-blur-md hover:border-[#0099CC] transition-all group overflow-hidden shadow-lg hover:shadow-xl">
+            <div class="absolute -top-10 -right-10 w-24 h-24 rounded-full bg-[#0099CC] opacity-10 group-hover:scale-150 transition-all duration-500"></div>
+            <div class="mx-auto w-12 h-12 mb-4 flex items-center justify-center rounded-xl bg-sky-50 border border-slate-200 text-[#0099CC]">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+            </div>
+            <span class="block text-4xl md:text-5xl font-bold font-heading text-[#0099CC] mb-2 transition-transform duration-300 group-hover:scale-105" id="stat-crews">34</span>
+            <span data-i18n="statCrewsLabel" class="text-[#666666] font-medium text-sm md:text-base">Aktive Montagetrupps</span>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="relative bg-white border border-slate-200 p-8 rounded-2xl text-center backdrop-blur-md hover:border-[#0099CC] transition-all group overflow-hidden shadow-lg hover:shadow-xl">
+            <div class="absolute -top-10 -right-10 w-24 h-24 rounded-full bg-[#0099CC] opacity-10 group-hover:scale-150 transition-all duration-500"></div>
+            <div class="mx-auto w-12 h-12 mb-4 flex items-center justify-center rounded-xl bg-sky-50 border border-slate-200 text-[#0099CC]">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.757a2 2 0 110 4h-1.42l1.317 6.025a1 1 0 01-.975 1.214H5.321a1 1 0 01-.975-1.214L5.663 14H4.243a2 2 0 110-4H9M14 10V4a2 2 0 114 0v6m-4 0h-4" />
+              </svg>
+            </div>
+            <span class="block text-4xl md:text-5xl font-bold font-heading text-[#0099CC] mb-2 transition-transform duration-300 group-hover:scale-105" id="stat-satisfaction">99.2%</span>
+            <span data-i18n="statSatisfLabel" class="text-[#666666] font-medium text-sm md:text-base">Termintreue & Zufriedenheit</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Career Section -->
+    <section id="career" class="py-24 relative z-30 px-4 max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 data-i18n="careerTitle" class="text-3xl md:text-5xl font-bold tracking-wide mb-4 text-[#333333]">Gestalten Sie die Zukunft mit uns</h2>
+        <p data-i18n="careerSubtitle" class="text-[#666666] max-w-2xl mx-auto">Werden Sie Teil unseres Teams und treiben Sie den Breitbandausbau in Deutschland aktiv voran.</p>
+      </div>
+
+      <!-- Jobs Grid (Strictly Clean Grey & Blue Palette) -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Job 1 -->
+        <div class="bg-white border border-slate-200 p-7 rounded-2xl flex flex-col justify-between hover:border-[#0099CC] transition-all hover:scale-[1.02] duration-300 shadow-lg hover:shadow-xl">
+          <div>
+            <span class="font-eyebrow px-3.5 py-1 bg-slate-50 text-[#0099CC] border border-slate-200 rounded-full text-xs uppercase tracking-wider font-semibold">NE4 / NE5</span>
+            <h3 data-i18n="job1Title" class="text-xl font-bold mt-5 mb-3 text-[#333333] leading-snug">
+              LWL-Spleißtechniker / Monteur <span class="no-wrap-phrase">(m/w/d)</span>
+            </h3>
+            <p data-i18n="job1Loc" class="font-eyebrow text-xs text-[#0099CC] mb-4 font-semibold">📍 DEUTSCHLANDWEIT / VOLLZEIT</p>
+            <p data-i18n="job1Desc" class="text-[#666666] text-sm leading-relaxed mb-6">
+              Präzises Spleißen und Messen <span class="no-wrap-phrase">(OTDR)</span> von Glasfaserkabeln sowie Montage von Hausübergabepunkten.
+            </p>
+          </div>
+          <button onclick="openApplyModal('LWL-Spleißtechniker / Monteur (m/w/d)')" data-i18n="applyBtn" class="w-full py-2.5 rounded-xl border-2 border-[#0099CC] text-[#0099CC] hover:bg-[#0099CC] hover:text-white font-bold transition-all text-sm font-heading">Jetzt bewerben</button>
+        </div>
+
+        <!-- Job 2 -->
+        <div class="bg-white border border-slate-200 p-7 rounded-2xl flex flex-col justify-between hover:border-[#0099CC] transition-all hover:scale-[1.02] duration-300 shadow-lg hover:shadow-xl">
+          <div>
+            <span class="font-eyebrow px-3.5 py-1 bg-slate-50 text-[#0099CC] border border-slate-200 rounded-full text-xs uppercase tracking-wider font-semibold">NE3</span>
+            <h3 data-i18n="job2Title" class="text-xl font-bold mt-5 mb-3 text-[#333333] leading-snug">
+              Tiefbaufacharbeiter / Baggerführer <span class="no-wrap-phrase">(m/w/d)</span>
+            </h3>
+            <p data-i18n="job2Loc" class="font-eyebrow text-xs text-[#0099CC] mb-4 font-semibold">📍 REGIONALE EINSATZORTE</p>
+            <p data-i18n="job2Desc" class="text-[#666666] text-sm leading-relaxed mb-6">
+              Erd- und Tiefbauarbeiten, Schacht- und Rohrverlegung sowie Oberflächenwiederherstellung im Trassenbau.
+            </p>
+          </div>
+          <button onclick="openApplyModal('Tiefbaufacharbeiter / Baggerführer (m/w/d)')" data-i18n="applyBtn" class="w-full py-2.5 rounded-xl border-2 border-[#0099CC] text-[#0099CC] hover:bg-[#0099CC] hover:text-white font-bold transition-all text-sm font-heading">Jetzt bewerben</button>
+        </div>
+
+        <!-- Job 3 -->
+        <div class="bg-white border border-slate-200 p-7 rounded-2xl flex flex-col justify-between hover:border-[#0099CC] transition-all hover:scale-[1.02] duration-300 shadow-lg hover:shadow-xl">
+          <div>
+            <span class="font-eyebrow px-3.5 py-1 bg-slate-50 text-[#0099CC] border border-slate-200 rounded-full text-xs uppercase tracking-wider font-semibold">BAULEITUNG</span>
+            <h3 data-i18n="job3Title" class="text-xl font-bold mt-5 mb-3 text-[#333333] leading-snug">
+              Bauleiter / Projektleiter Glasfaser <span class="no-wrap-phrase">(m/w/d)</span>
+            </h3>
+            <p data-i18n="job3Loc" class="font-eyebrow text-xs text-[#0099CC] mb-4 font-semibold">📍 FRANKFURT AM MAIN / HYBRID</p>
+            <p data-i18n="job3Desc" class="text-[#666666] text-sm leading-relaxed mb-6">
+              Koordination, Bauüberwachung und Dokumentation anspruchsvoller <span class="no-wrap-phrase">FTTX-Infrastrukturprojekte</span>.
+            </p>
+          </div>
+          <button onclick="openApplyModal('Bauleiter / Projektleiter Glasfaser (m/w/d)')" data-i18n="applyBtn" class="w-full py-2.5 rounded-xl border-2 border-[#0099CC] text-[#0099CC] hover:bg-[#0099CC] hover:text-white font-bold transition-all text-sm font-heading">Jetzt bewerben</button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Estimator Section -->
+    <section id="estimator" class="py-24 relative z-30 px-4 max-w-4xl mx-auto">
+      <div class="bg-white border border-slate-200 rounded-3xl p-8 md:p-12 shadow-2xl relative overflow-hidden">
+        
+        <div class="absolute -right-20 -top-20 w-60 h-60 rounded-full bg-[#0099CC] opacity-10 blur-3xl pointer-events-none"></div>
+
+        <div class="text-center mb-10">
+          <h2 data-i18n="estTitle" class="text-3xl md:text-4xl font-bold tracking-wide mb-2 text-[#333333]">Projekt-Kalkulator & Anfrage</h2>
+          <p data-i18n="estSubtitle" class="text-[#666666]">Erhalten Sie in wenigen Schritten eine unverbindliche Ersteinschätzung für Ihr Ausbauprojekt.</p>
+        </div>
+
+        <!-- Wizard Navigation Steps -->
+        <div class="flex justify-between items-center mb-8 max-w-md mx-auto relative">
+          <div class="absolute top-1/2 left-0 h-[2px] bg-slate-200 w-full z-0 -translate-y-1/2"></div>
+          <div id="wizard-progress-bar" class="absolute top-1/2 left-0 h-[2.5px] bg-[#0099CC] w-0 z-0 -translate-y-1/2 transition-all duration-300"></div>
+          
+          <div class="relative z-10 w-8 h-8 rounded-full bg-[#0099CC] text-white flex items-center justify-center font-bold text-sm font-heading shadow-md" id="step-node-1">1</div>
+          <div class="relative z-10 w-8 h-8 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center font-bold text-sm font-heading transition-colors duration-300 border border-slate-200" id="step-node-2">2</div>
+          <div class="relative z-10 w-8 h-8 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center font-bold text-sm font-heading transition-colors duration-300 border border-slate-200" id="step-node-3">3</div>
+        </div>
+
+        <!-- Step 1: Select NE Level -->
+        <div id="step-1" class="wizard-step space-y-6">
+          <h3 data-i18n="step1Header" class="text-lg font-bold text-center mb-4 text-[#333333]">Welche Netzebene betrifft Ihr Vorhaben?</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div onclick="selectLevel('ne3')" id="level-ne3" class="border-2 border-slate-200 bg-slate-50/50 p-5 rounded-2xl cursor-pointer hover:border-[#0099CC] hover:bg-sky-50/30 transition-all">
+              <span class="block font-heading font-bold text-lg text-[#0099CC] mb-1">NE3</span>
+              <span data-i18n="level3Short" class="text-sm text-[#666666]">Trassenbau / City Networks</span>
+            </div>
+            <div onclick="selectLevel('ne4')" id="level-ne4" class="border-2 border-slate-200 bg-slate-50/50 p-5 rounded-2xl cursor-pointer hover:border-[#0099CC] hover:bg-sky-50/30 transition-all">
+              <span class="block font-heading font-bold text-lg text-[#0099CC] mb-1">NE4</span>
+              <span data-i18n="level4Short" class="text-sm text-[#666666]">Hausanschluss & Steigleitung <span class="no-wrap-phrase">(FTTH)</span></span>
+            </div>
+            <div onclick="selectLevel('ne5')" id="level-ne5" class="border-2 border-slate-200 bg-slate-50/50 p-5 rounded-2xl cursor-pointer hover:border-[#0099CC] hover:bg-sky-50/30 transition-all">
+              <span class="block font-heading font-bold text-lg text-[#0099CC] mb-1">NE5</span>
+              <span data-i18n="level5Short" class="text-sm text-[#666666]">Endgeräte-Montage & TA</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Slider Details -->
+        <div id="step-2" class="wizard-step hidden space-y-6">
+          <h3 data-i18n="step2Header" class="text-lg font-bold text-center mb-4 text-[#333333]">Wie groß ist der geschätzte Projektumfang?</h3>
+          <div class="space-y-4 max-w-lg mx-auto">
+            <div class="flex justify-between items-center text-sm">
+              <span data-i18n="scopeUnits" class="text-[#666666]">Wohneinheiten <span class="no-wrap-phrase">(WE)</span> / Anschlusspunkte</span>
+              <span id="range-val" class="font-bold text-[#0099CC] text-lg font-heading">50</span>
+            </div>
+            <input id="project-scope-range" oninput="updateRangeVal(this.value)" type="range" min="1" max="500" value="50" class="w-full accent-[#0099CC] cursor-ew-resize" />
+            <div class="flex justify-between text-xs text-slate-400 font-eyebrow">
+              <span>1 WE</span>
+              <span>500+ WE</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Contact Details -->
+        <div id="step-3" class="wizard-step hidden space-y-6">
+          <h3 data-i18n="step3Header" class="text-lg font-bold text-center mb-4 text-[#333333]">Ihre Kontaktdaten für das unverbindliche Angebot</h3>
+          <form id="estimator-form" onsubmit="submitEstimator(event)" class="space-y-4 max-w-md mx-auto">
+            <div>
+              <label data-i18n="labelName" class="block text-sm text-[#666666] mb-1">Vor- und Nachname</label>
+              <input type="text" id="est-name" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 focus:outline-none focus:border-[#0099CC] text-[#333333] transition-colors" />
+            </div>
+            <div>
+              <label data-i18n="labelEmail" class="block text-sm text-[#666666] mb-1">E-Mail-Adresse</label>
+              <input type="email" id="est-email" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 focus:outline-none focus:border-[#0099CC] text-[#333333] transition-colors" />
+            </div>
+            <div>
+              <label data-i18n="labelPhone" class="block text-sm text-[#666666] mb-1">Telefonnummer (für Rückfragen)</label>
+              <input type="tel" id="est-phone" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 focus:outline-none focus:border-[#0099CC] text-[#333333] transition-colors" />
+            </div>
+          </form>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="flex justify-between items-center mt-10 pt-6 border-t border-slate-100">
+          <button id="wizard-prev" onclick="wizardBack()" class="px-6 py-2.5 border border-slate-200 rounded-xl text-[#666666] hover:text-[#333333] transition-all invisible text-sm font-heading">Zurück</button>
+          <button id="wizard-next-btn" onclick="wizardNext()" class="px-6 py-2.5 var-gradient-bg text-white font-bold rounded-xl var-glow text-sm hover:scale-[1.03] transition-all font-heading shadow-md">Weiter</button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Bottom CTA -->
+    <section id="career-bottom" class="min-h-[45vh] flex flex-col items-center justify-center text-center px-4 pb-20 relative z-30 pt-16">
+        <h3 data-i18n="ctaTitle" class="text-3xl md:text-5xl font-bold text-[#333333] mb-4 tracking-wide">Bereit, Ihre Glasfaser-Infrastruktur auszubauen?</h3>
+        <p data-i18n="ctaSubtitle" class="text-xl text-[#666666] mb-8">Sprechen Sie direkt mit unseren Ausbau-Experten.</p>
+        <button onclick="document.getElementById('estimator').scrollIntoView({behavior: 'smooth'})" data-i18n="ctaBtn" class="px-10 py-5 var-gradient-bg text-white text-lg font-bold rounded-full var-glow transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 font-heading shadow-xl tracking-wide">
+            Jetzt Projekt anfragen
+        </button>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-slate-200 relative z-30 text-center text-xs text-[#666666] bg-white/60 font-eyebrow">
+      <p>&copy; 2026 Technik Net GmbH. Alle Rechte vorbehalten.</p>
+    </footer>
+
+  </div>
+
+  <!-- Apply Modal -->
+  <div id="apply-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
+    <div class="bg-white border border-slate-200 rounded-3xl p-8 max-w-md w-full mx-4 shadow-2xl relative">
+      <button onclick="closeApplyModal()" class="absolute top-4 right-4 text-slate-400 hover:text-[#333333] transition-colors">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+      </button>
+      <h3 class="text-2xl font-bold font-heading mb-1 text-[#333333]" id="modal-job-title">Stellenausschreibung</h3>
+      <p data-i18n="modalSubtitle" class="text-sm text-[#666666] mb-6">Wir freuen uns auf Ihre Kurzbewerbung.</p>
+      
+      <form id="apply-form" onsubmit="submitApplication(event)" class="space-y-4">
+        <div>
+          <label data-i18n="labelName" class="block text-sm text-[#666666] mb-1">Vor- und Nachname</label>
+          <input type="text" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 focus:outline-none focus:border-[#0099CC] text-[#333333]" />
+        </div>
+        <div>
+          <label data-i18n="labelEmail" class="block text-sm text-[#666666] mb-1">E-Mail-Adresse</label>
+          <input type="email" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 focus:outline-none focus:border-[#0099CC] text-[#333333]" />
+        </div>
+        <div>
+          <label data-i18n="labelDoc" class="block text-sm text-[#666666] mb-1">Lebenslauf / Qualifikationen (PDF)</label>
+          <input type="file" accept=".pdf" class="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-slate-100 file:text-[#0099CC] hover:file:bg-slate-200 cursor-pointer" />
+        </div>
+        <button type="submit" data-i18n="submitBtn" class="w-full py-3 mt-4 var-gradient-bg text-white font-bold rounded-xl var-glow hover:scale-[1.02] transition-all font-heading text-sm shadow-md">Bewerbung absenden</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast-notif" class="fixed bottom-12 left-1/2 -translate-x-1/2 z-50 bg-slate-900 text-white rounded-full px-6 py-3 shadow-2xl flex items-center gap-3 opacity-0 pointer-events-none transition-all duration-300 transform translate-y-4">
+    <div class="w-2.5 h-2.5 rounded-full bg-[#0099CC] animate-ping"></div>
+    <span id="toast-text" class="text-sm font-semibold">Erfolgreich übermittelt!</span>
+  </div>
+
+  <button id="backToTop" class="fixed bottom-8 right-8 z-50 w-14 h-14 rounded-full var-gradient-bg flex items-center justify-center text-white shadow-xl var-glow opacity-0 pointer-events-none transition-all duration-300 transform translate-y-4 hover:scale-110 hover:-translate-y-1">
+    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+  </button>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    const regionalStats = {
+      de: { fiber: 1450, homes: 48200, crews: 34, satisfaction: 99.2 },
+      he: { fiber: 280, homes: 9100, crews: 8, satisfaction: 98.9 },
+      nrw: { fiber: 420, homes: 14500, crews: 11, satisfaction: 99.4 },
+      by: { fiber: 390, homes: 12800, crews: 9, satisfaction: 99.1 },
+      be: { fiber: 160, homes: 5200, crews: 4, satisfaction: 98.7 }
+    };
+
+    let currentRegion = 'de';
+    let statsState = { fiber: 1450, homes: 48200, crews: 34, satisfaction: 99.2 };
+
+    // Dynamic brand color transition on scroll
+    gsap.to(":root", {
+      "--c-primary": "#0284C7",
+      "--c-primary-rgb": "2, 132, 199",
+      "--c-light": "#38BDF8",
+      "--c-glow": "rgba(0, 153, 204, 0.45)",
+      "--c-bg": "#F1F5F9",
+      ease: "none",
+      scrollTrigger: {
+        trigger: "#timeline-container",
+        start: "top 80%",
+        end: "bottom 50%",
+        scrub: 1
+      }
+    });
+
+    // Balanced Scroll Floating & Scaling for Logo Image
+    gsap.to("#hero-logo-img", {
+      scale: 0.95,
+      ease: "power1.out",
+      scrollTrigger: {
+        trigger: "#home",
+        start: "top top",
+        end: "bottom top",
+        scrub: 0.6
+      }
+    });
+
+    gsap.to("#hero-logo-wrapper", {
+      y: -65,
+      rotation: 0.8,
+      ease: "power1.out",
+      scrollTrigger: {
+        trigger: "#home",
+        start: "top top",
+        end: "bottom top",
+        scrub: 0.8
+      }
+    });
+
+    gsap.to("#hero-sub", {
+      letterSpacing: "0.035em",
+      ease: "power1.out",
+      scrollTrigger: {
+        trigger: "#home",
+        start: "top top",
+        end: "bottom top",
+        scrub: 0.6
+      }
+    });
+
+    gsap.to("#hero-sub-wrapper", {
+      y: -42,
+      rotation: -0.6,
+      ease: "power1.out",
+      scrollTrigger: {
+        trigger: "#home",
+        start: "top top",
+        end: "bottom top",
+        scrub: 0.8
+      }
+    });
+
+    // Mouse scroll indicator
+    gsap.to("#hero-scroll-indicator", {
+      opacity: 0,
+      y: -35,
+      scale: 0.8,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: "#service-block-ne3",
+        start: "top 85%", 
+        end: "center 55%",   
+        scrub: true
+      }
+    });
+
+    // Vertical Laser timeline growth
+    gsap.to('#verticalLine', {
+      height: "100%",
+      ease: "none",
+      scrollTrigger: {
+        trigger: "#timeline-container",
+        start: "top 60%", 
+        end: "bottom 72%", 
+        scrub: 0.5,
+      }
+    });
+
+    // Full-Width Edge-to-Edge horizontal split animation
+    gsap.to(['#bottomHorizontalLeft', '#bottomHorizontalRight'], {
+      width: "50%", 
+      ease: "power2.out", 
+      scrollTrigger: {
+        trigger: "#timeline-container",
+        start: "bottom 72%", 
+        toggleActions: "play none none reverse"
+      }
+    });
+
+    // Animate content blocks smoothly on scroll
+    const blocks = document.querySelectorAll('.service-block');
+    blocks.forEach((block, index) => {
+      const node = block.querySelector('.node');
+      const contents = block.querySelectorAll('.content-block');
+      
+      if(node) {
+        gsap.fromTo(node, 
+          { scale: 0.5, opacity: 0.4 },
+          { 
+            scale: 1, 
+            opacity: 1, 
+            duration: 0.4, 
+            ease: "back.out(1.5)",
+            scrollTrigger: {
+              trigger: block,
+              start: "top 75%",
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
+      }
+
+      contents.forEach((content, idx) => {
+        const xOffset = (index % 2 === 0) ? (idx === 0 ? -30 : 30) : (idx === 0 ? 30 : -30);
+        gsap.fromTo(content, 
+          { opacity: 0, x: xOffset, y: 15 },
+          { 
+            opacity: 1, 
+            x: 0, 
+            y: 0,
+            duration: 0.6, 
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: block,
+              start: "top 75%", 
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
+      });
+    });
+
+    // Stats Section animation
+    const statsSection = document.getElementById('stats');
+    let countersInitiated = false;
+    ScrollTrigger.create({
+      trigger: statsSection,
+      start: "top 80%",
+      onEnter: () => {
+        if (!countersInitiated) {
+          countersInitiated = true;
+          animateStatsTransition(regionalStats.de);
+        }
+      }
+    });
+
+    function animateStatsTransition(targetData) {
+      gsap.to(statsState, {
+        fiber: targetData.fiber,
+        homes: targetData.homes,
+        crews: targetData.crews,
+        satisfaction: targetData.satisfaction,
+        duration: 1.2,
+        ease: "power2.out",
+        onUpdate: () => {
+          document.getElementById('stat-fiber-km').innerText = Math.floor(statsState.fiber).toLocaleString() + "+";
+          document.getElementById('stat-homes').innerText = Math.floor(statsState.homes).toLocaleString();
+          document.getElementById('stat-crews').innerText = Math.floor(statsState.crews).toLocaleString();
+          document.getElementById('stat-satisfaction').innerText = statsState.satisfaction.toFixed(1) + "%";
+        }
+      });
+    }
+
+    function changeRegion(regionKey) {
+      currentRegion = regionKey;
+      if (regionalStats[regionKey]) {
+        animateStatsTransition(regionalStats[regionKey]);
+      }
+    }
+
+    // Header & Scroll To Top with TNg.png (Shadow) <-> Tsign.png (NO SHADOW)
+    const navbar = document.getElementById('navbar');
+    const backToTopBtn = document.getElementById('backToTop');
+    const navContainer = document.getElementById('nav-container');
+    const navLogo = document.getElementById('nav-logo');
+    
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 60) {
+        navbar.classList.add('bg-white/90', 'backdrop-blur-md', 'border-slate-200', 'shadow-md');
+        navbar.classList.remove('border-transparent');
+        navContainer.classList.remove('h-20');
+        navContainer.classList.add('h-14');
+        
+        // Swap to Tsign.png (NO SHADOW)
+        if (!navLogo.src.includes('Tsign.png')) {
+          gsap.to(navLogo, { opacity: 0, scale: 0.8, duration: 0.15, onComplete: () => {
+            navLogo.src = 'Tsign.png';
+            navLogo.classList.remove('h-5', 'sm:h-6', 'tng-logo-shadow');
+            navLogo.classList.add('h-7', 'sm:h-8');
+            navLogo.style.filter = "none";
+            gsap.to(navLogo, { opacity: 1, scale: 1, duration: 0.2 });
+          }});
+        }
+      } else {
+        navbar.classList.remove('bg-white/90', 'backdrop-blur-md', 'border-slate-200', 'shadow-md');
+        navbar.classList.add('border-transparent');
+        navContainer.classList.remove('h-14');
+        navContainer.classList.add('h-20');
+        
+        // Swap back to TNg.png (WITH SHADOW)
+        if (navLogo.src.includes('Tsign.png')) {
+          gsap.to(navLogo, { opacity: 0, scale: 0.8, duration: 0.15, onComplete: () => {
+            navLogo.src = 'TNg.png';
+            navLogo.classList.remove('h-7', 'sm:h-8');
+            navLogo.classList.add('h-5', 'sm:h-6', 'tng-logo-shadow');
+            navLogo.style.filter = "";
+            gsap.to(navLogo, { opacity: 1, scale: 1, duration: 0.2 });
+          }});
+        }
+      }
+
+      if (window.scrollY > 400) {
+        backToTopBtn.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+        backToTopBtn.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+      } else {
+        backToTopBtn.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+        backToTopBtn.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+      }
+    });
+
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Desktop Nav Click & Active State Handler
+    function setActiveNav(selectedEl) {
+      document.querySelectorAll('#nav-links .nav-item').forEach(item => {
+        item.classList.remove('text-[#0099CC]', 'font-bold');
+        item.classList.add('text-slate-700');
+        const ind = item.querySelector('.nav-indicator');
+        if (ind) {
+          ind.classList.remove('w-full');
+          ind.classList.add('w-0');
+        }
+      });
+
+      if(selectedEl) {
+        selectedEl.classList.remove('text-slate-700');
+        selectedEl.classList.add('text-[#0099CC]', 'font-bold');
+        const activeInd = selectedEl.querySelector('.nav-indicator');
+        if (activeInd) {
+          activeInd.classList.remove('w-0');
+          activeInd.classList.add('w-full');
+        }
+      }
+    }
+
+    // Mobile Nav Click & Active State Handler
+    function setActiveNavMobile(selectedEl) {
+      document.querySelectorAll('.mobile-nav-item').forEach(item => {
+        item.classList.remove('text-[#0099CC]', 'font-bold');
+        item.classList.add('text-slate-700', 'font-semibold');
+      });
+      if(selectedEl) {
+        selectedEl.classList.remove('text-slate-700', 'font-semibold');
+        selectedEl.classList.add('text-[#0099CC]', 'font-bold');
+      }
+    }
+
+    // High Precision ScrollSpy
+    const sectionIds = ['home', 'services', 'stats', 'career', 'estimator'];
+    function updateScrollSpy() {
+      const scrollY = window.pageYOffset;
+
+      sectionIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const top = el.offsetTop - 140;
+        const height = el.offsetHeight;
+
+        if (scrollY >= top && scrollY < top + height) {
+          const targetDesktopLink = document.querySelector(`#nav-links a[href="#${id}"]`);
+          const targetMobileLink = document.querySelector(`#mobile-menu a[href="#${id}"]`);
+          
+          if (targetDesktopLink && !targetDesktopLink.classList.contains('text-[#0099CC]')) {
+            setActiveNav(targetDesktopLink);
+          }
+          if (targetMobileLink && !targetMobileLink.classList.contains('text-[#0099CC]')) {
+            setActiveNavMobile(targetMobileLink);
+          }
+        }
+      });
+    }
+    window.addEventListener('scroll', updateScrollSpy, { passive: true });
+
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      const burgerIcon = document.getElementById('menu-icon-hamburger');
+      const closeIcon = document.getElementById('menu-icon-close');
+      
+      if (menu.classList.contains('hidden')) {
+        menu.classList.remove('hidden');
+        burgerIcon.classList.add('hidden');
+        closeIcon.classList.remove('hidden');
+      } else {
+        menu.classList.add('hidden');
+        burgerIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+      }
+    }
+
+    let currentStep = 1;
+    let selectedLevel = null;
+
+    function selectLevel(level) {
+      selectedLevel = level;
+      document.querySelectorAll('#step-1 div[id^="level-"]').forEach(el => {
+        el.classList.remove('border-[#0099CC]', 'bg-sky-50/40');
+        el.classList.add('border-slate-200', 'bg-slate-50/50');
+      });
+      document.getElementById(`level-${level}`).classList.add('border-[#0099CC]', 'bg-sky-50/40');
+      document.getElementById(`level-${level}`).classList.remove('border-slate-200', 'bg-slate-50/50');
+    }
+
+    function updateRangeVal(val) {
+      document.getElementById('range-val').innerText = val + "+";
+    }
+
+    function wizardNext() {
+      if (currentStep === 1) {
+        if (!selectedLevel) {
+          showToast(currentLang === 'de' ? 'Bitte wählen Sie eine Netzebene aus!' : 'Please select an infrastructure level!');
+          return;
+        }
+        transitionWizard(1, 2);
+        currentStep = 2;
+        document.getElementById('wizard-prev').classList.remove('invisible');
+        updateProgress(50);
+      } else if (currentStep === 2) {
+        transitionWizard(2, 3);
+        currentStep = 3;
+        const nextBtn = document.getElementById('wizard-next-btn');
+        nextBtn.innerText = currentLang === 'de' ? 'Anfrage absenden' : 'Submit Inquiry';
+        updateProgress(100);
+      } else if (currentStep === 3) {
+        const form = document.getElementById('estimator-form');
+        if (form.checkValidity()) {
+          submitEstimator(new Event('submit'));
+        } else {
+          form.reportValidity();
+        }
+      }
+    }
+
+    function wizardBack() {
+      if (currentStep === 2) {
+        transitionWizard(2, 1);
+        currentStep = 1;
+        document.getElementById('wizard-prev').classList.add('invisible');
+        updateProgress(0);
+      } else if (currentStep === 3) {
+        transitionWizard(3, 2);
+        currentStep = 2;
+        const nextBtn = document.getElementById('wizard-next-btn');
+        nextBtn.innerText = currentLang === 'de' ? 'Weiter' : 'Next';
+        updateProgress(50);
+      }
+    }
+
+    function transitionWizard(from, to) {
+      gsap.to(`#step-${from}`, { opacity: 0, y: -10, duration: 0.2, onComplete: () => {
+        document.getElementById(`step-${from}`).classList.add('hidden');
+        const nextStepEl = document.getElementById(`step-${to}`);
+        nextStepEl.classList.remove('hidden');
+        gsap.fromTo(`#step-${to}`, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3 });
+      }});
+    }
+
+    function updateProgress(percentage) {
+      document.getElementById('wizard-progress-bar').style.width = percentage + "%";
+      
+      const node2 = document.getElementById('step-node-2');
+      const node3 = document.getElementById('step-node-3');
+
+      if (percentage >= 50) {
+        node2.classList.add('bg-[#0099CC]', 'text-white');
+        node2.classList.remove('bg-slate-100', 'text-slate-400');
+      } else {
+        node2.classList.remove('bg-[#0099CC]', 'text-white');
+        node2.classList.add('bg-slate-100', 'text-slate-400');
+      }
+
+      if (percentage >= 100) {
+        node3.classList.add('bg-[#0099CC]', 'text-white');
+        node3.classList.remove('bg-slate-100', 'text-slate-400');
+      } else {
+        node3.classList.remove('bg-[#0099CC]', 'text-white');
+        node3.classList.add('bg-slate-100', 'text-slate-400');
+      }
+    }
+
+    function submitEstimator(e) {
+      if(e) e.preventDefault();
+      
+      showToast(currentLang === 'de' ? 'Vielen Dank! Ihre Anfrage wurde erfolgreich übermittelt.' : 'Thank you! Your inquiry was sent successfully.');
+      
+      document.getElementById('estimator-form').reset();
+      selectedLevel = null;
+      document.querySelectorAll('#step-1 div[id^="level-"]').forEach(el => {
+        el.classList.remove('border-[#0099CC]', 'bg-sky-50/40');
+        el.classList.add('border-slate-200', 'bg-slate-50/50');
+      });
+      document.getElementById('project-scope-range').value = 50;
+      updateRangeVal(50);
+
+      transitionWizard(3, 1);
+      currentStep = 1;
+      document.getElementById('wizard-prev').classList.add('invisible');
+      const nextBtn = document.getElementById('wizard-next-btn');
+      nextBtn.innerText = currentLang === 'de' ? 'Weiter' : 'Next';
+      updateProgress(0);
+    }
+
+    function openApplyModal(jobTitle) {
+      document.getElementById('modal-job-title').innerText = jobTitle;
+      const modal = document.getElementById('apply-modal');
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      gsap.fromTo(modal.querySelector('.bg-white'), { scale: 0.9, y: 20 }, { scale: 1, y: 0, duration: 0.3 });
+    }
+
+    function closeApplyModal() {
+      const modal = document.getElementById('apply-modal');
+      gsap.to(modal.querySelector('.bg-white'), { scale: 0.9, y: 20, duration: 0.2, onComplete: () => {
+        modal.classList.add('opacity-0', 'pointer-events-none');
+        document.getElementById('apply-form').reset();
+      }});
+    }
+
+    let currentLang = 'de';
+    const translations = {
+      de: {
+        home: "Home", 
+        services: "Leistungen", 
+        career: "Karriere",
+        stats: "Zahlen & Fakten",
+        estimator: "Projektanfrage",
+        heroSubtitle: "Deutschlands Zukunft verbinden mit <span class='text-[#38BDF8] font-bold transition-colors duration-500'>Lichtgeschwindigkeit</span> und <span class='text-white font-bold'>Präzision</span>.",
+        scroll: "Scroll",
+        
+        ne3Title: "NE3 - City Networks & Trassenbau",
+        ne3Desc: "Professioneller Tiefbau, Trassenbau und Verlegung von Hauptverteilerkabeln im öffentlichen Raum nach modernsten deutschen Standards.",
+        ne4Title: "NE4 - Hauszuführung & Steigleitung",
+        ne4Desc: "Gebäudeanbindung vom Übergabepunkt <span class='no-wrap-phrase'>(HÜP)</span> bis in die Wohneinheiten <span class='no-wrap-phrase'>(FTTH)</span>. Präzise Mikrorohr- und Glasfaserverlegung.",
+        ne5Title: "NE5 - Endgeräte & Inhouse-Netzwerk",
+        ne5Desc: "Montage der Teilnehmeranschlussdose <span class='no-wrap-phrase'>(TA)</span>, Spleißarbeiten, Einpegeln, OTDR-Messung und betriebsbereite Inbetriebnahme von Routern und ONTs.",
+        
+        statsTitle: "Zahlen & Fakten",
+        statsSubtitle: "Echtzeit-Einblicke in den regionalen und bundesweiten Glasfaserausbau der Technik Net GmbH.",
+        statFiberLabel: "KM verlegte Glasfaser",
+        statHomesLabel: "Angeschlossene Haushalte",
+        statCrewsLabel: "Aktive Montagetrupps",
+        statSatisfLabel: "Termintreue & Zufriedenheit",
+        regionFilterLabel: "Region filtern:",
+        optDE: "Deutschland (Gesamt)",
+        optHE: "Hessen",
+        optNRW: "Nordrhein-Westfalen",
+        optBY: "Bayern",
+        optBE: "Berlin & Brandenburg",
+
+        careerTitle: "Gestalten Sie die Zukunft mit uns",
+        careerSubtitle: "Werden Sie Teil unseres Teams und treiben Sie den Breitbandausbau in Deutschland aktiv voran.",
+        job1Title: "LWL-Spleißtechniker / Monteur <span class='no-wrap-phrase'>(m/w/d)</span>",
+        job1Loc: "📍 DEUTSCHLANDWEIT / VOLLZEIT",
+        job1Desc: "Präzises Spleißen und Messen <span class='no-wrap-phrase'>(OTDR)</span> von Glasfaserkabeln sowie Montage von Hausübergabepunkten.",
+        job2Title: "Tiefbaufacharbeiter / Baggerführer <span class='no-wrap-phrase'>(m/w/d)</span>",
+        job2Loc: "📍 REGIONALE EINSATZORTE",
+        job2Desc: "Erd- und Tiefbauarbeiten, Schacht- und Rohrverlegung sowie Oberflächenwiederherstellung im Trassenbau.",
+        job3Title: "Bauleiter / Projektleiter Glasfaser <span class='no-wrap-phrase'>(m/w/d)</span>",
+        job3Loc: "📍 FRANKFURT AM MAIN / HYBRID",
+        job3Desc: "Koordination, Bauüberwachung und Dokumentation anspruchsvoller <span class='no-wrap-phrase'>FTTX-Infrastrukturprojekte</span>.",
+        applyBtn: "Jetzt bewerben",
+
+        estTitle: "Projekt-Kalkulator & Anfrage",
+        estSubtitle: "Erhalten Sie in wenigen Schritten eine unverbindliche Ersteinschätzung für Ihr Ausbauprojekt.",
+        step1Header: "Welche Netzebene betrifft Ihr Vorhaben?",
+        level3Short: "Trassenbau / City Networks",
+        level4Short: "Hausanschluss & Steigleitung <span class='no-wrap-phrase'>(FTTH)</span>",
+        level5Short: "Endgeräte-Montage & TA",
+        step2Header: "Wie groß ist der geschätzte Projektumfang?",
+        scopeUnits: "Wohneinheiten <span class='no-wrap-phrase'>(WE)</span> / Anschlusspunkte",
+        step3Header: "Ihre Kontaktdaten für das unverbindliche Angebot",
+        labelName: "Vor- und Nachname",
+        labelEmail: "E-Mail-Adresse",
+        labelPhone: "Telefonnummer (für Rückfragen)",
+        labelDoc: "Lebenslauf / Qualifikationen (PDF)",
+        submitBtn: "Bewerbung absenden",
+        modalSubtitle: "Wir freuen uns auf Ihre Kurzbewerbung.",
+
+        ctaTitle: "Bereit, Ihre Glasfaser-Infrastruktur auszubauen?",
+        ctaSubtitle: "Sprechen Sie direkt mit unseren Ausbau-Experten.",
+        ctaBtn: "Jetzt Projekt anfragen"
+      },
+      en: {
+        home: "Home", 
+        services: "Services", 
+        career: "Career",
+        stats: "Facts & Figures",
+        estimator: "Project Inquiry",
+        heroSubtitle: "Connecting Germany's future with <span class='text-[#38BDF8] font-bold transition-colors duration-500'>lightspeed</span> and <span class='text-white font-bold'>precision</span>.",
+        scroll: "Scroll",
+        
+        ne3Title: "NE3 - City Networks & Backbone",
+        ne3Desc: "High-standard civil engineering, micro-trenching, and underground distribution network deployments matching German engineering excellence.",
+        ne4Title: "NE4 - Building Cabling & Risers",
+        ne4Desc: "Direct fiber connection from the building transfer point <span class='no-wrap-phrase'>(HÜP)</span> up to living and business units <span class='no-wrap-phrase'>(FTTH)</span>.",
+        ne5Title: "NE5 - In-house & Terminal Endpoints",
+        ne5Desc: "Subscriber outlet installation <span class='no-wrap-phrase'>(TA)</span>, precision fiber splicing, OTDR measuring, and turn-key ONT configuration.",
+        
+        statsTitle: "Facts & Figures",
+        statsSubtitle: "Real-time metrics on regional and nationwide broadband fiber rollouts by Technik Net GmbH.",
+        statFiberLabel: "KM Fiber Optic Deployed",
+        statHomesLabel: "Connected Living Units",
+        statCrewsLabel: "Active Field Crews",
+        statSatisfLabel: "On-time Delivery & Quality",
+        regionFilterLabel: "Filter Region:",
+        optDE: "Germany (Total)",
+        optHE: "Hesse",
+        optNRW: "North Rhine-Westphalia",
+        optBY: "Bavaria",
+        optBE: "Berlin & Brandenburg",
+
+        careerTitle: "Shape the Digital Future with Us",
+        careerSubtitle: "Join our expanding team and actively drive the Gigabit infrastructure expansion across Germany.",
+        job1Title: "Fiber Splicing Technician / Fitter <span class='no-wrap-phrase'>(m/f/d)</span>",
+        job1Loc: "📍 NATIONWIDE / FULL-TIME",
+        job1Desc: "Precision fiber splicing, OTDR quality testing, and installation of building transfer termination points.",
+        job2Title: "Civil Construction Worker / Excavator <span class='no-wrap-phrase'>(m/f/d)</span>",
+        job2Loc: "📍 REGIONAL SITES",
+        job2Desc: "Earthworks, duct laying, trenching, and surface reconstruction for urban telecommunication networks.",
+        job3Title: "Site Manager / Project Lead Fiber <span class='no-wrap-phrase'>(m/f/d)</span>",
+        job3Loc: "📍 FRANKFURT AM MAIN / HYBRID",
+        job3Desc: "Supervision, operational planning, and comprehensive documentation for turnkey <span class='no-wrap-phrase'>FTTX projects</span>.",
+        applyBtn: "Apply Now",
+
+        estTitle: "Project Estimator & Inquiry",
+        estSubtitle: "Get an initial non-binding scope and framework for your deployment project in just a few steps.",
+        step1Header: "Which network level does your project target?",
+        level3Short: "Backbone / City Networks",
+        level4Short: "Building Entry & Risers <span class='no-wrap-phrase'>(FTTH)</span>",
+        level5Short: "Terminal Outlets & TA",
+        step2Header: "What is the estimated scope of the project?",
+        scopeUnits: "Residential Units <span class='no-wrap-phrase'>(WE)</span> / Endpoints",
+        step3Header: "Your Contact Information for the Proposal",
+        labelName: "Full Name",
+        labelEmail: "Email Address",
+        labelPhone: "Phone Number (for inquiries)",
+        labelDoc: "Resume / Credentials (PDF)",
+        submitBtn: "Submit Application",
+        modalSubtitle: "We look forward to receiving your application.",
+
+        ctaTitle: "Ready to Upgrade Your Fiber Infrastructure?",
+        ctaSubtitle: "Consult directly with our dedicated deployment experts.",
+        ctaBtn: "Inquire Now"
+      }
+    };
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key]) {
+          el.innerHTML = translations[lang][key];
+        }
+      });
+
+      const btnDe = document.getElementById('btn-de');
+      const btnEn = document.getElementById('btn-en');
+      const activeClasses = ['var-bg-primary', 'text-white', 'font-bold', 'var-glow'];
+      const inactiveClasses = ['text-slate-600', 'hover:text-slate-900', 'font-normal'];
+
+      if (lang === 'de') {
+        btnDe.classList.add(...activeClasses);
+        btnDe.classList.remove(...inactiveClasses);
+        btnEn.classList.add(...inactiveClasses);
+        btnEn.classList.remove(...activeClasses);
+        
+        if(currentStep === 3) {
+          document.getElementById('wizard-next-btn').innerText = "Anfrage absenden";
+        } else {
+          document.getElementById('wizard-next-btn').innerText = "Weiter";
+        }
+        document.getElementById('wizard-prev').innerText = "Zurück";
+      } else {
+        btnEn.classList.add(...activeClasses);
+        btnEn.classList.remove(...inactiveClasses);
+        btnDe.classList.add(...inactiveClasses);
+        btnDe.classList.remove(...activeClasses);
+        
+        if(currentStep === 3) {
+          document.getElementById('wizard-next-btn').innerText = "Submit Inquiry";
+        } else {
+          document.getElementById('wizard-next-btn').innerText = "Next";
+        }
+        document.getElementById('wizard-prev').innerText = "Back";
+      }
+      updateScrollSpy();
+    }
+
+    function submitApplication(e) {
+      e.preventDefault();
+      closeApplyModal();
+      showToast(currentLang === 'de' ? 'Bewerbung erfolgreich eingereicht!' : 'Application successfully submitted!');
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast-notif');
+      document.getElementById('toast-text').innerText = message;
+      toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+      toast.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+      
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+        toast.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+      }, 3500);
+    }
+
+    window.addEventListener('load', () => {
+      ScrollTrigger.refresh();
+      updateScrollSpy();
+    });
+  </script>
+</body>
+</html>
