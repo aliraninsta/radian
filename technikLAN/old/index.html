@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="de" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TechnikNet - Fiber Optic Concept</title>
+  
+  <!-- Google Fonts: Sora (Headings), SUSE (Body/UI), JetBrains Mono (Eyebrows/Badges) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Sora:wght@400;600;700;800&family=SUSE:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS & GSAP for high-performance scroll animations -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  
+  <style>
+    :root {
+      /* Brand Color System - Pure Sync with orange-500 (#F97316) */
+      --c-primary: #0D9488; /* Teal 600 */
+      --c-primary-rgb: 13, 148, 136;
+      --c-light: #22D3EE; /* Teal 400 */
+      --c-glow: rgba(13, 148, 136, 0.6);
+      --c-bg: #022C22; /* Deep Emerald Black */
+      --c-orange: #F97316; /* Exact Brand Orange Tailwind 500 */
+      --c-orange-rgb: 249, 115, 22;
+
+      /* Typography Tokens */
+      --font-heading: 'Sora', sans-serif;
+      --font-body: 'SUSE', sans-serif;
+      --font-eyebrow: 'JetBrains Mono', monospace;
+    }
+
+    body { 
+      font-family: var(--font-body); 
+      background-color: var(--c-bg); 
+      color: white; 
+      overflow-x: hidden; 
+      transition: background-color 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    h1, h2, h3, h4, h5, h6, .font-heading {
+      font-family: var(--font-heading);
+    }
+
+    .font-eyebrow {
+      font-family: var(--font-eyebrow);
+      letter-spacing: 0.05em;
+    }
+
+    .var-text-light { color: var(--c-light); }
+    .var-text-primary { color: var(--c-primary); }
+    .var-bg-primary { background-color: var(--c-primary); }
+    .var-bg-light { background-color: var(--c-light); }
+    .var-glow { box-shadow: 0 0 25px 4px var(--c-glow); }
+    .var-pattern { background-image: radial-gradient(var(--c-primary) 1.5px, transparent 1.5px); }
+    
+    .var-gradient-text {
+        background-image: linear-gradient(to right, var(--c-light), var(--c-primary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .var-gradient-bg {
+        background: linear-gradient(to top right, var(--c-primary), var(--c-light));
+    }
+
+    /* Laser Pulse Keyframe Animations for SVGs */
+    @keyframes laser-pulse {
+      0% { stroke-dashoffset: 100; }
+      100% { stroke-dashoffset: 0; }
+    }
+    .laser-line {
+      stroke-dasharray: 12, 12;
+      animation: laser-pulse 4s linear infinite;
+    }
+    .laser-line-fast {
+      stroke-dasharray: 8, 8;
+      animation: laser-pulse 2s linear infinite;
+    }
+    .wave-pulse {
+      animation: wifi-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+    @keyframes wifi-ping {
+      75%, 100% {
+        transform: scale(2);
+        opacity: 0;
+      }
+    }
+
+    /* Smooth Floating Idle Animations */
+    @keyframes hero-logo-float-idle {
+      0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-11px) rotate(0.35deg);
+      }
+    }
+
+    @keyframes hero-sub-float-idle {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-7px);
+      }
+    }
+
+    .hero-logo-idle {
+      animation: hero-logo-float-idle 6s ease-in-out infinite;
+      will-change: transform;
+    }
+
+    .hero-sub-idle {
+      animation: hero-sub-float-idle 6s ease-in-out infinite 0.5s;
+      will-change: transform;
+    }
+
+    /* Deep Optical Shadows */
+    .hero-logo-shadow {
+      text-shadow: 
+        0 14px 32px rgba(0, 0, 0, 0.95),
+        0 4px 10px rgba(0, 0, 0, 0.85),
+        0 0 45px rgba(249, 115, 22, 0.45);
+    }
+
+    .hero-sub-shadow {
+      text-shadow: 
+        0 6px 18px rgba(0, 0, 0, 0.95),
+        0 2px 6px rgba(0, 0, 0, 0.85),
+        0 0 20px rgba(13, 148, 136, 0.3);
+    }
+
+    /* Scroll Mouse Deep Shadow & Neon Glow */
+    .scroll-mouse-shadow {
+      box-shadow: 
+        0 10px 25px rgba(0, 0, 0, 0.9),
+        0 4px 10px rgba(0, 0, 0, 0.7),
+        0 0 15px rgba(34, 211, 238, 0.4),
+        inset 0 0 10px rgba(34, 211, 238, 0.2);
+    }
+
+    .scroll-text-shadow {
+      text-shadow: 
+        0 4px 10px rgba(0, 0, 0, 0.9),
+        0 0 12px rgba(13, 148, 136, 0.4);
+    }
+  </style>
+</head>
+<body class="relative selection:bg-[var(--c-primary)] selection:text-white">
+
+  <div class="fixed inset-0 z-0 opacity-10 pointer-events-none var-pattern" style="background-size: 50px 50px;"></div>
+
+  <div class="relative z-10">
+    
+    <!-- Navigation Bar -->
+    <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 border-b border-transparent">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div id="nav-container" class="flex items-center justify-between h-20 transition-all duration-500">
+          
+          <!-- Brand Logo Area (#1: 24px Desktop & Mobile) -->
+          <div class="relative flex items-center cursor-pointer select-none" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+            <div id="logo-text-wrapper" class="flex items-center font-heading text-[24px] font-extrabold tracking-tight transition-all duration-300">
+              <span class="text-white">Technik</span><span class="text-orange-500">Net</span>
+            </div>
+          </div>
+          
+          <!-- Desktop Menu Links (#2: 16px Desktop) -->
+          <div class="hidden md:block">
+            <div class="ml-10 flex items-baseline space-x-8 text-[16px] font-medium tracking-wide">
+              <a href="#home" data-i18n="home" class="var-text-light px-3 py-2 rounded-md font-bold transition-colors relative group">
+                Home
+                <span class="absolute -bottom-1 left-0 w-full h-0.5 var-bg-primary rounded-full var-glow transition-colors duration-500"></span>
+              </a>
+              <a href="#services" data-i18n="services" class="text-gray-300 hover:text-white px-3 py-2 rounded-md transition-colors relative group">
+                Services
+                <span class="absolute -bottom-1 left-0 w-0 h-0.5 var-bg-primary rounded-full transition-all duration-300 group-hover:w-full var-glow"></span>
+              </a>
+              <a href="#stats" data-i18n="stats" class="text-gray-300 hover:text-white px-3 py-2 rounded-md transition-colors relative group">
+                Metriken
+                <span class="absolute -bottom-1 left-0 w-0 h-0.5 var-bg-primary rounded-full transition-all duration-300 group-hover:w-full var-glow"></span>
+              </a>
+              <a href="#career" data-i18n="career" class="text-gray-300 hover:text-white px-3 py-2 rounded-md transition-colors relative group">
+                Karriere
+                <span class="absolute -bottom-1 left-0 w-0 h-0.5 var-bg-primary rounded-full transition-all duration-300 group-hover:w-full var-glow"></span>
+              </a>
+              <a href="#estimator" data-i18n="estimator" class="text-gray-300 hover:text-white px-3 py-2 rounded-md transition-colors relative group">
+                Anfrage
+                <span class="absolute -bottom-1 left-0 w-0 h-0.5 var-bg-primary rounded-full transition-all duration-300 group-hover:w-full var-glow"></span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Language Selector & Mobile Toggle -->
+          <div class="flex items-center gap-4">
+            <div class="flex items-center bg-teal-950/60 border border-teal-800/40 rounded-full p-1 font-eyebrow text-xs backdrop-blur-sm cursor-pointer shadow-inner">
+              <button id="btn-de" onclick="setLanguage('de')" class="px-4 py-1.5 rounded-full var-bg-primary text-slate-900 font-bold transition-all var-glow">DE</button>
+              <button id="btn-en" onclick="setLanguage('en')" class="px-4 py-1.5 rounded-full text-gray-400 hover:text-white transition-all">EN</button>
+            </div>
+            
+            <div class="md:hidden flex items-center">
+              <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="text-gray-300 hover:text-white focus:outline-none p-2 bg-teal-950/50 rounded-lg border border-teal-800/60 transition-colors">
+                <svg id="menu-icon-hamburger" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+                <svg id="menu-icon-close" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Menu Panel -->
+      <div id="mobile-menu" class="hidden md:hidden bg-teal-950/95 backdrop-blur-lg border-b border-teal-900 px-4 pt-2 pb-6 space-y-2 transition-all duration-300">
+        <a href="#home" onclick="toggleMobileMenu()" data-i18n="home" class="block text-gray-300 hover:text-white px-3 py-2 rounded-md text-base font-semibold">Home</a>
+        <a href="#services" onclick="toggleMobileMenu()" data-i18n="services" class="block text-gray-300 hover:text-white px-3 py-2 rounded-md text-base font-semibold">Services</a>
+        <a href="#stats" onclick="toggleMobileMenu()" data-i18n="stats" class="block text-gray-300 hover:text-white px-3 py-2 rounded-md text-base font-semibold">Metriken</a>
+        <a href="#career" onclick="toggleMobileMenu()" data-i18n="career" class="block text-gray-300 hover:text-white px-3 py-2 rounded-md text-base font-semibold">Karriere</a>
+        <a href="#estimator" onclick="toggleMobileMenu()" data-i18n="estimator" class="block text-gray-300 hover:text-white px-3 py-2 rounded-md text-base font-semibold">Anfrage</a>
+      </div>
+    </nav>
+
+    <!-- Hero Section with Background Video (hero-video.webm) -->
+    <section id="home" class="h-screen flex flex-col items-center justify-center text-center px-4 relative pt-20 z-10 overflow-hidden">
+      
+      <!-- Video Element -->
+      <video 
+        autoplay 
+        loop 
+        muted 
+        playsinline 
+        poster="hero-bg.jpg"
+        preload="auto"
+        class="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none">
+        <source src="hero-video.webm" type="video/webm">
+      </video>
+
+      <!-- Custom Precision Darkening Gradient Layer (80% Top -> 10% Mid -> 90% Bottom) -->
+      <div class="absolute inset-0 bg-gradient-to-b from-[#022C22]/80 via-[#022C22]/10 to-[#022C22]/90 pointer-events-none z-1"></div>
+      
+      <!-- Glowing Fiber Ring -->
+      <div id="hero-ring" class="absolute w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] rounded-full border border-[var(--c-primary)] opacity-20 blur-3xl pointer-events-none will-change-transform z-2"></div>
+
+      <!-- Hero Typography Floating Outer Container -->
+      <div id="hero-scroll-group" class="relative z-10 flex flex-col items-center gap-5 will-change-transform">
+        
+        <!-- Large Logo (#3: 100px Desktop) -->
+        <div id="hero-logo-wrapper" class="hero-logo-idle will-change-transform">
+          <div id="hero-logo" class="text-[60px] sm:text-[72px] md:text-[100px] leading-none font-extrabold font-heading tracking-tight select-none flex items-center hero-logo-shadow cursor-default will-change-transform">
+            <span class="text-white">Technik</span><span class="text-orange-500">Net</span>
+          </div>
+        </div>
+        
+        <!-- Hero Subtitle (#4: 20px Desktop & Mobile) -->
+        <div id="hero-sub-wrapper" class="hero-sub-idle will-change-transform">
+          <p id="hero-sub" data-i18n="heroSubtitle" class="text-[20px] text-gray-100 max-w-3xl font-light leading-relaxed hero-sub-shadow will-change-transform">
+            Deutschlands Zukunft verbinden mit <span class="var-text-light font-bold transition-colors duration-500">Lichtgeschwindigkeit</span> und <span class="text-white font-bold">Präzision</span>.
+          </p>
+        </div>
+
+      </div>
+      
+      <!-- Scroll Indicator Button (Persists Until NE3 Section Appears) -->
+      <div id="hero-scroll-indicator" class="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 opacity-95 flex flex-col items-center cursor-pointer z-30 will-change-transform hover:opacity-100 transition-opacity" onclick="document.getElementById('services').scrollIntoView({behavior: 'smooth'})">
+        <span data-i18n="scroll" class="font-eyebrow text-xs tracking-widest uppercase mb-2 block text-gray-300 transition-colors duration-500 scroll-text-shadow font-semibold">Scroll</span>
+        <div class="w-6 h-10 border-2 rounded-full flex justify-center pt-1.5 transition-colors duration-500 var-text-light border-current backdrop-blur-md scroll-mouse-shadow">
+          <div class="w-1 h-2 rounded-full animate-bounce transition-colors duration-500 var-bg-light" style="box-shadow: 0 0 10px var(--c-light);"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="relative overflow-hidden z-10 pb-16 md:pb-24 pt-6">
+      
+      <!-- Timeline Content Container -->
+      <div class="relative w-full max-w-6xl mx-auto px-4" id="timeline-container">
+        
+        <!-- vertical fiber optic line (Terminates strictly at the bottom border where the horizontal line meets) -->
+        <div class="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[2px] md:w-[3px] z-0 pointer-events-none bg-teal-950/40">
+          <div id="verticalLine" class="absolute top-0 left-0 w-full var-bg-primary rounded-full transition-colors duration-500" style="height: 0%; box-shadow: 0 0 15px 2px var(--c-glow);"></div>
+        </div>
+
+        <div class="flex flex-col relative z-10 w-full space-y-16 md:space-y-24 pb-12">
+          
+          <!-- Node 1 (NE3) -->
+          <div id="service-block-ne3" class="service-block w-full py-12 relative flex flex-col md:flex-row items-center justify-between gap-10 md:gap-20">
+            <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5 md:w-6 md:h-6 var-bg-light rounded-full node border-4 border-slate-900 z-20 transition-all duration-500" style="box-shadow: 0 0 15px 2px var(--c-glow);"></div>
+            
+            <!-- Info Box Left -->
+            <div class="w-full md:w-5/12 text-left content-block bg-teal-950/40 p-6 md:p-8 rounded-2xl border border-teal-800/40 backdrop-blur-md relative shadow-2xl transition-all hover:border-[var(--c-primary)]">
+              <div style="background-color: rgba(var(--c-primary-rgb), 0.2);" class="font-eyebrow inline-block px-3 py-1 var-text-light rounded-full text-xs font-semibold mb-4 transition-colors duration-500">LEVEL 3</div>
+              <h2 data-i18n="ne3Title" class="text-3xl md:text-4xl font-bold text-white mb-4 tracking-wide">NE3 - City Networks</h2>
+              <p data-i18n="ne3Desc" class="text-gray-300 leading-relaxed text-base md:text-lg">
+                Tiefbau und Ausführung von Makro-Infrastrukturen. Wir bauen die Hauptkommunikationsadern mit strengen deutschen Ingenieursstandards.
+              </p>
+            </div>
+
+            <!-- Graphic Right -->
+            <div class="w-full md:w-5/12 relative content-block">
+              <div class="w-full h-64 md:h-80 rounded-2xl flex items-center justify-center bg-teal-950/30 border border-teal-900/60 backdrop-blur-md p-4 shadow-xl overflow-hidden group">
+                <svg class="w-full h-full max-h-72" viewBox="0 0 400 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M20 120 h40 v-30 h30 v20 h40 v-50 h50 v60 h20 v-40 h50 v40 h40 v-60 h30 v70 h40" stroke="#004D40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60" />
+                  <rect x="10" y="140" width="380" height="15" rx="4" fill="#00332C" />
+                  <line x1="10" y1="147" x2="390" y2="147" stroke="#0D9488" stroke-width="2" stroke-dasharray="8, 6" />
+                  <path d="M10 190 h380" stroke="#004D40" stroke-width="12" stroke-linecap="round" />
+                  <path d="M10 190 h380" stroke="var(--c-primary)" stroke-width="4" stroke-linecap="round" class="laser-line" />
+                  <rect x="70" y="105" width="22" height="35" rx="3" fill="#004D40" stroke="var(--c-light)" stroke-width="2" />
+                  <circle cx="81" cy="122" r="3" fill="var(--c-light)" class="animate-ping" />
+                  <rect x="290" y="105" width="22" height="35" rx="3" fill="#004D40" stroke="var(--c-light)" stroke-width="2" />
+                  <circle cx="301" cy="122" r="3" fill="var(--c-light)" class="animate-ping" />
+                  <path d="M81 140 v50 M301 140 v50" stroke="var(--c-primary)" stroke-width="3" stroke-dasharray="4, 4" />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Node 2 (NE4) -->
+          <div class="service-block w-full py-12 relative flex flex-col md:flex-row-reverse items-center justify-between gap-10 md:gap-20">
+            <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5 md:w-6 md:h-6 var-bg-light rounded-full node border-4 border-slate-900 z-20 transition-all duration-500" style="box-shadow: 0 0 15px 2px var(--c-glow);"></div>
+            
+            <!-- Info Box Right -->
+            <div class="w-full md:w-5/12 text-left content-block bg-teal-950/40 p-6 md:p-8 rounded-2xl border border-teal-800/40 backdrop-blur-md relative shadow-2xl transition-all hover:border-[var(--c-primary)]">
+               <div style="background-color: rgba(var(--c-primary-rgb), 0.2);" class="font-eyebrow inline-block px-3 py-1 var-text-light rounded-full text-xs font-semibold mb-4 transition-colors duration-500">LEVEL 4</div>
+              <h2 data-i18n="ne4Title" class="text-3xl md:text-4xl font-bold text-white mb-4 tracking-wide">NE4 - Building Wiring</h2>
+              <p data-i18n="ne4Desc" class="text-gray-300 leading-relaxed text-base md:text-lg">
+                Glasfaserverlegung von der Straße in die Gebäude (FTTH). Nahtlose und sichere Verbindung für Wohn- und Geschäftskomplexe.
+              </p>
+            </div>
+
+            <!-- Graphic Left -->
+            <div class="w-full md:w-5/12 relative content-block">
+               <div class="w-full h-64 md:h-80 rounded-2xl flex items-center justify-center bg-teal-950/30 border border-teal-900/60 backdrop-blur-md p-4 shadow-xl overflow-hidden group">
+                <svg class="w-full h-full max-h-72" viewBox="0 0 400 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="120" y="30" width="160" height="180" rx="8" fill="#00332C" stroke="#004D40" stroke-width="2" />
+                  <line x1="120" y1="90" x2="280" y2="90" stroke="#004D40" stroke-width="2" />
+                  <line x1="120" y1="150" x2="280" y2="150" stroke="#004D40" stroke-width="2" />
+                  <rect x="140" y="45" width="25" height="25" rx="3" fill="#022C22" stroke="#004D40" />
+                  <rect x="235" y="45" width="25" height="25" rx="3" fill="#022C22" stroke="#004D40" />
+                  <rect x="140" y="105" width="25" height="25" rx="3" fill="#022C22" stroke="#004D40" />
+                  <rect x="235" y="105" width="25" height="25" rx="3" fill="#022C22" stroke="#004D40" />
+                  <rect x="140" y="175" width="18" height="25" rx="2" fill="var(--c-primary)" class="shadow-md" />
+                  <circle cx="149" cy="187" r="2.5" fill="white" class="animate-pulse" />
+                  <path d="M20 200 h120" stroke="var(--c-light)" stroke-width="3" stroke-linecap="round" class="laser-line" />
+                  <path d="M149 175 v-118 h86" stroke="var(--c-primary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="laser-line-fast" />
+                  <path d="M149 118 h86" stroke="var(--c-primary)" stroke-width="2.5" stroke-linecap="round" />
+                  <circle cx="235" cy="57" r="4" fill="var(--c-light)" />
+                  <circle cx="235" cy="118" r="4" fill="var(--c-light)" />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Node 3 (NE5) -->
+          <div class="service-block w-full py-12 relative flex flex-col md:flex-row items-center justify-between gap-10 md:gap-20">
+            <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5 md:w-6 md:h-6 var-bg-light rounded-full node border-4 border-slate-900 z-20 transition-all duration-500" style="box-shadow: 0 0 15px 2px var(--c-glow);"></div>
+            
+            <!-- Info Box Left -->
+            <div class="w-full md:w-5/12 text-left content-block bg-teal-950/40 p-6 md:p-8 rounded-2xl border border-teal-800/40 backdrop-blur-md relative shadow-2xl transition-all hover:border-[var(--c-primary)]">
+               <div style="background-color: rgba(var(--c-primary-rgb), 0.2);" class="font-eyebrow inline-block px-3 py-1 var-text-light rounded-full text-xs font-semibold mb-4 transition-colors duration-500">LEVEL 5</div>
+              <h2 data-i18n="ne5Title" class="text-3xl md:text-4xl font-bold text-white mb-4 tracking-wide">NE5 - In-house Network</h2>
+              <p data-i18n="ne5Desc" class="text-gray-300 leading-relaxed text-base md:text-lg">
+                Installation und Einrichtung von Endgeräten. Der letzte Schritt für ein Erlebnis von unendlicher Geschwindigkeit und stabiler Verbindung.
+              </p>
+            </div>
+
+            <!-- Graphic Right -->
+            <div class="w-full md:w-5/12 relative content-block">
+               <div class="w-full h-64 md:h-80 rounded-2xl flex items-center justify-center bg-teal-950/30 border border-teal-900/60 backdrop-blur-md p-4 shadow-xl overflow-hidden group">
+                <svg class="w-full h-full max-h-72" viewBox="0 0 400 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="40" y="150" width="12" height="18" rx="2" fill="#004D40" stroke="#0D9488" />
+                  <path d="M10 160 h30" stroke="var(--c-light)" stroke-width="2.5" class="laser-line" />
+                  <path d="M52 160 h100 v-40" stroke="var(--c-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="laser-line-fast" />
+                  <rect x="132" y="95" width="40" height="25" rx="4" fill="#00332C" stroke="var(--c-light)" stroke-width="2" />
+                  <line x1="142" y1="95" x2="135" y2="75" stroke="#0D9488" stroke-width="2" />
+                  <line x1="162" y1="95" x2="169" y2="75" stroke="#0D9488" stroke-width="2" />
+                  <circle cx="152" cy="112" r="2.5" fill="var(--c-primary)" class="animate-pulse" />
+                  <rect x="260" y="75" width="45" height="30" rx="3" fill="#004D40" stroke="#0D9488" />
+                  <rect x="250" y="105" width="65" height="5" rx="1" fill="#004D40" />
+                  <rect x="230" y="145" width="85" height="50" rx="4" fill="#022C22" stroke="#004D40" stroke-width="2" />
+                  <rect x="260" y="195" width="25" height="15" fill="#004D40" />
+                  <circle cx="152" cy="95" r="30" stroke="var(--c-primary)" stroke-width="1.5" class="wave-pulse origin-center opacity-30" style="transform-origin: 152px 95px;" />
+                  <circle cx="152" cy="95" r="50" stroke="var(--c-primary)" stroke-width="1.5" class="wave-pulse origin-center opacity-20" style="transform-origin: 152px 95px; animation-delay: 0.6s;" />
+                  <line x1="172" y1="95" x2="250" y2="90" stroke="var(--c-primary)" stroke-dasharray="3, 5" stroke-width="1.5" class="opacity-60" />
+                  <line x1="172" y1="107" x2="230" y2="155" stroke="var(--c-primary)" stroke-dasharray="3, 5" stroke-width="1.5" class="opacity-60" />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Perfect T-Junction: Horizontal line and Final Node positioned exactly at the bottom of the vertical line -->
+      <div class="relative w-screen left-1/2 -translate-x-1/2 h-[3px] z-20 pointer-events-none overflow-visible">
+        <div id="bottomHorizontalLeft" class="absolute right-1/2 top-0 h-full var-bg-primary transition-all duration-500" style="width: 0%; box-shadow: 0 0 18px 3px var(--c-glow);"></div>
+        <div id="bottomHorizontalRight" class="absolute left-1/2 top-0 h-full var-bg-primary transition-all duration-500" style="width: 0%; box-shadow: 0 0 18px 3px var(--c-glow);"></div>
+        
+        <!-- Junction Node centered right at the vertex -->
+        <div id="finalNode" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5 md:w-6 md:h-6 var-bg-light rounded-full border-4 border-slate-900 z-30 transition-colors duration-500" style="box-shadow: 0 0 15px 2px var(--c-glow);"></div>
+      </div>
+    </section>
+    
+    <!-- Stats Section -->
+    <section id="stats" class="py-24 relative z-30 bg-black/40 border-y border-teal-900/40 backdrop-blur-md">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+          <div class="text-left">
+            <h2 data-i18n="statsTitle" class="text-3xl md:text-5xl font-bold tracking-wide mb-4">Unser Impact in Zahlen</h2>
+            <p data-i18n="statsSubtitle" class="text-gray-400 max-w-xl">Echtzeit-Einblicke in den regionalen und bundesweiten Glasfaserausbau der Technik Net GmbH.</p>
+          </div>
+          
+          <!-- Filter Selector -->
+          <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+            <label data-i18n="regionFilterLabel" class="font-eyebrow text-xs uppercase tracking-wider font-semibold text-gray-400">REGION FILTERN:</label>
+            <div class="relative min-w-[200px] w-full sm:w-auto">
+              <select id="region-selector" onchange="changeRegion(this.value)" class="w-full appearance-none bg-teal-950/80 border border-teal-800/40 hover:border-[var(--c-primary)] text-white text-sm font-semibold rounded-full px-5 py-2.5 pr-10 focus:outline-none focus:ring-1 focus:ring-[var(--c-primary)] cursor-pointer shadow-lg transition-all">
+                <option value="de" data-i18n="optDE">Deutschland (Gesamt)</option>
+                <option value="he" data-i18n="optHE">Hessen</option>
+                <option value="nrw" data-i18n="optNRW">Nordrhein-Westfalen</option>
+                <option value="by" data-i18n="optBY">Bayern</option>
+                <option value="be" data-i18n="optBE">Berlin & Brandenburg</option>
+              </select>
+              <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none text-gray-400">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" /></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <!-- Card 1 -->
+          <div class="relative bg-teal-950/10 border border-teal-900/40 p-8 rounded-2xl text-center backdrop-blur-md hover:border-[var(--c-primary)] transition-all group overflow-hidden shadow-xl">
+            <div class="absolute -top-10 -right-10 w-24 h-24 rounded-full bg-[var(--c-primary)] opacity-5 group-hover:scale-150 transition-all duration-500"></div>
+            <div class="mx-auto w-12 h-12 mb-4 flex items-center justify-center rounded-xl bg-teal-950/60 border border-teal-800/60 text-[var(--c-primary)]">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <span class="block text-4xl md:text-5xl font-bold font-heading var-text-light mb-2 transition-transform duration-300 group-hover:scale-105" id="stat-fiber-km">1,450+</span>
+            <span data-i18n="statFiberLabel" class="text-gray-400 font-medium text-sm md:text-base">KM verlegte Glasfaser</span>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="relative bg-teal-950/10 border border-teal-900/40 p-8 rounded-2xl text-center backdrop-blur-md hover:border-[var(--c-primary)] transition-all group overflow-hidden shadow-xl">
+            <div class="absolute -top-10 -right-10 w-24 h-24 rounded-full bg-[var(--c-primary)] opacity-5 group-hover:scale-150 transition-all duration-500"></div>
+            <div class="mx-auto w-12 h-12 mb-4 flex items-center justify-center rounded-xl bg-teal-950/60 border border-teal-800/60 text-[var(--c-primary)]">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+              </svg>
+            </div>
+            <span class="block text-4xl md:text-5xl font-bold font-heading var-text-light mb-2 transition-transform duration-300 group-hover:scale-105" id="stat-homes">48,200</span>
+            <span data-i18n="statHomesLabel" class="text-gray-400 font-medium text-sm md:text-base">Angeschlossene Haushalte</span>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="relative bg-teal-950/10 border border-teal-900/40 p-8 rounded-2xl text-center backdrop-blur-md hover:border-[var(--c-primary)] transition-all group overflow-hidden shadow-xl">
+            <div class="absolute -top-10 -right-10 w-24 h-24 rounded-full bg-[var(--c-primary)] opacity-5 group-hover:scale-150 transition-all duration-500"></div>
+            <div class="mx-auto w-12 h-12 mb-4 flex items-center justify-center rounded-xl bg-teal-950/60 border border-teal-800/60 text-[var(--c-primary)]">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+            </div>
+            <span class="block text-4xl md:text-5xl font-bold font-heading var-text-light mb-2 transition-transform duration-300 group-hover:scale-105" id="stat-crews">34</span>
+            <span data-i18n="statCrewsLabel" class="text-gray-400 font-medium text-sm md:text-base">Aktive Montagetrupps</span>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="relative bg-teal-950/10 border border-teal-900/40 p-8 rounded-2xl text-center backdrop-blur-md hover:border-[var(--c-primary)] transition-all group overflow-hidden shadow-xl">
+            <div class="absolute -top-10 -right-10 w-24 h-24 rounded-full bg-[var(--c-primary)] opacity-5 group-hover:scale-150 transition-all duration-500"></div>
+            <div class="mx-auto w-12 h-12 mb-4 flex items-center justify-center rounded-xl bg-teal-950/60 border border-teal-800/60 text-[var(--c-primary)]">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.757a2 2 0 110 4h-1.42l1.317 6.025a1 1 0 01-.975 1.214H5.321a1 1 0 01-.975-1.214L5.663 14H4.243a2 2 0 110-4H9M14 10V4a2 2 0 114 0v6m-4 0h-4" />
+              </svg>
+            </div>
+            <span class="block text-4xl md:text-5xl font-bold font-heading var-text-light mb-2 transition-transform duration-300 group-hover:scale-105" id="stat-satisfaction">99.2%</span>
+            <span data-i18n="statSatisfLabel" class="text-gray-400 font-medium text-sm md:text-base">Kundenzufriedenheit (%)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Career Section -->
+    <section id="career" class="py-24 relative z-30 px-4 max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 data-i18n="careerTitle" class="text-3xl md:text-5xl font-bold tracking-wide mb-4">Gestalten Sie die Zukunft mit uns</h2>
+        <p data-i18n="careerSubtitle" class="text-gray-400 max-w-2xl mx-auto">Wir suchen erstklassige Talente für den Ausbau der digitalen Infrastruktur.</p>
+      </div>
+
+      <!-- Jobs Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Job 1 -->
+        <div class="bg-teal-950/10 border border-teal-900/40 p-6 rounded-2xl flex flex-col justify-between hover:border-[var(--c-primary)] transition-all hover:scale-[1.02] duration-300 shadow-xl">
+          <div>
+            <span class="font-eyebrow px-3 py-1 bg-teal-900/40 text-teal-400 border border-teal-800/50 rounded-full text-xs uppercase tracking-wider">NE4 / NE5</span>
+            <h3 data-i18n="job1Title" class="text-xl font-bold mt-4 mb-2">LWL-Spleißtechniker (m/w/d)</h3>
+            <p data-i18n="job1Loc" class="font-eyebrow text-xs text-teal-700/80 mb-4 font-semibold">📍 DEUTSCHLANDWEIT / MOBIL</p>
+            <p data-i18n="job1Desc" class="text-gray-400 text-sm leading-relaxed">Verantwortlich für das präzise Spleißen von Glasfaserkabeln in Gebäuden und Verteilern.</p>
+          </div>
+          <button onclick="openApplyModal('LWL-Spleißtechniker (m/w/d)')" data-i18n="applyBtn" class="mt-6 w-full py-2.5 rounded-xl border border-[var(--c-primary)] var-text-light hover:bg-[var(--c-primary)] hover:text-slate-900 font-bold transition-all text-sm font-heading">Jetzt bewerben</button>
+        </div>
+
+        <!-- Job 2 -->
+        <div class="bg-teal-950/10 border border-teal-900/40 p-6 rounded-2xl flex flex-col justify-between hover:border-[var(--c-primary)] transition-all hover:scale-[1.02] duration-300 shadow-xl">
+          <div>
+            <span class="font-eyebrow px-3 py-1 bg-amber-900/40 text-amber-400 border border-amber-800/50 rounded-full text-xs uppercase tracking-wider">NE3</span>
+            <h3 data-i18n="job2Title" class="text-xl font-bold mt-4 mb-2">Tiefbaufacharbeiter (m/w/d)</h3>
+            <p data-i18n="job2Loc" class="font-eyebrow text-xs text-teal-700/80 mb-4 font-semibold">📍 REGIONALE EINSATZORTE</p>
+            <p data-i18n="job2Desc" class="text-gray-400 text-sm leading-relaxed">Unterstützung bei Erd- und Tiefbauarbeiten für den Ausbau des Haupt-City-Netzes.</p>
+          </div>
+          <button onclick="openApplyModal('Tiefbaufacharbeiter (m/w/d)')" data-i18n="applyBtn" class="mt-6 w-full py-2.5 rounded-xl border border-[var(--c-primary)] var-text-light hover:bg-[var(--c-primary)] hover:text-slate-900 font-bold transition-all text-sm font-heading">Jetzt bewerben</button>
+        </div>
+
+        <!-- Job 3 -->
+        <div class="bg-teal-950/10 border border-teal-900/40 p-6 rounded-2xl flex flex-col justify-between hover:border-[var(--c-primary)] transition-all hover:scale-[1.02] duration-300 shadow-xl">
+          <div>
+            <span class="font-eyebrow px-3 py-1 bg-purple-900/40 text-purple-400 border border-purple-800/50 rounded-full text-xs uppercase tracking-wider">MANAGEMENT</span>
+            <h3 data-i18n="job3Title" class="text-xl font-bold mt-4 mb-2">Projektleiter Glasfaser (m/w/d)</h3>
+            <p data-i18n="job3Loc" class="font-eyebrow text-xs text-teal-700/80 mb-4 font-semibold">📍 FRANKFURT AM MAIN / HYBRID</p>
+            <p data-i18n="job3Desc" class="text-gray-400 text-sm leading-relaxed">Koordination und Überwachung großer Glasfaserprojekte von der Trassenplanung bis zur Abnahme.</p>
+          </div>
+          <button onclick="openApplyModal('Projektleiter Glasfaser (m/w/d)')" data-i18n="applyBtn" class="mt-6 w-full py-2.5 rounded-xl border border-[var(--c-primary)] var-text-light hover:bg-[var(--c-primary)] hover:text-slate-900 font-bold transition-all text-sm font-heading">Jetzt bewerben</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Estimator Section -->
+    <section id="estimator" class="py-24 relative z-30 px-4 max-w-4xl mx-auto">
+      <div class="bg-teal-950/20 border border-teal-900/40 rounded-3xl p-8 md:p-12 shadow-2xl relative overflow-hidden">
+        
+        <div class="absolute -right-20 -top-20 w-60 h-60 rounded-full bg-[var(--c-primary)] opacity-10 blur-3xl pointer-events-none"></div>
+
+        <div class="text-center mb-10">
+          <h2 data-i18n="estTitle" class="text-3xl md:text-4xl font-bold tracking-wide mb-2">Projekt-Kalkulator</h2>
+          <p data-i18n="estSubtitle" class="text-gray-400">Erhalten Sie in wenigen Schritten einen unverbindlichen Projektrahmen.</p>
+        </div>
+
+        <!-- Wizard Navigation Steps -->
+        <div class="flex justify-between items-center mb-8 max-w-md mx-auto relative">
+          <div class="absolute top-1/2 left-0 h-[2px] bg-teal-900/30 w-full z-0 -translate-y-1/2"></div>
+          <div id="wizard-progress-bar" class="absolute top-1/2 left-0 h-[2.5px] var-bg-primary w-0 z-0 -translate-y-1/2 transition-all duration-300"></div>
+          
+          <div class="relative z-10 w-8 h-8 rounded-full var-bg-primary text-slate-900 flex items-center justify-center font-bold text-sm font-heading" id="step-node-1">1</div>
+          <div class="relative z-10 w-8 h-8 rounded-full bg-teal-950 text-gray-400 flex items-center justify-center font-bold text-sm font-heading transition-colors duration-300 border border-teal-900" id="step-node-2">2</div>
+          <div class="relative z-10 w-8 h-8 rounded-full bg-teal-950 text-gray-400 flex items-center justify-center font-bold text-sm font-heading transition-colors duration-300 border border-teal-900" id="step-node-3">3</div>
+        </div>
+
+        <!-- Step 1: Select NE Level -->
+        <div id="step-1" class="wizard-step space-y-6">
+          <h3 data-i18n="step1Header" class="text-lg font-bold text-center mb-4">Welche Netzinfrastruktur-Ebene betrifft Ihr Projekt?</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div onclick="selectLevel('ne3')" id="level-ne3" class="border-2 border-teal-900/40 bg-teal-950/20 p-5 rounded-2xl cursor-pointer hover:border-[var(--c-primary)] transition-all">
+              <span class="block font-heading font-bold text-lg var-text-light mb-1">NE3</span>
+              <span data-i18n="level3Short" class="text-sm text-gray-400">Trassenbau / City Networks</span>
+            </div>
+            <div onclick="selectLevel('ne4')" id="level-ne4" class="border-2 border-teal-900/40 bg-teal-950/20 p-5 rounded-2xl cursor-pointer hover:border-[var(--c-primary)] transition-all">
+              <span class="block font-heading font-bold text-lg var-text-light mb-1">NE4</span>
+              <span data-i18n="level4Short" class="text-sm text-gray-400">Gebäudeverkabelung (FTTH)</span>
+            </div>
+            <div onclick="selectLevel('ne5')" id="level-ne5" class="border-2 border-teal-900/40 bg-teal-950/20 p-5 rounded-2xl cursor-pointer hover:border-[var(--c-primary)] transition-all">
+              <span class="block font-heading font-bold text-lg var-text-light mb-1">NE5</span>
+              <span data-i18n="level5Short" class="text-sm text-gray-400">Inhouse-Installation</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Slider Details -->
+        <div id="step-2" class="wizard-step hidden space-y-6">
+          <h3 data-i18n="step2Header" class="text-lg font-bold text-center mb-4">Wie groß ist der geschätzte Projektumfang?</h3>
+          <div class="space-y-4 max-w-lg mx-auto">
+            <div class="flex justify-between items-center text-sm">
+              <span data-i18n="scopeUnits">Wohneinheiten / Anschlüsse</span>
+              <span id="range-val" class="font-bold var-text-light text-lg font-heading">50</span>
+            </div>
+            <input id="project-scope-range" oninput="updateRangeVal(this.value)" type="range" min="1" max="500" value="50" class="w-full accent-[var(--c-primary)] cursor-ew-resize" />
+            <div class="flex justify-between text-xs text-teal-700/80 font-eyebrow">
+              <span>1 WE</span>
+              <span>500+ WE</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Contact Details -->
+        <div id="step-3" class="wizard-step hidden space-y-6">
+          <h3 data-i18n="step3Header" class="text-lg font-bold text-center mb-4">Ihre Kontaktdaten für das Angebot</h3>
+          <form id="estimator-form" onsubmit="submitEstimator(event)" class="space-y-4 max-w-md mx-auto">
+            <div>
+              <label data-i18n="labelName" class="block text-sm text-gray-400 mb-1">Name</label>
+              <input type="text" id="est-name" required class="w-full bg-teal-950/80 border border-teal-900/40 rounded-xl px-4 py-2.5 focus:outline-none focus:border-[var(--c-primary)] text-white transition-colors" />
+            </div>
+            <div>
+              <label data-i18n="labelEmail" class="block text-sm text-gray-400 mb-1">E-Mail Adresse</label>
+              <input type="email" id="est-email" required class="w-full bg-teal-950/80 border border-teal-900/40 rounded-xl px-4 py-2.5 focus:outline-none focus:border-[var(--c-primary)] text-white transition-colors" />
+            </div>
+            <div>
+              <label data-i18n="labelPhone" class="block text-sm text-gray-400 mb-1">Telefonnummer</label>
+              <input type="tel" id="est-phone" class="w-full bg-teal-950/80 border border-teal-900/40 rounded-xl px-4 py-2.5 focus:outline-none focus:border-[var(--c-primary)] text-white transition-colors" />
+            </div>
+          </form>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="flex justify-between items-center mt-10 pt-6 border-t border-teal-900/40">
+          <button id="wizard-prev" onclick="wizardBack()" class="px-6 py-2.5 border border-teal-900/40 rounded-xl text-gray-400 hover:text-white transition-all invisible text-sm font-heading">Zurück</button>
+          <button id="wizard-next-btn" onclick="wizardNext()" class="px-6 py-2.5 var-gradient-bg text-slate-900 font-bold rounded-xl var-glow text-sm hover:scale-[1.03] transition-all font-heading">Weiter</button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Bottom CTA -->
+    <section id="career-bottom" class="min-h-[45vh] flex flex-col items-center justify-center text-center px-4 pb-20 relative z-30 pt-16">
+        <h3 data-i18n="ctaTitle" class="text-3xl md:text-5xl font-bold text-white mb-4 tracking-wide">Bereit, Ihre Infrastruktur zu aktualisieren?</h3>
+        <p data-i18n="ctaSubtitle" class="text-xl text-gray-400 mb-8">Lassen Sie uns Ihr Projekt besprechen.</p>
+        <button onclick="document.getElementById('estimator').scrollIntoView({behavior: 'smooth'})" data-i18n="ctaBtn" class="px-10 py-5 var-gradient-bg text-slate-900 text-lg font-bold rounded-full var-glow transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 font-heading shadow-xl tracking-wide">
+            Projektanfrage
+        </button>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-teal-900/40 relative z-30 text-center text-xs text-gray-600 bg-teal-950/10 font-eyebrow">
+      <p>&copy; 2026 Technik Net GmbH. All rights reserved.</p>
+    </footer>
+
+  </div>
+
+  <!-- Apply Modal -->
+  <div id="apply-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
+    <div class="bg-teal-950 border border-teal-900/40 rounded-3xl p-8 max-w-md w-full mx-4 shadow-2xl relative">
+      <button onclick="closeApplyModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+      </button>
+      <h3 class="text-2xl font-bold font-heading mb-1" id="modal-job-title">Stellenausschreibung</h3>
+      <p data-i18n="modalSubtitle" class="text-sm text-gray-400 mb-6">Wir freuen uns auf Ihre Kurzbewerbung.</p>
+      
+      <form id="apply-form" onsubmit="submitApplication(event)" class="space-y-4">
+        <div>
+          <label data-i18n="labelName" class="block text-sm text-gray-400 mb-1">Name</label>
+          <input type="text" required class="w-full bg-teal-900/20 border border-teal-900/40 rounded-xl px-4 py-2.5 focus:outline-none focus:border-[var(--c-primary)] text-white" />
+        </div>
+        <div>
+          <label data-i18n="labelEmail" class="block text-sm text-gray-400 mb-1">E-Mail Adresse</label>
+          <input type="email" required class="w-full bg-teal-900/20 border border-teal-900/40 rounded-xl px-4 py-2.5 focus:outline-none focus:border-[var(--c-primary)] text-white" />
+        </div>
+        <div>
+          <label data-i18n="labelDoc" class="block text-sm text-gray-400 mb-1">Lebenslauf / CV (PDF)</label>
+          <input type="file" accept=".pdf" class="w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-teal-900/50 file:text-gray-300 hover:file:bg-teal-900 cursor-pointer" />
+        </div>
+        <button type="submit" data-i18n="submitBtn" class="w-full py-3 mt-4 var-gradient-bg text-slate-900 font-bold rounded-xl var-glow hover:scale-[1.02] transition-all font-heading text-sm">Bewerbung absenden</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast-notif" class="fixed bottom-12 left-1/2 -translate-x-1/2 z-50 bg-teal-950 border border-[var(--c-primary)] rounded-full px-6 py-3 shadow-2xl flex items-center gap-3 opacity-0 pointer-events-none transition-all duration-300 transform translate-y-4">
+    <div class="w-2.5 h-2.5 rounded-full var-bg-primary animate-ping"></div>
+    <span id="toast-text" class="text-sm font-semibold">Erfolgreich gesendet!</span>
+  </div>
+
+  <button id="backToTop" class="fixed bottom-8 right-8 z-50 w-14 h-14 rounded-full var-gradient-bg flex items-center justify-center text-slate-900 shadow-xl var-glow opacity-0 pointer-events-none transition-all duration-300 transform translate-y-4 hover:scale-110 hover:-translate-y-1">
+    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+  </button>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    const regionalStats = {
+      de: { fiber: 1450, homes: 48200, crews: 34, satisfaction: 99.2 },
+      he: { fiber: 280, homes: 9100, crews: 8, satisfaction: 98.9 },
+      nrw: { fiber: 420, homes: 14500, crews: 11, satisfaction: 99.4 },
+      by: { fiber: 390, homes: 12800, crews: 9, satisfaction: 99.1 },
+      be: { fiber: 160, homes: 5200, crews: 4, satisfaction: 98.7 }
+    };
+
+    let currentRegion = 'de';
+    let statsState = { fiber: 1450, homes: 48200, crews: 34, satisfaction: 99.2 };
+
+    // Dynamic brand color transition on scroll (Strictly matched to orange-500: #F97316)
+    gsap.to(":root", {
+      "--c-primary": "#F97316",
+      "--c-primary-rgb": "249, 115, 22",
+      "--c-light": "#FDBA74",
+      "--c-glow": "rgba(249, 115, 22, 0.7)",
+      "--c-bg": "#1C0D02",
+      ease: "none",
+      scrollTrigger: {
+        trigger: "#timeline-container",
+        start: "top 80%",
+        end: "bottom 50%",
+        scrub: 1
+      }
+    });
+
+    // Balanced Scroll Floating & Letter-Spacing Extension (Without Fading Out)
+    gsap.to("#hero-logo", {
+      letterSpacing: "0.06em",
+      ease: "power1.out",
+      scrollTrigger: {
+        trigger: "#home",
+        start: "top top",
+        end: "bottom top",
+        scrub: 0.6
+      }
+    });
+
+    gsap.to("#hero-logo-wrapper", {
+      y: -65,
+      rotation: 0.8,
+      ease: "power1.out",
+      scrollTrigger: {
+        trigger: "#home",
+        start: "top top",
+        end: "bottom top",
+        scrub: 0.8
+      }
+    });
+
+    gsap.to("#hero-sub", {
+      letterSpacing: "0.035em",
+      ease: "power1.out",
+      scrollTrigger: {
+        trigger: "#home",
+        start: "top top",
+        end: "bottom top",
+        scrub: 0.6
+      }
+    });
+
+    gsap.to("#hero-sub-wrapper", {
+      y: -42,
+      rotation: -0.6,
+      ease: "power1.out",
+      scrollTrigger: {
+        trigger: "#home",
+        start: "top top",
+        end: "bottom top",
+        scrub: 0.8
+      }
+    });
+
+    gsap.to("#hero-ring", {
+      scale: 1.15,
+      y: -30,
+      ease: "power1.out",
+      scrollTrigger: {
+        trigger: "#home",
+        start: "top top",
+        end: "bottom top",
+        scrub: 1
+      }
+    });
+
+    // Mouse scroll indicator stays fully visible during transition and fades out smoothly when NE3 enters center view
+    gsap.to("#hero-scroll-indicator", {
+      opacity: 0,
+      y: -35,
+      scale: 0.8,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: "#service-block-ne3",
+        start: "top 85%", 
+        end: "center 55%",   
+        scrub: true
+      }
+    });
+
+    // Vertical Laser timeline growth (Grows precisely from 0% to 100% of the container)
+    gsap.to('#verticalLine', {
+      height: "100%",
+      ease: "none",
+      scrollTrigger: {
+        trigger: "#timeline-container",
+        start: "top 60%", 
+        end: "bottom 72%", 
+        scrub: 0.5,
+      }
+    });
+
+    // Full-Width Edge-to-Edge horizontal split animation (Reaches 50% left & 50% right = 100% full screen)
+    gsap.to(['#bottomHorizontalLeft', '#bottomHorizontalRight'], {
+      width: "50%", 
+      ease: "power2.out", 
+      scrollTrigger: {
+        trigger: "#timeline-container",
+        start: "bottom 72%", 
+        toggleActions: "play none none reverse"
+      }
+    });
+
+    // Animate content blocks smoothly on scroll
+    const blocks = document.querySelectorAll('.service-block');
+    blocks.forEach((block, index) => {
+      const node = block.querySelector('.node');
+      const contents = block.querySelectorAll('.content-block');
+      
+      if(node) {
+        gsap.fromTo(node, 
+          { scale: 0.5, opacity: 0.4 },
+          { 
+            scale: 1, 
+            opacity: 1, 
+            duration: 0.4, 
+            ease: "back.out(1.5)",
+            scrollTrigger: {
+              trigger: block,
+              start: "top 75%",
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
+      }
+
+      contents.forEach((content, idx) => {
+        const xOffset = (index % 2 === 0) ? (idx === 0 ? -30 : 30) : (idx === 0 ? 30 : -30);
+        gsap.fromTo(content, 
+          { opacity: 0, x: xOffset, y: 15 },
+          { 
+            opacity: 1, 
+            x: 0, 
+            y: 0,
+            duration: 0.6, 
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: block,
+              start: "top 75%", 
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
+      });
+    });
+
+    // Stats Section animation
+    const statsSection = document.getElementById('stats');
+    let countersInitiated = false;
+    ScrollTrigger.create({
+      trigger: statsSection,
+      start: "top 80%",
+      onEnter: () => {
+        if (!countersInitiated) {
+          countersInitiated = true;
+          animateStatsTransition(regionalStats.de);
+        }
+      }
+    });
+
+    function animateStatsTransition(targetData) {
+      gsap.to(statsState, {
+        fiber: targetData.fiber,
+        homes: targetData.homes,
+        crews: targetData.crews,
+        satisfaction: targetData.satisfaction,
+        duration: 1.2,
+        ease: "power2.out",
+        onUpdate: () => {
+          document.getElementById('stat-fiber-km').innerText = Math.floor(statsState.fiber).toLocaleString() + "+";
+          document.getElementById('stat-homes').innerText = Math.floor(statsState.homes).toLocaleString();
+          document.getElementById('stat-crews').innerText = Math.floor(statsState.crews).toLocaleString();
+          document.getElementById('stat-satisfaction').innerText = statsState.satisfaction.toFixed(1) + "%";
+        }
+      });
+    }
+
+    function changeRegion(regionKey) {
+      currentRegion = regionKey;
+      if (regionalStats[regionKey]) {
+        animateStatsTransition(regionalStats[regionKey]);
+      }
+    }
+
+    // Header & Scroll To Top
+    const navbar = document.getElementById('navbar');
+    const backToTopBtn = document.getElementById('backToTop');
+    const navContainer = document.getElementById('nav-container');
+    
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('bg-teal-950/90', 'backdrop-blur-md', 'border-teal-900/60', 'shadow-2xl');
+        navbar.classList.remove('border-transparent');
+        navContainer.classList.remove('h-20');
+        navContainer.classList.add('h-14');
+      } else {
+        navbar.classList.remove('bg-teal-950/90', 'backdrop-blur-md', 'border-teal-900/60', 'shadow-2xl');
+        navbar.classList.add('border-transparent');
+        navContainer.classList.remove('h-14');
+        navContainer.classList.add('h-20');
+      }
+
+      if (window.scrollY > 400) {
+        backToTopBtn.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+        backToTopBtn.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+      } else {
+        backToTopBtn.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+        backToTopBtn.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+      }
+    });
+
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      const burgerIcon = document.getElementById('menu-icon-hamburger');
+      const closeIcon = document.getElementById('menu-icon-close');
+      
+      if (menu.classList.contains('hidden')) {
+        menu.classList.remove('hidden');
+        burgerIcon.classList.add('hidden');
+        closeIcon.classList.remove('hidden');
+      } else {
+        menu.classList.add('hidden');
+        burgerIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+      }
+    }
+
+    let currentStep = 1;
+    let selectedLevel = null;
+
+    function selectLevel(level) {
+      selectedLevel = level;
+      document.querySelectorAll('#step-1 div[id^="level-"]').forEach(el => {
+        el.classList.remove('border-[var(--c-primary)]', 'bg-teal-900/60');
+        el.classList.add('border-teal-900/40', 'bg-teal-950/20');
+      });
+      document.getElementById(`level-${level}`).classList.add('border-[var(--c-primary)]', 'bg-teal-900/60');
+      document.getElementById(`level-${level}`).classList.remove('border-teal-900/40', 'bg-teal-950/20');
+    }
+
+    function updateRangeVal(val) {
+      document.getElementById('range-val').innerText = val + "+";
+    }
+
+    function wizardNext() {
+      if (currentStep === 1) {
+        if (!selectedLevel) {
+          showToast(currentLang === 'de' ? 'Bitte wählen Sie eine Ebene aus!' : 'Please select an infrastructure level!');
+          return;
+        }
+        transitionWizard(1, 2);
+        currentStep = 2;
+        document.getElementById('wizard-prev').classList.remove('invisible');
+        updateProgress(50);
+      } else if (currentStep === 2) {
+        transitionWizard(2, 3);
+        currentStep = 3;
+        const nextBtn = document.getElementById('wizard-next-btn');
+        nextBtn.innerText = currentLang === 'de' ? 'Absenden' : 'Submit';
+        updateProgress(100);
+      } else if (currentStep === 3) {
+        const form = document.getElementById('estimator-form');
+        if (form.checkValidity()) {
+          submitEstimator(new Event('submit'));
+        } else {
+          form.reportValidity();
+        }
+      }
+    }
+
+    function wizardBack() {
+      if (currentStep === 2) {
+        transitionWizard(2, 1);
+        currentStep = 1;
+        document.getElementById('wizard-prev').classList.add('invisible');
+        updateProgress(0);
+      } else if (currentStep === 3) {
+        transitionWizard(3, 2);
+        currentStep = 2;
+        const nextBtn = document.getElementById('wizard-next-btn');
+        nextBtn.innerText = currentLang === 'de' ? 'Weiter' : 'Next';
+        updateProgress(50);
+      }
+    }
+
+    function transitionWizard(from, to) {
+      gsap.to(`#step-${from}`, { opacity: 0, y: -10, duration: 0.2, onComplete: () => {
+        document.getElementById(`step-${from}`).classList.add('hidden');
+        const nextStepEl = document.getElementById(`step-${to}`);
+        nextStepEl.classList.remove('hidden');
+        gsap.fromTo(`#step-${to}`, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3 });
+      }});
+    }
+
+    function updateProgress(percentage) {
+      document.getElementById('wizard-progress-bar').style.width = percentage + "%";
+      
+      const node2 = document.getElementById('step-node-2');
+      const node3 = document.getElementById('step-node-3');
+
+      if (percentage >= 50) {
+        node2.classList.add('var-bg-primary', 'text-slate-900');
+        node2.classList.remove('bg-teal-950', 'text-gray-400');
+      } else {
+        node2.classList.remove('var-bg-primary', 'text-slate-900');
+        node2.classList.add('bg-teal-950', 'text-gray-400');
+      }
+
+      if (percentage >= 100) {
+        node3.classList.add('var-bg-primary', 'text-slate-900');
+        node3.classList.remove('bg-teal-950', 'text-gray-400');
+      } else {
+        node3.classList.remove('var-bg-primary', 'text-slate-900');
+        node3.classList.add('bg-teal-950', 'text-gray-400');
+      }
+    }
+
+    function submitEstimator(e) {
+      if(e) e.preventDefault();
+      
+      showToast(currentLang === 'de' ? 'Kalkulationsanfrage erfolgreich gesendet!' : 'Project estimation requested successfully!');
+      
+      document.getElementById('estimator-form').reset();
+      selectedLevel = null;
+      document.querySelectorAll('#step-1 div[id^="level-"]').forEach(el => {
+        el.classList.remove('border-[var(--c-primary)]', 'bg-teal-900/60');
+        el.classList.add('border-teal-900/40', 'bg-teal-950/20');
+      });
+      document.getElementById('project-scope-range').value = 50;
+      updateRangeVal(50);
+
+      transitionWizard(3, 1);
+      currentStep = 1;
+      document.getElementById('wizard-prev').classList.add('invisible');
+      const nextBtn = document.getElementById('wizard-next-btn');
+      nextBtn.innerText = currentLang === 'de' ? 'Weiter' : 'Next';
+      updateProgress(0);
+    }
+
+    function openApplyModal(jobTitle) {
+      document.getElementById('modal-job-title').innerText = jobTitle;
+      const modal = document.getElementById('apply-modal');
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      gsap.fromTo(modal.querySelector('.bg-teal-950'), { scale: 0.9, y: 20 }, { scale: 1, y: 0, duration: 0.3 });
+    }
+
+    function closeApplyModal() {
+      const modal = document.getElementById('apply-modal');
+      gsap.to(modal.querySelector('.bg-teal-950'), { scale: 0.9, y: 20, duration: 0.2, onComplete: () => {
+        modal.classList.add('opacity-0', 'pointer-events-none');
+        document.getElementById('apply-form').reset();
+      }});
+    }
+
+    let currentLang = 'de';
+    const translations = {
+      de: {
+        home: "Home", 
+        services: "Services", 
+        career: "Karriere",
+        stats: "Metriken",
+        estimator: "Anfrage",
+        heroSubtitle: "Deutschlands Zukunft verbinden mit <span class='var-text-light font-bold transition-colors duration-500'>Lichtgeschwindigkeit</span> und <span class='text-white font-bold'>Präzision</span>.",
+        scroll: "Scroll",
+        
+        ne3Title: "NE3 - City Networks",
+        ne3Desc: "Tiefbau und Ausführung von Makro-Infrastrukturen. Wir bauen die Hauptkommunikationsadern mit strengen deutschen Ingenieursstandards.",
+        ne4Title: "NE4 - Building Wiring",
+        ne4Desc: "Glasfaserverlegung von der Straße in die Gebäude (FTTH). Nahtlose und sichere Verbindung für Wohn- und Geschäftskomplexe.",
+        ne5Title: "NE5 - In-house Network",
+        ne5Desc: "Installation und Einrichtung von Endgeräten. Der letzte Schritt für ein Erlebnis von unendlicher Geschwindigkeit und stabiler Verbindung.",
+        
+        statsTitle: "Unser Impact in Zahlen",
+        statsSubtitle: "Echtzeit-Einblicke in den regionalen und bundesweiten Glasfaserausbau der Technik Net GmbH.",
+        statFiberLabel: "KM verlegte Glasfaser",
+        statHomesLabel: "Angeschlossene Haushalte",
+        statCrewsLabel: "Aktive Montagetrupps",
+        statSatisfLabel: "Kundenzufriedenheit (%)",
+        regionFilterLabel: "Region filtern:",
+        optDE: "Deutschland (Gesamt)",
+        optHE: "Hessen",
+        optNRW: "Nordrhein-Westfalen",
+        optBY: "Bayern",
+        optBE: "Berlin & Brandenburg",
+
+        careerTitle: "Gestalten Sie die Zukunft mit uns",
+        careerSubtitle: "Wir suchen erstklassige Talente für den Ausbau der digitalen Infrastruktur.",
+        job1Title: "LWL-Spleißtechniker (m/w/d)",
+        job1Loc: "📍 Deutschlandweit / Mobil",
+        job1Desc: "Verantwortlich für das präzise Spleißen von Glasfaserkabeln in Gebäuden und Verteilern.",
+        job2Title: "Tiefbaufacharbeiter (m/w/d)",
+        job2Loc: "📍 Regionale Einsatzorte",
+        job2Desc: "Unterstützung bei Erd- und Tiefbauarbeiten für den Ausbau des Haupt-City-Netzes.",
+        job3Title: "Projektleiter Glasfaser (m/w/d)",
+        job3Loc: "📍 Frankfurt am Main / Hybrid",
+        job3Desc: "Koordination und Überwachung großer Glasfaserprojekte von der Trassenplanung bis zur Abnahme.",
+        applyBtn: "Jetzt bewerben",
+
+        estTitle: "Projekt-Kalkulator",
+        estSubtitle: "Erhalten Sie in wenigen Schritten einen unverbindlichen Projektrahmen.",
+        step1Header: "Welche Netzinfrastruktur-Ebene betrifft Ihr Projekt?",
+        level3Short: "Trassenbau / City Networks",
+        level4Short: "Gebäudeverkabelung (FTTH)",
+        level5Short: "Inhouse-Installation",
+        step2Header: "Wie groß ist der geschätzte Projektumfang?",
+        scopeUnits: "Wohneinheiten / Anschlüsse",
+        step3Header: "Ihre Kontaktdaten für das Angebot",
+        labelName: "Name",
+        labelEmail: "E-Mail Adresse",
+        labelPhone: "Telefonnummer",
+        labelDoc: "Lebenslauf / CV (PDF)",
+        submitBtn: "Bewerbung absenden",
+        modalSubtitle: "Wir freuen uns auf Ihre Kurzbewerbung.",
+
+        ctaTitle: "Bereit, Ihre Infrastruktur zu aktualisieren?",
+        ctaSubtitle: "Lassen Sie uns Ihr Projekt besprechen.",
+        ctaBtn: "Projektanfrage"
+      },
+      en: {
+        home: "Home", 
+        services: "Services", 
+        career: "Career",
+        stats: "Metrics",
+        estimator: "Inquiry",
+        heroSubtitle: "Connecting Germany's future with <span class='var-text-light font-bold transition-colors duration-500'>lightspeed</span> and <span class='text-white font-bold'>precision</span>.",
+        scroll: "Scroll",
+        
+        ne3Title: "NE3 - City Networks",
+        ne3Desc: "Civil engineering and execution of macro infrastructure. We build main communication highways matching the highest German standards.",
+        ne4Title: "NE4 - Building Wiring",
+        ne4Desc: "Fiber laying from the streets directly into building complexes (FTTH). Seamless and secure deployment for business and living hubs.",
+        ne5Title: "NE5 - In-house Network",
+        ne5Desc: "Installation and configuration of physical terminal equipment. The final link to deliver ultimate internet speeds.",
+        
+        statsTitle: "Our Impact in Numbers",
+        statsSubtitle: "Real-time insights into regional and nationwide fiber optic deployments by Technik Net GmbH.",
+        statFiberLabel: "KM Fiber Optic Laid",
+        statHomesLabel: "Connected Households",
+        statCrewsLabel: "Active Assembly Teams",
+        statSatisfLabel: "Customer Satisfaction (%)",
+        regionFilterLabel: "Filter Region:",
+        optDE: "Germany (Total)",
+        optHE: "Hesse",
+        optNRW: "North Rhine-Westphalia",
+        optBY: "Bavaria",
+        optBE: "Berlin & Brandenburg",
+
+        careerTitle: "Shape the Future with Us",
+        careerSubtitle: "We are seeking top talent to boost Germany's digital network expansion.",
+        job1Title: "Fiber Splicing Technician (m/f/d)",
+        job1Loc: "📍 Nationwide / Mobile",
+        job1Desc: "Responsible for high-precision fiber splicing in distribution frames and house terminals.",
+        job2Title: "Civil Construction Worker (m/f/d)",
+        job2Loc: "📍 Regional Deployment",
+        job2Desc: "Support underground excavation and pipe laying for the main city backbone network.",
+        job3Title: "Fiber Project Manager (m/f/d)",
+        job3Loc: "📍 Frankfurt am Main / Hybrid",
+        job3Desc: "Coordination and management of fiber engineering projects from planning to client acceptance.",
+        applyBtn: "Apply Now",
+
+        estTitle: "Project Estimator",
+        estSubtitle: "Get an initial and non-binding proposal structure in just a few clicks.",
+        step1Header: "Which infrastructure level does your project address?",
+        level3Short: "Backbone / City Networks",
+        level4Short: "Building Cabling (FTTH)",
+        level5Short: "In-house Installation",
+        step2Header: "What is your approximate project scope?",
+        scopeUnits: "Residential Units / Outlets",
+        step3Header: "Your Contact Details for the Estimate",
+        labelName: "Full Name",
+        labelEmail: "Email Address",
+        labelPhone: "Phone Number",
+        labelDoc: "Resume / CV (PDF)",
+        submitBtn: "Send Application",
+        modalSubtitle: "We look forward to receiving your brief application.",
+
+        ctaTitle: "Ready to Upgrade Your Network?",
+        ctaSubtitle: "Let's align and talk about your specific blueprints.",
+        ctaBtn: "Inquire Now"
+      }
+    };
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key]) {
+          el.innerHTML = translations[lang][key];
+        }
+      });
+
+      const btnDe = document.getElementById('btn-de');
+      const btnEn = document.getElementById('btn-en');
+      const activeClasses = ['var-bg-primary', 'text-slate-900', 'font-bold', 'var-glow'];
+      const inactiveClasses = ['text-gray-400', 'hover:text-white', 'font-normal'];
+
+      if (lang === 'de') {
+        btnDe.classList.add(...activeClasses);
+        btnDe.classList.remove(...inactiveClasses);
+        btnEn.classList.add(...inactiveClasses);
+        btnEn.classList.remove(...activeClasses);
+        
+        if(currentStep === 3) {
+          document.getElementById('wizard-next-btn').innerText = "Absenden";
+        } else {
+          document.getElementById('wizard-next-btn').innerText = "Weiter";
+        }
+        document.getElementById('wizard-prev').innerText = "Zurück";
+      } else {
+        btnEn.classList.add(...activeClasses);
+        btnEn.classList.remove(...inactiveClasses);
+        btnDe.classList.add(...inactiveClasses);
+        btnDe.classList.remove(...activeClasses);
+        
+        if(currentStep === 3) {
+          document.getElementById('wizard-next-btn').innerText = "Submit";
+        } else {
+          document.getElementById('wizard-next-btn').innerText = "Next";
+        }
+        document.getElementById('wizard-prev').innerText = "Back";
+      }
+    }
+
+    function submitApplication(e) {
+      e.preventDefault();
+      closeApplyModal();
+      showToast(currentLang === 'de' ? 'Bewerbung erfolgreich eingereicht!' : 'Application successfully submitted!');
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast-notif');
+      document.getElementById('toast-text').innerText = message;
+      toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+      toast.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+      
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+        toast.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+      }, 3500);
+    }
+
+    window.addEventListener('load', () => {
+      ScrollTrigger.refresh();
+    });
+  </script>
+</body>
+</html>
