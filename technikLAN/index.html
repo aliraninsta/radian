@@ -5,6 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TechnikNet GmbH - Ihr Partner für Glasfaserausbau</title>
   
+  <!-- Primary Meta Tags -->
+  <meta name="title" content="TechnikNet GmbH - Ihr Partner für Glasfaserausbau">
+  <meta name="description" content="Deutschlands Zukunft verbinden mit Lichtgeschwindigkeit und Präzision. Professioneller FTTX- und Glasfaserausbau in den Netzebenen NE3, NE4 und NE5.">
+  <meta name="keywords" content="Glasfaser, FTTH, FTTX, NE3, NE4, NE5, Breitbandausbau, TechnikNet, Glasfaserausbau Deutschland">
+  <meta name="author" content="Technik Net GmbH">
+  <meta name="theme-color" content="#0099CC">
+
+  <!-- Favicon / App Icons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="t00c.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="t00c.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="t00c.png">
+  <link rel="shortcut icon" href="t00c.png">
+
+  <!-- Open Graph / Facebook / LinkedIn / Telegram / WhatsApp -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://technik-net.com/">
+  <meta property="og:title" content="TechnikNet GmbH - Ihr Partner für Glasfaserausbau">
+  <meta property="og:description" content="Deutschlands Zukunft verbinden mit Lichtgeschwindigkeit und Präzision. Ihr Spezialist für FTTX-Infrastruktur & Netzebenen 3, 4 und 5.">
+  <meta property="og:image" content="t00c.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="TechnikNet Logo">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:site_name" content="TechnikNet GmbH">
+
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://technik-net.com/">
+  <meta name="twitter:title" content="TechnikNet GmbH - Ihr Partner für Glasfaserausbau">
+  <meta name="twitter:description" content="Deutschlands Zukunft verbinden mit Lichtgeschwindigkeit und Präzision. Ihr Spezialist für FTTX-Infrastruktur & Netzebenen 3, 4 und 5.">
+  <meta name="twitter:image" content="t00c.png">
+  
   <!-- Google Fonts: Sora (Headings), SUSE (Body/UI), JetBrains Mono (Eyebrows/Badges) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -121,7 +154,7 @@
       will-change: transform;
     }
 
-    /* Restored High-Contrast Drop Shadow for Typography Logo */
+    /* Drop Shadow for Typography Logo */
     .tng-logo-shadow {
       filter: 
         drop-shadow(0 3px 6px rgba(0, 0, 0, 0.35)) 
@@ -169,7 +202,7 @@
       <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
         <div id="nav-container" class="flex items-center justify-between h-20 transition-all duration-500">
           
-          <!-- Compact Brand Logo (Well-proportioned size: h-6 on mobile, h-8 on desktop) -->
+          <!-- Compact Brand Logo (TNg.png with Shadow <-> Tsign.png with NO SHADOW) -->
           <div class="relative flex items-center cursor-pointer select-none py-1" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
             <img src="TNg.png" alt="TechnikNet Logo" class="h-6 sm:h-7 md:h-8 w-auto object-contain tng-logo-shadow transition-all duration-300" id="nav-logo" />
           </div>
@@ -261,7 +294,7 @@
       <!-- Hero Content Wrapper with balanced 2-line widths for Desktop & Mobile -->
       <div id="hero-scroll-group" class="relative z-10 flex flex-col items-center gap-5 sm:gap-6 will-change-transform max-w-full px-2">
         
-        <!-- Logo (Hero: balanced size: ~320px on mobile, ~520px on desktop) -->
+        <!-- Logo (Hero) -->
         <div id="hero-logo-wrapper" class="hero-logo-idle will-change-transform flex justify-center w-full">
           <img src="TNg.png" alt="TechnikNet Logo" id="hero-logo-img" class="h-auto w-auto max-w-[310px] xs:max-w-[340px] sm:max-w-[420px] md:max-w-[520px] object-contain tng-logo-shadow cursor-default select-none will-change-transform" />
         </div>
@@ -386,8 +419,8 @@
                   <path d="M10 160 h30" stroke="#0099CC" stroke-width="2.5" class="laser-line" />
                   <path d="M52 160 h100 v-40" stroke="#0099CC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="laser-line-fast" />
                   <rect x="132" y="95" width="40" height="25" rx="4" fill="#F8FAFC" stroke="#0099CC" width="2" />
-                  <line x1="142" y1="95" x2="135" y2="75" stroke="#0099CC" stroke-width="2" />
-                  <line x1="162" y1="95" x2="169" y2="75" stroke="#0099CC" stroke-width="2" />
+                  <line x1="142" y1="95" x2="135" y2="75" stroke="#0099CC" width="2" />
+                  <line x1="162" y1="95" x2="169" y2="75" stroke="#0099CC" width="2" />
                   <circle cx="152" cy="112" r="2.5" fill="#0099CC" class="animate-pulse" />
                   <rect x="260" y="75" width="45" height="30" rx="3" fill="#E2E8F0" stroke="#0099CC" />
                   <rect x="250" y="105" width="65" height="5" rx="1" fill="#CBD5E1" />
@@ -414,7 +447,7 @@
       </div>
     </section>
     
-    <!-- Stats Section (Using clean title: Metriken / Metrics) -->
+    <!-- Stats Section -->
     <section id="stats" class="py-24 relative z-30 bg-white/70 border-y border-slate-200 backdrop-blur-md">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
