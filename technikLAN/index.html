@@ -169,9 +169,9 @@
       <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
         <div id="nav-container" class="flex items-center justify-between h-20 transition-all duration-500">
           
-          <!-- Compact Brand Logo (TNg.png with Shadow <-> Tsign.png with NO SHADOW) -->
+          <!-- Compact Brand Logo (Well-proportioned size: h-6 on mobile, h-8 on desktop) -->
           <div class="relative flex items-center cursor-pointer select-none py-1" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-            <img src="TNg.png" alt="TechnikNet Logo" class="h-4 sm:h-5 md:h-6 w-auto object-contain tng-logo-shadow transition-all duration-300" id="nav-logo" />
+            <img src="TNg.png" alt="TechnikNet Logo" class="h-6 sm:h-7 md:h-8 w-auto object-contain tng-logo-shadow transition-all duration-300" id="nav-logo" />
           </div>
           
           <!-- Desktop Menu Links with dynamic active state switching -->
@@ -189,7 +189,7 @@
               </a>
 
               <a href="#stats" data-i18n="stats" onclick="setActiveNav(this)" class="nav-item text-slate-700 hover:text-[#0099CC] px-3 py-2 rounded-md transition-colors relative group">
-                <span>Zahlen & Fakten</span>
+                <span>Metriken</span>
                 <span class="nav-indicator absolute -bottom-1 left-0 w-0 h-0.5 bg-[#0099CC] rounded-full transition-all duration-300 group-hover:w-full var-glow"></span>
               </a>
 
@@ -231,7 +231,7 @@
       <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-lg border-b border-slate-200 px-6 pt-2 pb-6 space-y-2 transition-all duration-300 shadow-xl">
         <a href="#home" onclick="toggleMobileMenu(); setActiveNavMobile(this)" data-i18n="home" class="mobile-nav-item block text-[#0099CC] font-bold px-3 py-2 rounded-md text-base">Home</a>
         <a href="#services" onclick="toggleMobileMenu(); setActiveNavMobile(this)" data-i18n="services" class="mobile-nav-item block text-slate-700 hover:text-[#0099CC] px-3 py-2 rounded-md text-base font-semibold">Leistungen</a>
-        <a href="#stats" onclick="toggleMobileMenu(); setActiveNavMobile(this)" data-i18n="stats" class="mobile-nav-item block text-slate-700 hover:text-[#0099CC] px-3 py-2 rounded-md text-base font-semibold">Zahlen & Fakten</a>
+        <a href="#stats" onclick="toggleMobileMenu(); setActiveNavMobile(this)" data-i18n="stats" class="mobile-nav-item block text-slate-700 hover:text-[#0099CC] px-3 py-2 rounded-md text-base font-semibold">Metriken</a>
         <a href="#career" onclick="toggleMobileMenu(); setActiveNavMobile(this)" data-i18n="career" class="mobile-nav-item block text-slate-700 hover:text-[#0099CC] px-3 py-2 rounded-md text-base font-semibold">Karriere</a>
         <a href="#estimator" onclick="toggleMobileMenu(); setActiveNavMobile(this)" data-i18n="estimator" class="mobile-nav-item block text-slate-700 hover:text-[#0099CC] px-3 py-2 rounded-md text-base font-semibold">Projektanfrage</a>
       </div>
@@ -258,17 +258,17 @@
       <!-- Soft Edge Transition at the very bottom into the next section -->
       <div class="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-[#F8FAFC] to-transparent pointer-events-none z-1"></div>
 
-      <!-- Hero Content Wrapper with strictly balanced 2-line widths for Desktop & Mobile -->
-      <div id="hero-scroll-group" class="relative z-10 flex flex-col items-center gap-4 sm:gap-6 will-change-transform max-w-full px-2">
+      <!-- Hero Content Wrapper with balanced 2-line widths for Desktop & Mobile -->
+      <div id="hero-scroll-group" class="relative z-10 flex flex-col items-center gap-5 sm:gap-6 will-change-transform max-w-full px-2">
         
-        <!-- Logo (Hero) -->
+        <!-- Logo (Hero: balanced size: ~320px on mobile, ~520px on desktop) -->
         <div id="hero-logo-wrapper" class="hero-logo-idle will-change-transform flex justify-center w-full">
-          <img src="TNg.png" alt="TechnikNet Logo" id="hero-logo-img" class="h-auto w-auto max-w-[270px] xs:max-w-[290px] sm:max-w-[360px] md:max-w-[440px] object-contain tng-logo-shadow cursor-default select-none will-change-transform" />
+          <img src="TNg.png" alt="TechnikNet Logo" id="hero-logo-img" class="h-auto w-auto max-w-[310px] xs:max-w-[340px] sm:max-w-[420px] md:max-w-[520px] object-contain tng-logo-shadow cursor-default select-none will-change-transform" />
         </div>
         
         <!-- Hero Subtitle: Clean 2-line rendering in both Desktop and Mobile -->
         <div id="hero-sub-wrapper" class="hero-sub-idle will-change-transform w-full flex justify-center">
-          <p id="hero-sub" data-i18n="heroSubtitle" class="text-[17px] xs:text-[18px] sm:text-[21px] md:text-[23px] text-white font-semibold leading-snug sm:leading-relaxed hero-sub-shadow will-change-transform max-w-[290px] xs:max-w-[320px] sm:max-w-xl md:max-w-2xl mx-auto">
+          <p id="hero-sub" data-i18n="heroSubtitle" class="text-[17px] xs:text-[18px] sm:text-[21px] md:text-[23px] text-white font-semibold leading-snug sm:leading-relaxed hero-sub-shadow will-change-transform max-w-[310px] xs:max-w-[340px] sm:max-w-xl md:max-w-2xl mx-auto">
             Deutschlands Zukunft verbinden<br class="hidden sm:inline" /> mit <span class="text-[#38BDF8] font-bold transition-colors duration-500">Lichtgeschwindigkeit</span> und <span class="text-white font-bold">Präzision</span>.
           </p>
         </div>
@@ -414,13 +414,13 @@
       </div>
     </section>
     
-    <!-- Stats Section -->
+    <!-- Stats Section (Using clean title: Metriken / Metrics) -->
     <section id="stats" class="py-24 relative z-30 bg-white/70 border-y border-slate-200 backdrop-blur-md">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
           <div class="text-left">
-            <h2 data-i18n="statsTitle" class="text-3xl md:text-5xl font-bold tracking-wide mb-4 text-[#333333]">Zahlen & Fakten</h2>
+            <h2 data-i18n="statsTitle" class="text-3xl md:text-5xl font-bold tracking-wide mb-4 text-[#333333]">Metriken & Zahlen</h2>
             <p data-i18n="statsSubtitle" class="text-[#666666] max-w-xl">Echtzeit-Einblicke in den regionalen und bundesweiten Glasfaserausbau der Technik Net GmbH.</p>
           </div>
           
@@ -890,6 +890,7 @@
     const navLogo = document.getElementById('nav-logo');
     
     window.addEventListener('scroll', () => {
+      // Early trigger for mobile responsiveness (starts at 20px)
       if (window.scrollY > 20) {
         navbar.classList.add('bg-white/90', 'backdrop-blur-md', 'border-slate-200', 'shadow-md');
         navbar.classList.remove('border-transparent');
@@ -900,8 +901,8 @@
         if (!navLogo.src.includes('Tsign.png')) {
           gsap.to(navLogo, { opacity: 0, scale: 0.8, duration: 0.12, onComplete: () => {
             navLogo.src = 'Tsign.png';
-            navLogo.classList.remove('h-4', 'sm:h-5', 'md:h-6', 'tng-logo-shadow');
-            navLogo.classList.add('h-6', 'sm:h-7', 'md:h-8');
+            navLogo.classList.remove('h-6', 'sm:h-7', 'md:h-8', 'tng-logo-shadow');
+            navLogo.classList.add('h-7', 'sm:h-8', 'md:h-9');
             navLogo.style.filter = "none";
             gsap.to(navLogo, { opacity: 1, scale: 1, duration: 0.18 });
           }});
@@ -916,8 +917,8 @@
         if (navLogo.src.includes('Tsign.png')) {
           gsap.to(navLogo, { opacity: 0, scale: 0.8, duration: 0.12, onComplete: () => {
             navLogo.src = 'TNg.png';
-            navLogo.classList.remove('h-6', 'sm:h-7', 'md:h-8');
-            navLogo.classList.add('h-4', 'sm:h-5', 'md:h-6', 'tng-logo-shadow');
+            navLogo.classList.remove('h-7', 'sm:h-8', 'md:h-9');
+            navLogo.classList.add('h-6', 'sm:h-7', 'md:h-8', 'tng-logo-shadow');
             navLogo.style.filter = "";
             gsap.to(navLogo, { opacity: 1, scale: 1, duration: 0.18 });
           }});
@@ -1147,7 +1148,7 @@
         home: "Home", 
         services: "Leistungen", 
         career: "Karriere",
-        stats: "Zahlen & Fakten",
+        stats: "Metriken",
         estimator: "Projektanfrage",
         heroSubtitle: "Deutschlands Zukunft verbinden<br class='hidden sm:inline' /> mit <span class='text-[#38BDF8] font-bold transition-colors duration-500'>Lichtgeschwindigkeit</span> und <span class='text-white font-bold'>Präzision</span>.",
         scroll: "Scroll",
@@ -1159,7 +1160,7 @@
         ne5Title: "NE5 - Endgeräte & Inhouse-Netzwerk",
         ne5Desc: "Montage der Teilnehmeranschlussdose <span class='no-wrap-phrase'>(TA)</span>, Spleißarbeiten, Einpegeln, OTDR-Messung und betriebsbereite Inbetriebnahme von Routern und ONTs.",
         
-        statsTitle: "Zahlen & Fakten",
+        statsTitle: "Metriken & Zahlen",
         statsSubtitle: "Echtzeit-Einblicke in den regionalen und bundesweiten Glasfaserausbau der Technik Net GmbH.",
         statFiberLabel: "KM verlegte Glasfaser",
         statHomesLabel: "Angeschlossene Haushalte",
@@ -1209,7 +1210,7 @@
         home: "Home", 
         services: "Services", 
         career: "Career",
-        stats: "Facts & Figures",
+        stats: "Metrics",
         estimator: "Project Inquiry",
         heroSubtitle: "Connecting Germany's digital future<br class='hidden sm:inline' /> with <span class='text-[#38BDF8] font-bold transition-colors duration-500'>lightspeed</span> and <span class='text-white font-bold'>precision</span>.",
         scroll: "Scroll",
@@ -1221,7 +1222,7 @@
         ne5Title: "NE5 - In-house & Terminal Endpoints",
         ne5Desc: "Subscriber outlet installation <span class='no-wrap-phrase'>(TA)</span>, precision fiber splicing, OTDR measuring, and turn-key ONT configuration.",
         
-        statsTitle: "Facts & Figures",
+        statsTitle: "Metrics & Facts",
         statsSubtitle: "Real-time metrics on regional and nationwide broadband fiber rollouts by Technik Net GmbH.",
         statFiberLabel: "KM Fiber Optic Deployed",
         statHomesLabel: "Connected Living Units",
