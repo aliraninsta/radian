@@ -30,11 +30,12 @@
   --white:#ffffff;
 
   /* --- derived --- */
-  --ink:#0a2733;          /* body copy, deep shade of --blue      */
-  --ink-soft:#5b6f78;     /* secondary copy                        */
-  --hairline:#e3e8ea;     /* 1 px rules — tint of --grey on white  */
-  --tint:#f5f8f9;         /* faint card ground                     */
-  --night:#06171f;        /* hero / dark surfaces                  */
+  --ink:#333333;          /* headings and body copy                */
+  --ink-soft:#6b6f72;     /* secondary copy                        */
+  --ink-deep:#1f2429;     /* body copy on blue only (contrast)     */
+  --hairline:#e4e6e7;     /* 1 px rules — tint of --grey on white  */
+  --tint:#f6f7f7;         /* faint card ground                     */
+  --night:#333333;        /* dark surfaces — same value as Graphite */
   --blue-press:#0086b5;   /* hover + pressed state of --blue       */
 
   --shell:1180px;
@@ -51,8 +52,8 @@ body{
 /* ambient tone-on-tone ground — must stay near-invisible */
 body::before{
   content:'';position:fixed;inset:0;z-index:-2;pointer-events:none;
-  background:url('assets/pattern-light.webp') repeat;
-  background-size:440px 440px;opacity:.85;
+  background:url('assets/pattern-white.webp') repeat;
+  background-size:900px auto;opacity:.25;
 }
 h1,h2,h3,.node-index,.sample-sora{
   font-family:'Sora',system-ui,sans-serif;font-weight:800;
@@ -62,7 +63,9 @@ h1,h2,h3,.node-index,.sample-sora{
 .type-label,.type-meta,figcaption,.band-meta,.rank-n{
   font-family:'JetBrains Mono',ui-monospace,monospace;font-weight:400
 }
-p{margin:0}
+p,figure,dl,dd{margin:0}
+p,.note,.concept p,.swatch-role,.rank-item p,.type-wordmark .tw-note,
+.pattern-fact p,.section-lede,.row-note{text-wrap:balance;text-wrap:pretty}
 img,svg{display:block;max-width:100%}
 ::selection{background:var(--blue);color:var(--white)}
 :focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:2px}
@@ -70,18 +73,12 @@ img,svg{display:block;max-width:100%}
 .shell{max-width:var(--shell);margin:0 auto;padding:0 32px;width:100%}
 
 /* ============ HERO ============ */
-.hero{position:relative;background:var(--night)}
+.hero{position:relative;background:var(--white)}
 .hero-video-wrap{
   position:relative;width:100%;isolation:isolate;
-  background:var(--night) url('assets/pattern-night.webp') repeat;
-  background-size:440px 440px;
+  background:var(--white);
 }
 .hero-video-wrap video{width:100%;height:auto;display:block}
-/* Unifies the existing footage into the new palette: hue + saturation
-   come from --blue, luminosity stays from the video. Kills the orange. */
-.video-tint{position:absolute;inset:0;background:var(--blue);mix-blend-mode:color;pointer-events:none}
-.video-shade{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 62%,rgba(6,23,31,.72));pointer-events:none}
-@supports not (mix-blend-mode:color){.video-tint{display:none}}
 
 .scroll-cue{
   position:absolute;left:50%;bottom:26px;transform:translateX(-50%);z-index:2;
@@ -90,44 +87,56 @@ img,svg{display:block;max-width:100%}
 }
 .scroll-cue.show{opacity:1}
 .mouse{
-  width:26px;height:42px;border:2px solid var(--white);border-radius:14px;
-  position:relative;animation:cueNudge 2.6s ease-in-out infinite
+  width:26px;height:42px;border:2px solid var(--ink);border-radius:14px;
+  position:relative;animation:cueNudge 2.6s ease-in-out infinite;
+  background:transparent;padding:0;cursor:pointer;pointer-events:none;
+  -webkit-tap-highlight-color:transparent;
+  transition:border-color .2s ease,transform .2s ease
 }
+.scroll-cue.show .mouse{pointer-events:auto}
+.mouse:hover{border-color:var(--blue)}
+.mouse:active{transform:scale(.92)}
+.mouse:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
 .mouse::after{
   content:'';position:absolute;left:50%;top:8px;width:4px;height:8px;margin-left:-2px;
-  border-radius:2px;background:var(--white);
-  animation:cueBall 2.6s cubic-bezier(.65,-.55,.25,1.5) infinite
+  border-radius:2px;background:var(--ink);
+  animation:cueBall 2.6s cubic-bezier(.65,-.55,.25,1.5) infinite;
+  transition:background .2s ease
 }
-.scroll-text{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.66)}
+.mouse:hover::after{background:var(--blue)}
+.scroll-text{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-soft)}
 @keyframes cueBall{0%,20%{transform:translateY(0);opacity:1}
   60%{transform:translateY(16px);opacity:0}61%,100%{transform:translateY(0);opacity:0}
   85%,100%{opacity:1}}
 @keyframes cueNudge{0%,70%,100%{transform:translateY(0)}80%{transform:translateY(5px)}}
 
-/* ============ BLUE STATEMENT BAND ============ */
-.band{background:var(--blue);color:var(--ink);padding:96px 0 100px}
+/* ============ STATEMENT BAND (grey) ============
+   On Duct Grey, type is blue or white only — no Graphite.
+   See the contrast note in section 02. */
+.band{background:var(--grey);color:var(--blue);padding:72px 0 76px}
 .band-eyebrow{
   font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.28em;
-  text-transform:uppercase;color:var(--ink);display:block;margin-bottom:22px
+  text-transform:uppercase;color:var(--blue);display:block;margin-bottom:22px
 }
 .band h1{
   color:var(--white);font-size:clamp(31px,4.6vw,56px);max-width:15ch;
   text-wrap:balance
 }
-.band p{max-width:60ch;margin-top:26px;font-size:17px;color:var(--ink)}
+.band h1 em{font-style:normal;color:var(--blue)}
+.band p{max-width:60ch;margin-top:26px;font-size:17px;color:var(--blue)}
 .band p code{
-  font-family:'JetBrains Mono',monospace;font-size:.92em;
-  background:rgba(255,255,255,.5);padding:1px 6px;border-radius:3px
+  font-family:'JetBrains Mono',monospace;font-size:.92em;color:var(--blue);
+  background:var(--white);padding:1px 6px;border-radius:3px
 }
 .band-meta{
-  margin-top:40px;padding-top:22px;border-top:1px solid rgba(255,255,255,.42);
-  font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink)
+  margin-top:40px;padding-top:22px;border-top:1px solid var(--white);
+  font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue)
 }
 .band-lockup{width:min(300px,52%);margin-bottom:40px}
 
 /* ============ SECTIONS ============ */
 #timeline-container{position:relative;z-index:0}
-.node-section{padding:112px 32px 24px}
+.node-section{padding:80px 32px 8px}
 .node-eyebrow{
   font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink-soft);
   display:block;margin-bottom:6px
@@ -140,7 +149,7 @@ img,svg{display:block;max-width:100%}
 .node-section h2{font-size:clamp(27px,3.5vw,42px);margin-top:12px}
 .node-section h2 em{font-style:normal;color:var(--blue)}
 .section-lede{max-width:64ch;color:var(--ink-soft);margin-top:18px;font-size:17px}
-.divider{height:1px;background:var(--hairline);margin:40px 0 0}
+.divider{height:1px;background:var(--hairline);margin:28px 0 0}
 
 /* ---- 01 concepts ---- */
 .concept-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:46px}
@@ -168,14 +177,14 @@ img,svg{display:block;max-width:100%}
 .swatch-body{padding:16px 18px 20px}
 .swatch-name{font-size:14px;font-weight:600;margin-bottom:4px}
 .swatch-hex{font-size:12px;color:var(--blue);letter-spacing:.06em}
-.swatch-role{font-size:13.5px;color:var(--ink-soft);margin-top:9px;line-height:1.55}
+.swatch-role{font-size:14.5px;color:var(--ink-soft);margin-top:9px;line-height:1.6}
 .swatch.is-derived .swatch-hex{color:var(--ink-soft)}
 
 .rank{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
 .rank-item{display:flex;gap:14px;align-items:flex-start;padding:18px 20px;border:1px solid var(--hairline);border-radius:6px}
 .rank-n{font-size:12px;color:var(--blue);padding-top:2px}
 .rank-item h3{font-size:14.5px;margin-bottom:5px}
-.rank-item p{font-size:13.5px;color:var(--ink-soft);line-height:1.55}
+.rank-item p{font-size:14.5px;color:var(--ink-soft);line-height:1.6}
 
 .hierarchy{margin-top:34px}
 .hierarchy-bar{display:flex;height:56px;border-radius:4px;overflow:hidden;border:1px solid var(--hairline)}
@@ -241,36 +250,41 @@ img,svg{display:block;max-width:100%}
   text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px}
 .fact dd{margin:0;font-family:'Sora',sans-serif;font-weight:800;font-size:22px;color:var(--ink)}
 .fact dd small{font-family:'SUSE',sans-serif;font-weight:400;font-size:13px;color:var(--ink-soft);display:block;margin-top:4px}
-figcaption{margin-top:16px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+figcaption:not(.spec-cap){margin-top:16px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
 
 /* ---- 05 applications ---- */
 .app-grid{display:flex;gap:18px;margin-top:46px;align-items:stretch}
-.app-main{
-  width:calc((100% - 18px) * 1.3 / 2.3);height:520px;border-radius:6px;overflow:hidden;
-  position:relative;display:flex;align-items:center;justify-content:center;padding:48px;
-  background:var(--white);border:1px solid var(--hairline)
-}
+.app-main{width:calc((100% - 18px) * 1.3 / 2.3);display:flex}
 .app-side{flex:1;display:flex;flex-direction:column;gap:18px}
-.app-card{
-  flex:1;border-radius:6px;overflow:hidden;position:relative;
-  display:flex;align-items:center;justify-content:center;padding:24px;
-  border:1px solid var(--hairline)
+/* Every specimen is a coloured stage with its label on white underneath —
+   no type is ever set on top of a blue, grey or dark ground. */
+.spec-card{
+  display:flex;flex-direction:column;background:var(--white);
+  border:1px solid var(--hairline);border-radius:6px;overflow:hidden
 }
-.app-card.is-night,.app-main.is-night{background:var(--night) url('assets/pattern-night.webp') repeat;background-size:300px 300px;border-color:var(--night)}
-.app-card.is-blue{background:var(--blue);border-color:var(--blue)}
-.app-card.is-grey{background:var(--grey);border-color:var(--grey)}
-.app-card.is-pattern{background:var(--white) url('assets/pattern-display.webp') repeat;background-size:300px 300px}
-.app-card img{max-width:76%;height:auto}
-.app-card.is-signet img{max-width:none;width:auto;height:62%}
-.app-main img{max-width:84%}
-.caption{
-  position:absolute;left:16px;bottom:12px;font-size:10px;letter-spacing:.16em;
+.app-main .spec-card{height:520px;width:100%}
+.app-side .spec-card{flex:1}
+.spec-stage{
+  flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:26px
+}
+.spec-stage img{max-width:76%;max-height:100%;width:auto;height:auto}
+.app-main .spec-stage{padding:48px}
+.app-main .spec-stage img{max-width:84%}
+.stage-white{background:var(--white)}
+.stage-night{background:var(--night)}
+.stage-blue{background:var(--blue)}
+.stage-grey{background:var(--grey)}
+.spec-cap{
+  padding:11px 14px;border-top:1px solid var(--hairline);background:var(--white);
+  font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;
   text-transform:uppercase;color:var(--ink-soft)
 }
-.app-card.is-night .caption,.app-main.is-night .caption,.app-card.is-blue .caption{color:rgba(255,255,255,.72)}
-.app-card.is-grey .caption,.app-card.is-pattern .caption,.pattern-wrap .caption{color:var(--ink)}
-
-.icon-row{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:18px}
+.signet-row{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:18px}
+.signet-row>*{min-width:0}
+.signet-row .spec-card{min-height:250px}
+.signet-row .spec-stage img{max-width:none;height:110px}
+.row-note{margin-top:18px;font-size:14.5px;color:var(--ink-soft);line-height:1.6;max-width:70ch}
+.icon-row{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:34px}
 .icon-row>*{min-width:0}
 .icon-cell{
   border:1px solid var(--hairline);border-radius:6px;padding:26px;
@@ -283,14 +297,31 @@ figcaption{margin-top:16px;font-size:11px;letter-spacing:.14em;text-transform:up
 /* ---- 06 pattern ---- */
 .pattern-row{display:flex;gap:18px;align-items:stretch;margin-top:46px}
 .pattern-wrap{
-  width:calc((100% - 18px) * 1.3 / 2.3);height:520px;
-  border:1px solid var(--hairline);border-radius:6px;overflow:hidden;position:relative
+  width:calc((100% - 18px) * 1.3 / 2.3);display:flex;flex-direction:column;gap:18px
 }
-.pattern-fill{width:100%;height:100%;background:url('assets/pattern-display.webp') repeat;background-size:420px 420px}
+.pattern-wrap .spec-card{flex:1;min-height:230px}
+.pattern-wrap .spec-stage{padding:0}
+.spec-fill{width:100%;height:100%;align-self:stretch}
+.fill-grey{background:url('assets/pattern-grey.webp') repeat;background-size:560px auto}
+.fill-white{background:url('assets/pattern-white.webp') repeat;background-size:560px auto}
 .pattern-side{flex:1;display:flex;flex-direction:column;justify-content:center;gap:22px}
 .pattern-fact{border-left:3px solid var(--blue);padding:4px 0 4px 20px}
 .pattern-fact h3{font-size:15px;margin-bottom:6px}
 .pattern-fact p{font-size:14.5px;color:var(--ink-soft)}
+
+/* ---- 07 mockups ---- */
+.mockup-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:200px;
+  gap:18px;margin-top:46px
+}
+.mockup-grid>*{min-width:0}
+.mockup-card{
+  position:relative;border:1px solid var(--hairline);border-radius:6px;overflow:hidden;
+  background:var(--tint);display:flex;flex-direction:column
+}
+.mockup-card img{flex:1;min-height:0;width:100%;height:100%;object-fit:cover}
+.mockup-card.span-2{grid-column:span 2;grid-row:span 2}
+.mockup-card.span-wide{grid-column:span 2}
 
 /* ============ FIBRE TRACK (signature) ============
    Grey = dark fibre. Blue = lit. The run fills as you scroll. */
@@ -324,17 +355,17 @@ figcaption{margin-top:16px;font-size:11px;letter-spacing:.14em;text-transform:up
 @media (max-width:1320px){.fiber-track{display:none}}
 
 /* ============ FOOTER ============ */
-footer{background:var(--blue);color:var(--ink);padding:88px 0 72px;text-align:center;margin-top:80px}
+footer{background:var(--blue);color:var(--ink-deep);padding:88px 0 72px;text-align:center;margin-top:80px}
 footer .f-signet{width:56px;margin:0 auto 26px}
 footer .f-lockup{width:min(300px,72%);margin:0 auto 20px}
 footer .f-tag{
   font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.22em;
-  text-transform:uppercase;color:var(--ink);margin-bottom:26px
+  text-transform:uppercase;color:var(--ink-deep);margin-bottom:26px
 }
-footer p{color:var(--ink);font-size:14.5px;max-width:56ch;margin:0 auto}
+footer p{color:var(--ink-deep);font-size:15px;max-width:56ch;margin:0 auto}
 footer .f-meta{
   margin-top:36px;font-family:'JetBrains Mono',monospace;font-size:11px;
-  letter-spacing:.14em;color:rgba(10,39,51,.72)
+  letter-spacing:.14em;color:rgba(31,36,41,.78)
 }
 
 /* ============ SCROLL TO TOP ============ */
@@ -355,15 +386,18 @@ footer .f-meta{
   .concept-grid,.swatch-grid,.plate-facts,.icon-row{grid-template-columns:repeat(2,1fr)}
   .rank{grid-template-columns:1fr}
   .app-grid,.pattern-row{flex-direction:column}
-  .app-main{width:100%;height:auto;aspect-ratio:686/460;padding:32px}
+  .app-main{width:100%}
+  .app-main .spec-card{height:auto;min-height:360px}
   .app-side{flex-direction:row}
-  .app-card{min-height:190px}
-  .pattern-wrap{width:100%;height:auto;aspect-ratio:1/1}
+  .app-side .spec-card{min-height:220px}
+  .signet-row,.icon-row{grid-template-columns:repeat(2,1fr)}
+  .pattern-wrap{width:100%}
+  .mockup-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media (max-width:720px){
   body{font-size:16px}
-  .band{padding:64px 0 68px}
-  .node-section{padding:76px 24px 14px}
+  .band{padding:48px 0 52px}
+  .node-section{padding:52px 24px 6px}
   .concept-grid,.swatch-grid,.type-grid,.plate-facts,.icon-row{grid-template-columns:1fr}
   .app-side{flex-direction:column}
   .type-wordmark{padding:30px 24px;flex-direction:column;align-items:flex-start}
@@ -371,6 +405,9 @@ footer .f-meta{
   .plate{padding:16px}
   .plate-label{display:none}
   .scroll-cue{display:none}
+  body::before{background-size:520px auto}
+  .mockup-grid{grid-template-columns:1fr;grid-auto-rows:220px}
+  .mockup-card.span-2,.mockup-card.span-wide{grid-column:span 1;grid-row:span 1}
   footer{padding:64px 0 56px}
 }
 @media (prefers-reduced-motion:reduce){
@@ -384,17 +421,12 @@ footer .f-meta{
 <!-- ===================== HERO ===================== -->
 <header class="hero">
   <div class="hero-video-wrap">
-    <!-- Current hero film, kept as delivered.
-         To switch to the wordmark-free ambient loop instead,
-         change the src below to: assets/hero-loop.mp4 -->
     <video autoplay muted loop playsinline preload="auto" poster="assets/hero-poster.webp"
            aria-label="Technik Net brand film">
       <source src="assets/hero-reveal.mp4" type="video/mp4">
     </video>
-    <div class="video-tint"></div>
-    <div class="video-shade"></div>
     <div class="scroll-cue">
-      <div class="mouse"></div>
+      <button type="button" class="mouse" aria-label="Scroll down"></button>
       <p class="scroll-text">Scroll</p>
     </div>
   </div>
@@ -403,9 +435,9 @@ footer .f-meta{
 <!-- ===================== STATEMENT BAND ===================== -->
 <section class="band">
   <div class="shell">
-    <img class="band-lockup" src="assets/logo-mono-white.svg" alt="Technik Net GmbH">
+    <img class="band-lockup" src="assets/logo-mono-blue.svg" alt="Technik Net GmbH">
     <span class="band-eyebrow">Brand identity system · Revision 4</span>
-    <h1>Three values. Only one of them carries meaning.</h1>
+    <h1>Three values. Only one of them <em>carries meaning</em>.</h1>
     <p>
       Revision 4 fixes the palette at <code>#0099CC</code>, <code>#CCCCCC</code> and
       <code>#FFFFFF</code>. Everything below shows how the mark, the type and the
@@ -530,12 +562,12 @@ footer .f-meta{
         </div>
       </div>
       <div class="swatch is-derived">
-        <div class="swatch-chip" style="background:#0a2733"></div>
+        <div class="swatch-chip" style="background:#333333"></div>
         <div class="swatch-body">
-          <p class="swatch-name">Deep Ink <em style="font-style:normal;color:var(--ink-soft);font-weight:400">· derived</em></p>
-          <p class="swatch-hex">#0A2733</p>
-          <p class="swatch-role">Not a brand colour. A dark shade of Live Blue, used only
-             for body copy where the three brand values cannot be read.</p>
+          <p class="swatch-name">Graphite <em style="font-style:normal;color:var(--ink-soft);font-weight:400">· derived</em></p>
+          <p class="swatch-hex">#333333</p>
+          <p class="swatch-role">Not a brand colour. Neutral dark for every heading and
+             every line of body copy — the three brand values are never used as text.</p>
         </div>
       </div>
     </div>
@@ -559,21 +591,18 @@ footer .f-meta{
     </div>
 
     <div class="hierarchy">
-      <div class="hierarchy-bar" role="img" aria-label="Area split: white 46 percent, blue 34 percent, grey 14 percent, ink 6 percent">
-        <span style="background:#ffffff;flex:46;color:#5b6f78">46 % white</span>
-        <span style="background:#0099cc;flex:34;color:#0a2733">34 % blue</span>
-        <span style="background:#cccccc;flex:14;color:#0a2733">14 %</span>
-        <span style="background:#0a2733;flex:6;color:#ffffff">6 %</span>
+      <div class="hierarchy-bar" role="img" aria-label="Area split: white 44 percent, grey 32 percent, blue 18 percent, graphite 6 percent">
+        <span style="background:#ffffff;flex:44;color:#6b6f72">44 % white</span>
+        <span style="background:#cccccc;flex:32;color:#333333">32 % grey</span>
+        <span style="background:#0099cc;flex:18;color:#1f2429">18 % blue</span>
+        <span style="background:#333333;flex:6;color:#ffffff">6 %</span>
       </div>
       <div class="note">
-        <strong>Rank is not area.</strong> Blue ranks first, but white holds the most
-        surface — that is what keeps blue readable as a signal. If blue is given more than
-        roughly a third of a layout it stops marking anything and becomes a background.
-      </div>
-      <div class="note">
-        <strong>One legibility rule.</strong> White on Live Blue measures 3.3&nbsp;:&nbsp;1 —
-        enough for display type at 24&nbsp;px bold and above, not enough for body copy.
-        On blue surfaces, headlines are white and running text is set in Deep Ink.
+        <strong>Rank is not area.</strong> Blue ranks first in the palette but holds the
+        least surface of the three. Grey does the work white cannot — separating,
+        grounding, carrying whole sections — while blue stays small enough to keep
+        marking something. Past roughly a fifth of a layout it stops being a signal
+        and becomes a background.
       </div>
     </div>
     <div class="divider"></div>
@@ -643,13 +672,6 @@ footer .f-meta{
       </div>
       <figcaption>Construction plate — measured from the release artwork, not redrawn</figcaption>
     </figure>
-
-    <dl class="plate-facts">
-      <div class="fact"><dt>Module</dt><dd>1 u<small>Stroke weight. Constant across both words.</small></dd></div>
-      <div class="fact"><dt>Cap height</dt><dd>7 u<small>x‑height 5 u · 0.71 of cap</small></dd></div>
-      <div class="fact"><dt>Word gap</dt><dd>1 u<small>Technik 32.7 u · Net 17 u</small></dd></div>
-      <div class="fact"><dt>Clear space</dt><dd>4 u<small>Min. width 120 px screen / 25 mm print</small></dd></div>
-    </dl>
     <div class="divider"></div>
   </section>
 
@@ -664,37 +686,47 @@ footer .f-meta{
 
     <div class="app-grid">
       <div class="app-main">
-        <img src="assets/logo-primary.svg" alt="Primary lockup on white">
-        <span class="caption">01 · Primary — white surfaces</span>
+        <figure class="spec-card">
+          <div class="spec-stage stage-white"><img src="assets/logo-primary.svg" alt="Primary lockup on white"></div>
+          <figcaption class="spec-cap">01 · Primary — white surfaces</figcaption>
+        </figure>
       </div>
       <div class="app-side">
-        <div class="app-card is-night">
-          <img src="assets/logo-inverse.svg" alt="Inverse lockup on a dark surface">
-          <span class="caption">02 · Inverse — dark surfaces</span>
-        </div>
-        <div class="app-card is-blue">
-          <img src="assets/logo-mono-white.svg" alt="Monochrome white lockup on blue">
-          <span class="caption">03 · Mono white — on blue &amp; photography</span>
-        </div>
-        <div class="app-card is-grey">
-          <img src="assets/logo-mono-blue.svg" alt="Monochrome blue lockup on grey">
-          <span class="caption">04 · Mono blue — on grey &amp; tinted stock</span>
-        </div>
+        <figure class="spec-card">
+          <div class="spec-stage stage-night"><img src="assets/logo-inverse.svg" alt="Inverse lockup on a dark surface"></div>
+          <figcaption class="spec-cap">02 · Inverse — dark surfaces</figcaption>
+        </figure>
+        <figure class="spec-card">
+          <div class="spec-stage stage-blue"><img src="assets/logo-mono-white.svg" alt="Monochrome white lockup on blue"></div>
+          <figcaption class="spec-cap">03 · Mono white — on blue &amp; photography</figcaption>
+        </figure>
+        <figure class="spec-card">
+          <div class="spec-stage stage-grey"><img src="assets/logo-mono-blue.svg" alt="Monochrome blue lockup on grey"></div>
+          <figcaption class="spec-cap">04 · Mono blue — on grey &amp; tinted stock</figcaption>
+        </figure>
       </div>
     </div>
 
-    <div class="app-grid" style="margin-top:18px">
-      <div class="app-main is-night" style="height:340px">
-        <img src="assets/signet-inverse.svg" alt="Signet on a dark surface" style="max-width:none;height:80%;width:auto">
-        <span class="caption">Signet — avatar, stamp, vehicle door</span>
-      </div>
-      <div class="app-side">
-        <div class="app-card is-pattern is-signet">
-          <img src="assets/signet-primary.svg" alt="Signet on the brand pattern">
-          <span class="caption">Signet on pattern</span>
-        </div>
-      </div>
+    <div class="signet-row">
+      <figure class="spec-card">
+        <div class="spec-stage stage-white"><img src="assets/signet-primary.svg" alt="Signet on white"></div>
+        <figcaption class="spec-cap">Signet · on white</figcaption>
+      </figure>
+      <figure class="spec-card">
+        <div class="spec-stage stage-night"><img src="assets/signet-inverse.svg" alt="Signet on a dark surface"></div>
+        <figcaption class="spec-cap">Signet · on dark</figcaption>
+      </figure>
+      <figure class="spec-card">
+        <div class="spec-stage stage-blue"><img src="assets/signet-mono-white.svg" alt="Signet on blue"></div>
+        <figcaption class="spec-cap">Signet · on blue</figcaption>
+      </figure>
+      <figure class="spec-card">
+        <div class="spec-stage stage-grey"><img src="assets/signet-mono-blue.svg" alt="Signet on grey"></div>
+        <figcaption class="spec-cap">Signet · on grey</figcaption>
+      </figure>
     </div>
+    <p class="row-note">The signet carries the mark where the full lockup will not fit —
+      avatars, stamps, vehicle doors, workwear. It is never placed over the pattern.</p>
 
     <div class="icon-row">
       <div class="icon-cell"><img src="assets/icon-blue-on-white.svg" alt="App icon, blue on white"><span>Blue / white</span></div>
@@ -713,20 +745,27 @@ footer .f-meta{
     <span class="node-index">06</span>
     <h2>The surface it all <em>sits on</em>.</h2>
     <p class="section-lede">
-      A single tile, derived from the node joints in the wordmark, repeating without a
-      visible seam. It gives a surface a quiet technical texture without adding a colour.
+      Derived from the node joints in the wordmark, and supplied in two forms only. It gives
+      a surface a quiet technical texture without adding a colour.
     </p>
 
     <div class="pattern-row">
       <div class="pattern-wrap">
-        <div class="pattern-fill" role="img" aria-label="Seamless network pattern tile"></div>
-        <span class="caption">Seamless tile · 420 px repeat</span>
+        <figure class="spec-card">
+          <div class="spec-stage"><div class="spec-fill fill-grey" role="img" aria-label="Pattern sheet, grey on white"></div></div>
+          <figcaption class="spec-cap">Form 01 · grey on white</figcaption>
+        </figure>
+        <figure class="spec-card">
+          <div class="spec-stage"><div class="spec-fill fill-white" role="img" aria-label="Pattern sheet, white on white"></div></div>
+          <figcaption class="spec-cap">Form 02 · white on white</figcaption>
+        </figure>
       </div>
       <div class="pattern-side">
         <div class="pattern-fact">
-          <h3>Tone on tone only</h3>
-          <p>The tile lives inside one colour family, roughly 4–8 % apart from its ground.
-             It should never be readable from across a room.</p>
+          <h3>Two forms, nothing in between</h3>
+          <p><strong>Grey on white</strong> for surfaces where the texture is meant to be
+             seen — panels, print stock, vehicle flanks. <strong>White on white</strong>
+             for grounds that sit under type.</p>
         </div>
         <div class="pattern-fact">
           <h3>Behind, never beside</h3>
@@ -735,11 +774,59 @@ footer .f-meta{
         </div>
         <div class="pattern-fact">
           <h3>Scales with the surface</h3>
-          <p>Large on vehicle and wall applications; small and near-invisible on screen —
-             440 px at 85 % opacity on this page.</p>
+          <p>Large on vehicle and wall applications; 900 px on screen, where the white
+             form runs under the whole page and is not meant to be noticed.</p>
         </div>
       </div>
     </div>
+    <div class="divider"></div>
+  </section>
+
+  <!-- ============ 07 MOCKUPS ============ -->
+  <section class="node-section shell" id="sec-7">
+    <span class="node-index">07</span>
+    <h2>How it could <em>carry into the world</em>.</h2>
+    <p class="section-lede">
+      AI-generated studies, not finished renders — placed here to test the mark at
+      scale, in daylight, and next to real materials before anything is produced.
+    </p>
+
+    <div class="mockup-grid">
+      <figure class="mockup-card span-2">
+        <img src="assets/mock-storefront.jpg" alt="Signet and wordmark on a glass shopfront">
+        <figcaption class="spec-cap">Shopfront glazing</figcaption>
+      </figure>
+      <figure class="mockup-card">
+        <img src="assets/mock-van-tech.jpg" alt="Van livery with a technician working at a street cabinet">
+        <figcaption class="spec-cap">Service van · on site</figcaption>
+      </figure>
+      <figure class="mockup-card">
+        <img src="assets/mock-van-livery.jpg" alt="Van side livery, studio view">
+        <figcaption class="spec-cap">Service van · livery</figcaption>
+      </figure>
+      <figure class="mockup-card">
+        <img src="assets/mock-hardhat-card.jpg" alt="Hard hat and business card">
+        <figcaption class="spec-cap">Hard hat &amp; business card</figcaption>
+      </figure>
+      <figure class="mockup-card">
+        <img src="assets/mock-building-sign.jpg" alt="Building signage on a glass facade">
+        <figcaption class="spec-cap">Building signage</figcaption>
+      </figure>
+      <figure class="mockup-card">
+        <img src="assets/mock-cabinet.jpg" alt="Outdoor distribution cabinet">
+        <figcaption class="spec-cap">Distribution cabinet</figcaption>
+      </figure>
+      <figure class="mockup-card">
+        <img src="assets/mock-fiber-tray.jpg" alt="Signet on a fibre splice tray">
+        <figcaption class="spec-cap">Splice tray</figcaption>
+      </figure>
+      <figure class="mockup-card span-wide">
+        <img src="assets/mock-led-wall.jpg" alt="Wordmark on an illuminated data-centre wall">
+        <figcaption class="spec-cap">Data-centre signage</figcaption>
+      </figure>
+    </div>
+    <p class="row-note">Renders only — none of these are built. They exist to pressure-test
+      legibility and contrast on real surfaces, not to specify a livery or a sign package.</p>
     <div class="divider"></div>
   </section>
 
@@ -753,9 +840,9 @@ footer .f-meta{
     <img class="f-lockup" src="assets/logo-mono-white.svg" alt="Technik Net GmbH">
     <p class="f-tag">NE3 · NE4 · NE5 — aus einer Hand</p>
     <p>
-      This page documents one direction, not a finished brand book. Proportions, final
-      artwork and any change to the three fixed values remain the designer’s decision —
-      the system here only shows how the pieces behave once they are set.
+      This page documents one direction, not a finished brand book. Proportions,
+      final artwork and any change to the three fixed values remain the designer’s
+      decision — the system here only shows how the pieces behave once set.
     </p>
     <p class="f-meta">Brand identity study · Revision 4 · Essen</p>
   </div>
@@ -906,6 +993,13 @@ footer .f-meta{
     lastTime = video.currentTime;
   });
   video.addEventListener('ended', function(){ cue.classList.add('show'); });
+
+  var btn = cue.querySelector('.mouse');
+  if(btn){
+    btn.addEventListener('click', function(){
+      window.scrollBy({top: window.innerHeight * 0.85, behavior: 'smooth'});
+    });
+  }
 })();
 </script>
 
