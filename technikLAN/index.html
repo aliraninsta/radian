@@ -258,18 +258,18 @@
       <!-- Soft Edge Transition at the very bottom into the next section -->
       <div class="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-[#F8FAFC] to-transparent pointer-events-none z-1"></div>
 
-      <!-- Hero Content Wrapper with perfectly matched 2-line widths for DE and EN -->
+      <!-- Hero Content Wrapper with strictly balanced 2-line widths for Desktop & Mobile -->
       <div id="hero-scroll-group" class="relative z-10 flex flex-col items-center gap-4 sm:gap-6 will-change-transform max-w-full px-2">
         
-        <!-- Logo (Hero: scaled nicely on mobile to match 2-line text width) -->
+        <!-- Logo (Hero) -->
         <div id="hero-logo-wrapper" class="hero-logo-idle will-change-transform flex justify-center w-full">
           <img src="TNg.png" alt="TechnikNet Logo" id="hero-logo-img" class="h-auto w-auto max-w-[270px] xs:max-w-[290px] sm:max-w-[360px] md:max-w-[440px] object-contain tng-logo-shadow cursor-default select-none will-change-transform" />
         </div>
         
-        <!-- Hero Subtitle in White & Blue (Equalized width for German & English 2-line rendering) -->
+        <!-- Hero Subtitle: Clean 2-line rendering in both Desktop and Mobile -->
         <div id="hero-sub-wrapper" class="hero-sub-idle will-change-transform w-full flex justify-center">
-          <p id="hero-sub" data-i18n="heroSubtitle" class="text-[17px] xs:text-[18px] sm:text-[21px] md:text-[23px] text-white font-semibold leading-snug sm:leading-relaxed hero-sub-shadow will-change-transform max-w-[280px] xs:max-w-[310px] sm:max-w-xl md:max-w-2xl mx-auto">
-            Deutschlands Zukunft verbinden mit <span class="text-[#38BDF8] font-bold transition-colors duration-500">Lichtgeschwindigkeit</span> und <span class="text-white font-bold">Präzision</span>.
+          <p id="hero-sub" data-i18n="heroSubtitle" class="text-[17px] xs:text-[18px] sm:text-[21px] md:text-[23px] text-white font-semibold leading-snug sm:leading-relaxed hero-sub-shadow will-change-transform max-w-[290px] xs:max-w-[320px] sm:max-w-xl md:max-w-2xl mx-auto">
+            Deutschlands Zukunft verbinden<br class="hidden sm:inline" /> mit <span class="text-[#38BDF8] font-bold transition-colors duration-500">Lichtgeschwindigkeit</span> und <span class="text-white font-bold">Präzision</span>.
           </p>
         </div>
 
@@ -321,7 +321,7 @@
                   <path d="M10 190 h380" stroke="#0099CC" stroke-width="4" stroke-linecap="round" class="laser-line" />
                   <rect x="70" y="105" width="22" height="35" rx="3" fill="#E2E8F0" stroke="#0099CC" width="2" />
                   <circle cx="81" cy="122" r="3" fill="#0099CC" class="animate-ping" />
-                  <rect x="290" y="105" width="22" height="35" rx="3" fill="#E2E8F0" stroke="#0099CC" stroke-width="2" />
+                  <rect x="290" y="105" width="22" height="35" rx="3" fill="#E2E8F0" stroke="#0099CC" width="2" />
                   <circle cx="301" cy="122" r="3" fill="#0099CC" class="animate-ping" />
                   <path d="M81 140 v50 M301 140 v50" stroke="#0099CC" stroke-width="3" stroke-dasharray="4, 4" />
                 </svg>
@@ -385,7 +385,7 @@
                   <rect x="40" y="150" width="12" height="18" rx="2" fill="#E2E8F0" stroke="#0099CC" />
                   <path d="M10 160 h30" stroke="#0099CC" stroke-width="2.5" class="laser-line" />
                   <path d="M52 160 h100 v-40" stroke="#0099CC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="laser-line-fast" />
-                  <rect x="132" y="95" width="40" height="25" rx="4" fill="#F8FAFC" stroke="#0099CC" stroke-width="2" />
+                  <rect x="132" y="95" width="40" height="25" rx="4" fill="#F8FAFC" stroke="#0099CC" width="2" />
                   <line x1="142" y1="95" x2="135" y2="75" stroke="#0099CC" stroke-width="2" />
                   <line x1="162" y1="95" x2="169" y2="75" stroke="#0099CC" stroke-width="2" />
                   <circle cx="152" cy="112" r="2.5" fill="#0099CC" class="animate-pulse" />
@@ -501,7 +501,7 @@
         <p data-i18n="careerSubtitle" class="text-[#666666] max-w-2xl mx-auto">Werden Sie Teil unseres Teams und treiben Sie den Breitbandausbau in Deutschland aktiv voran.</p>
       </div>
 
-      <!-- Jobs Grid (Strictly Clean Grey & Blue Palette) -->
+      <!-- Jobs Grid -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         
         <!-- Job 1 -->
@@ -890,7 +890,6 @@
     const navLogo = document.getElementById('nav-logo');
     
     window.addEventListener('scroll', () => {
-      // Early trigger for mobile responsiveness (starts at 20px)
       if (window.scrollY > 20) {
         navbar.classList.add('bg-white/90', 'backdrop-blur-md', 'border-slate-200', 'shadow-md');
         navbar.classList.remove('border-transparent');
@@ -1150,7 +1149,7 @@
         career: "Karriere",
         stats: "Zahlen & Fakten",
         estimator: "Projektanfrage",
-        heroSubtitle: "Deutschlands Zukunft verbinden mit <span class='text-[#38BDF8] font-bold transition-colors duration-500'>Lichtgeschwindigkeit</span> und <span class='text-white font-bold'>Präzision</span>.",
+        heroSubtitle: "Deutschlands Zukunft verbinden<br class='hidden sm:inline' /> mit <span class='text-[#38BDF8] font-bold transition-colors duration-500'>Lichtgeschwindigkeit</span> und <span class='text-white font-bold'>Präzision</span>.",
         scroll: "Scroll",
         
         ne3Title: "NE3 - City Networks & Trassenbau",
@@ -1212,12 +1211,12 @@
         career: "Career",
         stats: "Facts & Figures",
         estimator: "Project Inquiry",
-        heroSubtitle: "Connecting Germany's digital future with <span class='text-[#38BDF8] font-bold transition-colors duration-500'>lightspeed</span> and <span class='text-white font-bold'>precision</span>.",
+        heroSubtitle: "Connecting Germany's digital future<br class='hidden sm:inline' /> with <span class='text-[#38BDF8] font-bold transition-colors duration-500'>lightspeed</span> and <span class='text-white font-bold'>precision</span>.",
         scroll: "Scroll",
         
         ne3Title: "NE3 - City Networks & Backbone",
-        ne3Desc: "Professional civil engineering, backbone trenching and fiber backbone deployments meeting top German engineering standards.",
-        ne4Title: "NE4 - Building Wiring & Risers",
+        ne3Desc: "High-standard civil engineering, micro-trenching, and underground distribution network deployments matching German engineering excellence.",
+        ne4Title: "NE4 - Building Cabling & Risers",
         ne4Desc: "Direct fiber connection from building entry points <span class='no-wrap-phrase'>(HÜP)</span> up to living and business units <span class='no-wrap-phrase'>(FTTH)</span>.",
         ne5Title: "NE5 - In-house & Terminal Endpoints",
         ne5Desc: "Subscriber outlet installation <span class='no-wrap-phrase'>(TA)</span>, precision fiber splicing, OTDR measuring, and turn-key ONT configuration.",
